@@ -3,13 +3,16 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const register = async (req, res) => {
-    const { email, password } = req.body;
+    const { email, username } = req.body;
 
     try {
         const foundEmail = await User.findOne({ email });
+        const foundUser = await User.findOne({ username });
 
         if (foundEmail) {
-            return res.status(405).json({ "message": "Email already in use" });
+            return res.status(405).json({ "message": "Email  already in use" });
+        }else if(foundUser){
+            return res.status(405).json({ "message": "Username  already in use" });
         }
 
         const salt = await bcrypt.genSalt(10);

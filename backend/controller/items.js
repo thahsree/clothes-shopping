@@ -1,4 +1,4 @@
-const Products = require('../Model/productsModel')
+const Products = require('../Model/productsModel') 
 
 const getItems = async(req,res)=>{
    
@@ -89,11 +89,6 @@ const deleteItem= async (req,res)=>{
     }
 }
 
-const createOrder = async(req,res)=>{
 
-    const { id ,size } = req.params
 
-    
-}
-
-module.exports = {getItems ,createItem ,updateItem , getItem ,deleteItem}
+module.exports = {getItems ,createItem ,updateItem , getItem ,deleteItem }

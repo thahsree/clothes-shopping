@@ -15,10 +15,10 @@ app.get('/',(req,res)=>{
 })
 
 app.use('/auth',require('./routes/authRoute'))
-
 app.use('/users',require('./routes/userRoute'))
 app.use(verifyJWT)
 app.use('/items',require('./routes/itemsRoute'))
+app.use('/itemorder',require('./routes/orderRoute'))
 
 
 mongoose.connect(process.env.MONGO_URL)

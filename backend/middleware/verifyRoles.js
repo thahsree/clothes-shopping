@@ -1,4 +1,5 @@
-const verifyRoles = (...allowedRoles)=>{
+const verifyRoles = (...allowedRoles)=>{  //JWT assiging req.roles and user.Taking roles here for checking wheather this person is admin or user or seller 
+
     return (req,res,next)=>{
         if(!req?.roles ) return res.sendStatus(401)
 
