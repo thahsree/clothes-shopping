@@ -1,0 +1,81 @@
+.collectionsMain {
+
+    .displayItem {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+
+        .image {
+            position: relative;
+            overflow: hidden;
+
+            img {
+                height: 250px;
+                width: 150px;
+                object-fit: contain;
+            }
+
+            .rating {
+                position: absolute;
+                top: 10px;
+                right: 5px;
+                background-color: rgba(10, 10, 204, 0.712);
+                display: flex;
+                padding: 3px 5px;
+                border-radius: 3px;
+                justify-content: center;
+                align-items: center;
+                color: white;
+                gap: 5px;
+                font-size: 12px;
+                font-weight: 700;
+
+                .icon {
+                    font-size: 15px;
+                    color: white
+                }
+            }
+        }
+
+        .details {
+            margin-left: 6px;
+
+            h3 {
+
+                font-size: 15px;
+                font-weight: 700;
+            }
+
+            p {
+                font-size: 14px;
+                font-weight: 300;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            .pay {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+
+                .price {
+                    font-size: 15px;
+                    font-weight: 600;
+                }
+
+                .offer {
+                    font-size: 12px;
+                    font-weight: 300;
+                    color: orange;
+                }
+                strike{
+                    font-size: 12px;
+                    font-weight: 300;
+                    color: rgba(0, 0, 0, 0.76);
+                }
+            }
+        }
+    }
+}

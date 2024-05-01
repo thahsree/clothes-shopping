@@ -1,0 +1,31 @@
+.single {
+
+    .crumbs {
+        height: 70px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        gap: 5px;
+        padding-left: 20px;
+    }
+
+
+    .itemDetails {
+        display: flex;
+
+        .itemImages {
+            flex: 4;
+            position: sticky;
+            top: 0;
+          
+        }
+
+        .itemDesc {
+            flex: 3;
+            padding-left: 25px;
+            margin-right: 20px;
+           
+        }
+    }
+}

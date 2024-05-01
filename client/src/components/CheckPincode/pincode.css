@@ -1,0 +1,60 @@
+.pincode{
+    margin-top: 20px;
+    display: flex;
+    padding: 10px 15px;
+    border: 1px solid rgba(211, 211, 211, 0.863);
+    width: max-content;
+    border-radius: 5px;
+    color: rgba(0, 0, 0, 0.777);
+
+    input,input:focus{
+        border: none;
+        outline: none;
+        background-color: transparent;
+    }
+
+    p{
+        color: red;
+        font-weight: 700;
+        cursor: pointer;
+    }
+}
+.deliveryOptions{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    color: rgba(0, 0, 0, 0.777);
+    gap: 10px;
+
+    .options{
+        margin-top: 5px;
+        display: flex;
+        gap: 10px;
+
+        .icon{
+            font-size: 30px;
+            color: gray;
+            font-weight: 300;
+        }
+        h3{
+            font-size: 17px;
+        }
+    }
+}
+.deliveryDetails{
+    color: rgba(0, 0, 0, 0.777);
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+
+    p{
+        font-size: 12px;
+    }
+    .details{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        font-size: 15px;
+    }
+}

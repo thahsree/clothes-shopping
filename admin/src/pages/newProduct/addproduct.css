@@ -1,0 +1,8 @@
+.addProduct{
+    display: flex;
+    
+
+    .addProductContainer{
+        flex: 5;
+    }
+}

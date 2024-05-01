@@ -1,0 +1,120 @@
+.lists {
+
+    .breadCrumbs {
+
+        height: 70px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        gap: 5px;
+        padding-left: 20px;
+
+        p {
+            font-size: 15px;
+            font-weight: 700;
+
+            span {
+                font-size: 14px;
+                color: gray;
+            }
+        }
+    }
+
+    .filters {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px;
+
+        .items {
+            display: flex;
+
+            .pHead {
+                margin-top: 20px;
+                width: 270px;
+                font-size: 15px;
+                font-weight: 700
+            }
+        }
+        .sort{
+            width: 250px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            border: 1px solid rgba(211, 211, 211, 0.863);
+            padding: 10px 15px;
+            cursor: pointer;
+            position: relative;
+            font-size: 15px;
+            font-weight: 300;
+
+            p{
+                text-wrap: nowrap;
+            }
+
+            .customSelect{
+                gap: 10px;
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+
+                .selectedOptions{
+                    font-weight: 600;
+                }
+                .icon{
+                    
+                    color: rgba(128, 128, 128, 0.692);
+                    
+                }
+                
+            }
+            .options{
+                background-color: white;
+                z-index: 1000;
+                width: 249px;
+                position: absolute;
+                border: 1px solid rgba(211, 211, 211, 0.863);
+                flex-direction: column;
+                justify-content: center;
+                border-top: none;
+                align-items: center;
+
+                top: 45px;
+                left: 0px;
+
+                .option{
+                    text-align: left;
+                    
+                    width: 100%;
+                    padding: 10px 15px;
+                }
+                .option:hover{
+                    background-color: rgba(226, 225, 225, 0.805);
+                }
+                .selected{
+                    background-color: rgba(226, 225, 225, 0.805);
+                    font-weight: 600;
+                }
+            }
+            
+
+        }
+    }
+
+    .content {
+        display: flex;
+        width: 100%;
+        border-top: 1px solid rgba(211, 211, 211, 0.605);
+        overflow: hidden;
+
+        .filterItems {
+            width: 17vw;
+            overflow: hidden;
+        }
+
+        .collections {
+            width: 83vw;
+            padding: 10px;
+        }
+    }
+}
