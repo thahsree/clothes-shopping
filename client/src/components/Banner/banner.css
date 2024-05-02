@@ -13,7 +13,7 @@
 
 
         .salesTimer{
-            width: 100%;
+            width: 100vw;
             height: 70px;
             background-color: rgba(173, 216, 230, 0.581);
             display: flex;

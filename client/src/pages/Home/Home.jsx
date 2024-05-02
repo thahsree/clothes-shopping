@@ -1,3 +1,4 @@
+
 import { globalBrands, worthyBrandSection } from '../../Data/dummyDatas';
 import Banner from '../../components/Banner/Banner';
 import Corousal from '../../components/Corousal/Corousal';
@@ -5,8 +6,6 @@ import './home.css';
 function Home(props) {
     return (
         <div className='home'>
-            <div className="top">
-            </div>
             <div className="middle">
                 <div>
                     <Banner/>
