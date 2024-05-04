@@ -1,5 +1,5 @@
 export const userColumns = [
-    { field: '_id', headerName: 'ID', width: 90 },
+    { field: '_id', headerName: 'ID', width: 150 },
     {
       field: 'username',
       headerName: 'USER NAME',
@@ -16,7 +16,6 @@ export const userColumns = [
     {
       field: 'phone',
       headerName: 'PHONE',
-      type: 'number',
       width: 110,
       sortable:false,
       editable: false,
@@ -38,7 +37,7 @@ export const userColumns = [
   ];
 
   export const productColumns = [
-    { field: '_id', headerName: 'ID', width: 90 },
+    { field: '_id', headerName: 'ID', width: 150 },
     {
       field: 'name',
       headerName: 'NAME',
@@ -53,15 +52,15 @@ export const userColumns = [
       sortable:false
     },
     {
-      field: 'category',
-      headerName: 'CATEGORY',
-      width: 110,
+      field: 'categories',
+      headerName: 'CATEGORIES',
+      width: 140,
       editable: false,
       sortable:false
     },
     {
-      field: 'availableStock',
-      headerName: 'STOCK',
+      field: 'price',
+      headerName: 'PRICE',
       width: 110,
       editable: false,
       sortable:false

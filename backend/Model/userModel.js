@@ -10,8 +10,8 @@ const UserSchema = new Schema({
             type:Number,
             default:4444
         },
-        Seller: Number,
-        Admin: Number
+        Seller: Number, //3333
+        Admin: Number  //5555
     },
     email:{
         type:String,
@@ -22,19 +22,19 @@ const UserSchema = new Schema({
         required:true
     },
     wishList:[{productID:String,size: String}],
-    cart:[{id:String,size: String, nos:String} ],
-    recentOrders:[{id:String,size: String, nos:String} ],
+    cart:[{productID:String,size: String, nos:String} ],
+    recentOrders:[{productID:String,size: String, nos:String} ],
     password:{
         type:String,
         required:true
     },
     city:{
         type:String,
-        required:true
+       
     },
     country:{
         type:String,
-        required:true
+        
     }
 },{
     timestamps:true

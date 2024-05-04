@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const register = async (req, res) => {
-    const { email, username } = req.body;
+    const { email, username ,password} = req.body;
 
     try {
         const foundEmail = await User.findOne({ email });
@@ -50,7 +50,7 @@ const login = async(req,res)=>{
 
         const roles = Object.values(foundUser.roles).filter(Boolean);
 
-        const accesToken = jwt.sign({
+        const accessToken = jwt.sign({
             "UserInfo":{
                 id:foundUser.id,
                 username:foundUser.username,
@@ -61,8 +61,8 @@ const login = async(req,res)=>{
         )
         const {password ,...others} = foundUser._doc
 
-        res.cookie('access_token',accesToken)
-        res.status(200).json({details:{...others }})
+        res.cookie('accessToken',accessToken,{httpOnly:true ,secure:true, sameSite:'None', maxAge: 24 * 60 * 60 * 1000})
+        res.status(200).json({details:{...others },accessToken})
         
     } catch (error) {
         console.error(error);

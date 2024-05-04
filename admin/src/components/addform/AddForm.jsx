@@ -1,4 +1,5 @@
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import axios from 'axios';
 import React, { useState } from 'react';
 import './addform.css';
 
@@ -14,7 +15,6 @@ function AddForm(props) {
         gender: "",
         materialAndCare: [],
         categories: [],
-        images: [],
         availableStock: {
             S: null,
             M: null,
@@ -23,6 +23,8 @@ function AddForm(props) {
             XXL: null
         }
     })
+
+    const [files,setFiles] = useState('')
 
     const [productInput, setProductInput] = useState('')
     const [fitDetails, setFitDetails] = useState('')
@@ -49,7 +51,6 @@ function AddForm(props) {
                     return
                 }
                 setDetails(prevState => {
-                    console.log('reached product');
                     const updatedProductInput = [...prevState.productDetails, productInput];
                     return { ...prevState, productDetails: updatedProductInput };
                 });
@@ -96,9 +97,36 @@ function AddForm(props) {
         setDetails({ ...details, [section]: newDetails });
     }
 
-    const formSubmit = (e) => {
+    const formSubmit = async(e) => {
         e.preventDefault()
-        console.log(JSON.stringify(details));
+        try {
+            const list = await Promise.all(
+                Object.values(files).map(async(file) => {
+                    const data = new FormData()
+                    data.append("file", file)
+                    data.append("upload_preset", "upload")
+
+                    const upload = await axios.post('https://api.cloudinary.com/v1_1/db17ho8ub/image/upload', data)
+
+                    const { url } = upload.data
+                    return url
+                })
+            )
+
+            const newDetails = {
+                ...details,
+                images:list
+
+            }
+
+            await axios.post('http://localhost:4000/items',newDetails,{
+                withCredentials:true
+            })
+
+
+        } catch (error) {
+            console.log(error);
+        }
     }
 
 
@@ -115,7 +143,11 @@ function AddForm(props) {
                         <h4>Basic Information</h4>
                         <div className="imageInput">
                             <p>Add Images:</p>
-                            <input type="file" />
+                            <input
+                             type="file"
+                             multiple
+                             onChange={(e)=> setFiles(e.target.files)}
+                             />
                         </div>
                         <div className="large-input">
                             <h5>Display Name</h5>

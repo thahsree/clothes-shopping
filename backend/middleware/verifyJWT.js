@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken')
 
 const verifyJWT = (req,res,next)=>{
     
-    const token = req.cookies.access_token
+    const token = req.cookies.accessToken
 
     jwt.verify(
         token,
@@ -12,10 +12,10 @@ const verifyJWT = (req,res,next)=>{
 
             req.username = decoded.UserInfo.username,  // this username taking for future user validation; assigning as req.username
             req.roles = decoded.UserInfo.roles // this roles taking for future user roles;  assigning as req.roles 
-            next()
         }
 
     )
+    next()
 
  
 

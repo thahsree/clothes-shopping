@@ -5,9 +5,15 @@ const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
 const { verifyJWT } = require('./middleware/verifyJWT');
 
+const cors = require('cors')
 
+app.use(cors({
+    origin: true,
+    credentials: true
+  }))
 app.use(express.json())
 app.use(cookieParser())
+
 dotenv.config()
 
 app.get('/',(req,res)=>{
@@ -15,8 +21,9 @@ app.get('/',(req,res)=>{
 })
 
 app.use('/auth',require('./routes/authRoute'))
-app.use('/users',require('./routes/userRoute'))
+
 app.use(verifyJWT)
+app.use('/users',require('./routes/userRoute'))
 app.use('/items',require('./routes/itemsRoute'))
 app.use('/itemorder',require('./routes/orderRoute'))
 
