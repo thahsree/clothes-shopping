@@ -1,18 +1,10 @@
-import { useContext, useEffect } from 'react';
 import NavBar from '../../components/NavBar/NavBar';
 import SideBar from '../../components/SideNav/SideBar';
 import Widget from '../../components/widgets/Widget';
-import { authContext } from '../../context/AuthContext';
 import './home.css';
 
-function Home(props) {
-    const { admin, error, loading, dispatch } = useContext(authContext)
+function Home(props) {   
 
-    useEffect(()=>{
-        console.log('====================================');
-        console.log(admin);
-        console.log('====================================');
-    })
     return (
         <div className='home'>
             <SideBar />

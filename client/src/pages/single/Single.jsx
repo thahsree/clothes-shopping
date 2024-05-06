@@ -1,17 +1,20 @@
-import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Crumps from '../../components/Crumps/Crumps';
 import ItemImage from '../../components/ItemImages/ItemImage';
 import ProductDetails from '../../components/ProductDetails/ProductDetails';
+import useFetch from '../../hooks/useFetch';
 import './single.css';
 
 function Single(props) {
 
     const location = useLocation()
 
-    useEffect(()=>{
-        console.log('collection ',location.state);
-    })
+    const id = location.state.id
+   
+
+    const {data , loading , error , reFetch } = useFetch(`http://localhost:4000/items/${id}`)
+
+
     const category = location.state.catogory.toUpperCase()
     return (
         <div>
@@ -21,10 +24,16 @@ function Single(props) {
                 </div>
                 <div className="itemDetails">
                     <section className="itemImages">
-                        <ItemImage/>
+                        {
+                            data.images &&
+                            <ItemImage images = {data.images}/>
+                        }
                     </section>
                     <section className="itemDesc">
-                        <ProductDetails/>
+                        {
+                            data &&
+                            <ProductDetails data={data}/>
+                        }
                     </section>
                 </div>
             </div>

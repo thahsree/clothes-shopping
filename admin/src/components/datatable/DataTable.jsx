@@ -1,5 +1,6 @@
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
@@ -22,11 +23,14 @@ function DataTable({columns}) {
 
     useEffect(()=>{
         setList(data)
-        console.log('====================================');
-        console.log(data);
-        console.log('====================================');
     })
     
+
+    const handleDelete = async(id)=>{
+        console.log('id',id);
+
+        const response = await axios.delete(url)
+    }
 
     const actionColumn = [{
         field: 'Action',

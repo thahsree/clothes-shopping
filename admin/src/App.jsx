@@ -1,19 +1,44 @@
-import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Navigate, Outlet, Route, Routes, useLocation } from 'react-router-dom';
+import { authContext } from './context/AuthContext';
 import { productColumns, userColumns } from './datatable';
 import Home from './pages/Home/Home';
 import List from './pages/Lists/List';
 import Login from './pages/Login/Login';
 import AddProduct from './pages/newProduct/AddProduct';
 function App(props) {
+
+
+  const { admin ,loading, dispatch } = useContext(authContext)
+
+  const location = useLocation()
+  
+  const ProtectedRoute = () => {
+    return (
+      
+      admin ?<Outlet /> : <Navigate to='/login' state={{ from: location }} replace />
+    )
+  }
+
+
   return (
     <div>
       <Routes>
-        <Route path='/' element={<Home/>}/>
-        <Route path='/buyers' element={<List columns={userColumns}/>}/>
-        <Route path='/products' element={<List columns={productColumns}/>}/>
-        <Route path='/add-products' element={<AddProduct/>}/>
-        <Route path='/login' element={<Login/>}/>
+        <Route path='/'>
+          <Route path='login' element={<Login />} />
+
+          {/* protected routes */}
+
+          <Route element={<ProtectedRoute/>}>
+
+            <Route path='/' element={<Home />} />
+            <Route path='/buyers' element={<List columns={userColumns} />} />
+            <Route path='/products' element={<List columns={productColumns} />} />
+            <Route path='/add-products' element={<AddProduct />} />
+
+          </Route>
+
+        </Route>
       </Routes>
     </div>
   );

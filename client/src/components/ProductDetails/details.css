@@ -100,6 +100,10 @@
             font-weight: 700;
         }
 
+        .error{
+            color: red;
+            font-size: 13px;
+        }
         .sizeChart{
             display: flex;
             gap: 20px;

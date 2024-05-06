@@ -2,7 +2,7 @@ const verifyRoles = (...allowedRoles)=>{  //JWT assiging req.roles and user.Taki
 
     return (req,res,next)=>{
 
-        if(!req?.roles ) return res.sendStatus(401)
+        if(!req?.roles ) return res.sendStatus(405)
 
         const rolesArray = [...allowedRoles]
 

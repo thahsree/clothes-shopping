@@ -22,9 +22,10 @@ app.get('/',(req,res)=>{
 
 app.use('/auth',require('./routes/authRoute'))
 
+
+app.use('/items',require('./routes/itemsRoute'))
 app.use(verifyJWT)
 app.use('/users',require('./routes/userRoute'))
-app.use('/items',require('./routes/itemsRoute'))
 app.use('/itemorder',require('./routes/orderRoute'))
 
 

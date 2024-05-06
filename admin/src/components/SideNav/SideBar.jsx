@@ -8,9 +8,20 @@ import Person2OutlinedIcon from '@mui/icons-material/Person2Outlined';
 import PsychologyOutlinedIcon from '@mui/icons-material/PsychologyOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import SettingsSystemDaydreamOutlinedIcon from '@mui/icons-material/SettingsSystemDaydreamOutlined';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { authContext } from '../../context/AuthContext';
 import './sidebar.css';
 function SideBar(props) {
+
+    const { admin, error, loading, dispatch } = useContext(authContext)
+
+    const handleLogout = ()=>{
+
+        dispatch({ type: "LOGOUT"});
+        localStorage.removeItem('PersistLogin')
+        
+    }
     return (
         <div className='sidebar'>
             <div className="top">
@@ -77,7 +88,7 @@ function SideBar(props) {
                         <AccountBoxOutlinedIcon className='icon' />
                         <span>Profile</span>
                     </li>
-                    <li>
+                    <li onClick={handleLogout}>
                         <LoginOutlinedIcon className='icon' />
                         <span>Logout</span>
                     </li>

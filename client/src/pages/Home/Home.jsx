@@ -4,6 +4,8 @@ import Banner from '../../components/Banner/Banner';
 import Corousal from '../../components/Corousal/Corousal';
 import './home.css';
 function Home(props) {
+
+    
     return (
         <div className='home'>
             <div className="middle">

@@ -1,6 +1,7 @@
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import axios from 'axios';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './addform.css';
 
 function AddForm(props) {
@@ -24,13 +25,15 @@ function AddForm(props) {
         }
     })
 
-    const [files,setFiles] = useState('')
+    const [files, setFiles] = useState('')
 
     const [productInput, setProductInput] = useState('')
     const [fitDetails, setFitDetails] = useState('')
     const [categories, setCategories] = useState('')
     const [materialDetails, setMaterialDetails] = useState('')
 
+
+    const navigate = useNavigate()
 
     const onChangeData = (e, key) => {
         setDetails({
@@ -39,9 +42,9 @@ function AddForm(props) {
         })
     }
 
-    const onChangeStock = (e,size)=>{
-        const newStock = {...details.availableStock,[size]:e.target.value}
-        setDetails(prevState=> ({...prevState,availableStock:newStock}))
+    const onChangeStock = (e, size) => {
+        const newStock = { ...details.availableStock, [size]: e.target.value }
+        setDetails(prevState => ({ ...prevState, availableStock: newStock }))
     }
 
     const addDatas = (section) => {
@@ -97,11 +100,11 @@ function AddForm(props) {
         setDetails({ ...details, [section]: newDetails });
     }
 
-    const formSubmit = async(e) => {
+    const formSubmit = async (e) => {
         e.preventDefault()
         try {
             const list = await Promise.all(
-                Object.values(files).map(async(file) => {
+                Object.values(files).map(async (file) => {
                     const data = new FormData()
                     data.append("file", file)
                     data.append("upload_preset", "upload")
@@ -115,18 +118,21 @@ function AddForm(props) {
 
             const newDetails = {
                 ...details,
-                images:list
+                images: list
 
             }
 
-            await axios.post('http://localhost:4000/items',newDetails,{
-                withCredentials:true
+            await axios.post('http://localhost:4000/items', newDetails, {
+                withCredentials: true
             })
 
+            navigate('/products')
 
         } catch (error) {
             console.log(error);
         }
+
+
     }
 
 
@@ -144,10 +150,10 @@ function AddForm(props) {
                         <div className="imageInput">
                             <p>Add Images:</p>
                             <input
-                             type="file"
-                             multiple
-                             onChange={(e)=> setFiles(e.target.files)}
-                             />
+                                type="file"
+                                multiple
+                                onChange={(e) => setFiles(e.target.files)}
+                            />
                         </div>
                         <div className="large-input">
                             <h5>Display Name</h5>
@@ -273,31 +279,31 @@ function AddForm(props) {
                             <div className="inputField">
                                 <p>S:</p>
                                 <div className="input">
-                                    <input type="number" placeholder='stock' onChange={(e)=> onChangeStock(e,'S')}/>
+                                    <input type="number" placeholder='stock' onChange={(e) => onChangeStock(e, 'S')} />
                                 </div>
                             </div>
                             <div className="inputField">
                                 <p>M:</p>
                                 <div className="input">
-                                    <input type="number" placeholder='stock' onChange={(e)=> onChangeStock(e,'M')}/>
+                                    <input type="number" placeholder='stock' onChange={(e) => onChangeStock(e, 'M')} />
                                 </div>
                             </div>
                             <div className="inputField">
                                 <p>L:</p>
                                 <div className="input">
-                                    <input type="number" placeholder='stock' onChange={(e)=> onChangeStock(e,'L')}/>
+                                    <input type="number" placeholder='stock' onChange={(e) => onChangeStock(e, 'L')} />
                                 </div>
                             </div>
                             <div className="inputField">
                                 <p>XL:</p>
                                 <div className="input">
-                                    <input type="number" placeholder='stock' onChange={(e)=> onChangeStock(e,'XL')}/>
+                                    <input type="number" placeholder='stock' onChange={(e) => onChangeStock(e, 'XL')} />
                                 </div>
                             </div>
                             <div className="inputField">
                                 <p>XXL:</p>
                                 <div className="input">
-                                    <input type="number" placeholder='stock' onChange={(e)=> onChangeStock(e,'XXL')}/>
+                                    <input type="number" placeholder='stock' onChange={(e) => onChangeStock(e, 'XXL')} />
                                 </div>
                             </div>
                         </div>

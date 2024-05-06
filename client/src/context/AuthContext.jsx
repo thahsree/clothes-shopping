@@ -1,0 +1,56 @@
+import { createContext, useReducer } from "react";
+
+const INITIAL_STATE = {
+    user: null,
+    loading: false,
+    error: null
+}
+
+export const authContext = createContext(INITIAL_STATE)
+
+const authReducer = (state, action) => {
+
+    switch (action.type) {
+
+
+        case 'LOGIN_START':
+            return {
+                user: null,
+                loading: true,
+                error: null
+            }
+        case 'LOGIN_SUCCESS':
+            return {
+                user: action.payload,
+                loading: false,
+                error: null
+            }
+        case 'LOGIN_FAILED':
+            return{
+                user:null,
+                loading:false,
+                error:action.payload
+            }
+        case 'LOGOUT':
+            return{
+                user:null,
+                loading:false,
+                error:null
+            }
+        default:
+            return state
+
+    }
+}
+
+export const AuthContextProvider = ({children})=>{
+
+    const [state , dispatch] = useReducer(authReducer,INITIAL_STATE)
+
+    return(
+
+        <authContext.Provider value={{user:state.user , loading:state.loading , error:state.error , dispatch}}>
+            {children}
+        </authContext.Provider>
+    )
+}

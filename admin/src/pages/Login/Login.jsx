@@ -17,6 +17,7 @@ function Login(props) {
     const submitForm = async (e) => {
         e.preventDefault()
 
+        dispatch({ type: "LOGIN_START", payload: true });
         const LoginData = {
             username,
             password
@@ -25,12 +26,13 @@ function Login(props) {
         try {
 
             const response = await axios.post('http://localhost:4000/auth/login', LoginData)
-            const allowedRoles = [5555]
 
+            const allowedRoles = [5555]  // admin role in backend
+
+            
             let isAdmin = false;
             const userRoles = response?.data?.details?.roles;
 
-            console.log('user roles', userRoles);
             if (userRoles) {
                 Object.keys(userRoles).forEach(role => {
                     if (allowedRoles.includes(userRoles[role])) {
