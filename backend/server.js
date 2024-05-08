@@ -8,7 +8,7 @@ const { verifyJWT } = require('./middleware/verifyJWT');
 const cors = require('cors')
 
 app.use(cors({
-    origin: "https://clothes-shopping-chi.vercel.app/",
+    origin: "*",
     credentials: true
   }))
 app.use(express.json())
