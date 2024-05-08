@@ -20,7 +20,7 @@ function ProductDetails({ datas }) {
 
     const userID = user?._id
     
-    const {data , err , loading , reFetch } = useFetch(`http://localhost:4000/users/${userID}`)
+    const {data , err , loading , reFetch } = useFetch(`https://clothes-shopping-1.onrender.com/users/${userID}`)
 
     
 
@@ -52,7 +52,7 @@ function ProductDetails({ datas }) {
        
         try {
             
-            const response = await fetch(`http://localhost:4000/itemorder/addToCart?id=${datas._id}&size=${selectedSize}&count=1`, {
+            const response = await fetch(`https://clothes-shopping-1.onrender.com/itemorder/addToCart?id=${datas._id}&size=${selectedSize}&count=1`, {
                 method: 'PUT',
                 credentials: 'include' // Include cookies in the request
             });
