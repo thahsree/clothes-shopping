@@ -23,7 +23,7 @@ function Navbar(props) {
 
     const userID = user?._id
 
-    const url = user ? `http://localhost:4000/users/${userID}` : undefined
+    const url = user ? `https://clothes-shopping-1.onrender.com/users/${userID}` : undefined
     const { data, err, loading, reFetch } = useFetch(url)
 
 

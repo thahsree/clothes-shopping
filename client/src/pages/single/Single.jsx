@@ -12,7 +12,7 @@ function Single(props) {
     const id = location?.state?.id
    
 
-    const {data , loading , error , reFetch } = useFetch(`http://localhost:4000/items/${id}`)
+    const {data , loading , error , reFetch } = useFetch(`https://clothes-shopping-1.onrender.com/items/${id}`)
     
 
 

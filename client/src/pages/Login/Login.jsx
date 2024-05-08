@@ -35,7 +35,7 @@ function Login(props) {
 
         try {
 
-            const response = await axios.post('http://localhost:4000/auth/login', LoginData)
+            const response = await axios.post('https://clothes-shopping-1.onrender.com/auth/login', LoginData)
 
             dispatch({ type: "LOGIN_SUCCESS", payload: response.data.details });
            
