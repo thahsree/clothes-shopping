@@ -2,6 +2,7 @@ import { useLocation } from 'react-router-dom';
 import Crumps from '../../components/Crumps/Crumps';
 import ItemImage from '../../components/ItemImages/ItemImage';
 import ProductDetails from '../../components/ProductDetails/ProductDetails';
+import { PORT } from '../../connections/PORT';
 import useFetch from '../../hooks/useFetch';
 import './single.css';
 
@@ -12,7 +13,7 @@ function Single(props) {
     const id = location?.state?.id
    
 
-    const {data , loading , error , reFetch } = useFetch(`https://clothes-shopping-1.onrender.com/items/${id}`)
+    const {data , loading , error , reFetch } = useFetch(`${PORT}/items/${id}`)
     
 
 

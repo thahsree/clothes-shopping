@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
+import { PORT } from '../../connections/PORT';
 import { authContext } from '../../context/AuthContext';
 import './login.css';
 
@@ -35,7 +36,7 @@ function Login(props) {
 
         try {
 
-            const response = await axios.post('https://clothes-shopping-1.onrender.com/auth/login', LoginData)
+            const response = await axios.post(`${PORT}/auth/login`, LoginData)
 
             dispatch({ type: "LOGIN_SUCCESS", payload: response.data.details });
            

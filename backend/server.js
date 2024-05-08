@@ -7,10 +7,20 @@ const { verifyJWT } = require('./middleware/verifyJWT');
 
 const cors = require('cors')
 
-app.use(cors({
-    origin: "*",
-    credentials: true
-  }))
+
+var whitelist = [ '*']
+var corsOptions = {
+//   origin: function (origin, callback) {
+//     if (whitelist.indexOf(origin) !== -1) {
+//       callback(null, true)
+//     } else {
+//       callback(new Error('Not allowed by CORS'))
+//     }
+//   },
+    origin:"*",
+  credentials: true
+}
+app.use(cors(corsOptions))
 app.use(express.json())
 app.use(cookieParser())
 

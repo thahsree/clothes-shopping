@@ -5,6 +5,7 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import StarIcon from '@mui/icons-material/Star';
 import { useContext, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { PORT } from '../../connections/PORT';
 import { authContext } from '../../context/AuthContext';
 import useFetch from '../../hooks/useFetch';
 import CheckPincode from '../CheckPincode/CheckPincode';
@@ -20,7 +21,7 @@ function ProductDetails({ datas }) {
 
     const userID = user?._id
     
-    const {data , err , loading , reFetch } = useFetch(`https://clothes-shopping-1.onrender.com/users/${userID}`)
+    const {data , err , loading , reFetch } = useFetch(`${PORT}/users/${userID}`)
 
     
 
@@ -52,7 +53,7 @@ function ProductDetails({ datas }) {
        
         try {
             
-            const response = await fetch(`https://clothes-shopping-1.onrender.com/itemorder/addToCart?id=${datas._id}&size=${selectedSize}&count=1`, {
+            const response = await fetch(`${PORT}/itemorder/addToCart?id=${datas._id}&size=${selectedSize}&count=1`, {
                 method: 'PUT',
                 credentials: 'include' // Include cookies in the request
             });

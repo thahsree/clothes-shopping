@@ -1,7 +1,9 @@
 import Grid from '@mui/material/Grid';
+import axios from 'axios';
 import * as React from 'react';
+import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import useFetch from '../../hooks/useFetch';
+import { PORT } from '../../connections/PORT';
 import './collections.css';
 
 
@@ -10,12 +12,23 @@ function Collections(props) {
     const location = useLocation()
     const navigate = useNavigate()
 
-    const { data, err, loading, reFetch } = useFetch('https://clothes-shopping-1.onrender.com/items')
+    let data
+    useEffect(()=>{
+        try {
+            data = axios.get(`${PORT}/items`)
+        } catch (error) {
+            console.log(error);
+        }
+    },[])
 
     const handleViewItem = (id) => {
 
         navigate(`/products/${id}`, { state: { ...location.state, id } });
     }
+
+    useEffect(()=>{
+        console.log(PORT);
+    })
     return (
         <div className='collectionsMain'>
             <Grid container spacing={5} style={{ width: '80vw' }} justifyContent="space-evenly">

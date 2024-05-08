@@ -7,6 +7,7 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { beautyOptions, kidsOptions, menOptions, womenOptions } from '../../Data/options';
+import { PORT } from '../../connections/PORT';
 import { authContext } from '../../context/AuthContext';
 import useFetch from '../../hooks/useFetch';
 import NavOptions from '../NavOptions/NavOptions';
@@ -23,7 +24,7 @@ function Navbar(props) {
 
     const userID = user?._id
 
-    const url = user ? `https://clothes-shopping-1.onrender.com/users/${userID}` : undefined
+    const url = user ? `${PORT}/users/${userID}` : undefined
     const { data, err, loading, reFetch } = useFetch(url)
 
 
