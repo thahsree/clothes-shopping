@@ -13,5 +13,21 @@ const getUsers = async(req,res)=>{
    }
 }
 
+const getUser = async(req,res)=>{
+   try {
+      const foundUser = await User.find({_id:req.params.id})
+      
+      if(req.username === foundUser[0].username){
+         return res.status(200).json(foundUser)
+      }else{
+         return res.sendStatus(401)
+      }
+      
+   } catch (error) {
+      console.log(error);
+      return res.status(500).json({ error: 'Internal Server Error' });
+   }
+}
 
-module.exports = {getUsers}
+
+module.exports = {getUsers , getUser}

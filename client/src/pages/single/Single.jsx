@@ -9,30 +9,31 @@ function Single(props) {
 
     const location = useLocation()
 
-    const id = location.state.id
+    const id = location?.state?.id
    
 
     const {data , loading , error , reFetch } = useFetch(`http://localhost:4000/items/${id}`)
+    
 
 
-    const category = location.state.catogory.toUpperCase()
+    const category = location?.state?.catogory?.toUpperCase()
     return (
         <div>
             <div className="single">
                 <div className="crumbs">
-                <Crumps category={category} data={location.state.data} subData={location.state.subData} id={location.state.id}/>
+                <Crumps category={category} data={location?.state?.data} subData={location?.state?.subData} id={location?.state?.id}/>
                 </div>
                 <div className="itemDetails">
                     <section className="itemImages">
                         {
-                            data.images &&
-                            <ItemImage images = {data.images}/>
+                            data?.images &&
+                            <ItemImage images = {data?.images}/>
                         }
                     </section>
                     <section className="itemDesc">
                         {
                             data &&
-                            <ProductDetails data={data}/>
+                            <ProductDetails datas={data}/>
                         }
                     </section>
                 </div>

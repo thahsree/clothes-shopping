@@ -79,10 +79,12 @@
     }
 
     .profile{
+        height: 100%;
 
         .lists{
             display: flex;
             gap: 20px;
+            height: 100%;
 
             .listItems{
                 list-style: none;
@@ -90,11 +92,39 @@
                 justify-content: center;
                 align-items: center;
                 position: relative;
+                height: 100%;
+            
 
+                .logout{
+                    position: absolute;
+                    top: 70px;
+                    width: 120px;
+                    height: 30px;
+                    display: flex;
+                    justify-content: center;
+                    background-color: white;
+                    border: 1px solid lightgray;
+                    
+                    align-items: center;
+                    gap: 10px;
+                    
+                    padding: 5px 15px;
+                    
+
+                    .icon{
+
+                        font-size: 16px;
+                    }
+
+                    p{
+                        font-size: 13px;
+                        font-weight: 600;
+                    }
+                }
                 .count{
                     position: absolute;
-                    top:-5px;
-                    right:-5px;
+                    top:19px;
+                    right:-4px;
                     font-size: 12px;
                     background-color: red;
                     width: 15px;
@@ -114,6 +144,7 @@
                    
                 }
             }
+            
         }
     }
 }

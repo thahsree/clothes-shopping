@@ -3,6 +3,10 @@ import { useEffect, useState } from "react";
 
 function useFetch(url) {
 
+    if(url === ''){
+        return 
+    }
+
     const [data , setData] = useState([])
     const [loading ,setLoading] = useState(false);
     const [err , setErr] = useState();

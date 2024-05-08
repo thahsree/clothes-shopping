@@ -53,13 +53,13 @@ function List(props) {
         console.log('location',location);
     })
 
-    const category = location.state.catogory.toUpperCase()
+    const category = location.state?.catogory?.toUpperCase()
     return (
         <div>
             <div className="lists">
                 <div className="breadCrumbs">
-                    <Crumps category={category} data={location.state.data} subData={location.state.subData}/>
-                    <p>{category} {location.state.subData} <span>(1123 items)</span></p>
+                    <Crumps category={category} data={location?.state?.data} subData={location?.state?.subData}/>
+                    <p>{category} {location?.state?.subData} <span>(1123 items)</span></p>
                 </div>
                 <div className="filters">
                     <div className="items">
@@ -75,7 +75,7 @@ function List(props) {
                             showOptions && (
                                 <div className="options">
                                     {
-                                        options.map((option) => (
+                                        options?.map((option) => (
                                             <div
                                                 className={option === sort ? "option selected" : "option"}
                                                 key={option}

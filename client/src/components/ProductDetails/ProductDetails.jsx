@@ -4,15 +4,25 @@ import NotesIcon from '@mui/icons-material/Notes';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import StarIcon from '@mui/icons-material/Star';
 import { useContext, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { authContext } from '../../context/AuthContext';
+import useFetch from '../../hooks/useFetch';
 import CheckPincode from '../CheckPincode/CheckPincode';
 import './details.css';
 
 
-function ProductDetails({ data }) {
+function ProductDetails({ datas }) {
 
     const [selectedSize, setSelectedSize] = useState("");
-    const [showSizeErr , setShowSizeErr] = useState(false)
+    const [showSizeErr, setShowSizeErr] = useState(false)
+
+    const { user, dispatch } = useContext(authContext)
+
+    const userID = user?._id
+    
+    const {data , err , loading , reFetch } = useFetch(`http://localhost:4000/users/${userID}`)
+
+    
 
     const handleSelectSize = (size) => {
 
@@ -21,26 +31,49 @@ function ProductDetails({ data }) {
 
     }
 
-    const {user , loading , dispatch} = useContext(authContext)
 
-    const handleAddToCart = ()=>{
-        
-        if(!selectedSize){
+    
+    const navigate = useNavigate()
+    const location = useLocation()
+    const handleAddToCart = async () => {
+
+        if (!selectedSize) {
             setShowSizeErr(true)
             return
         }
-        if(!user){
+        if (!user) {
             console.log('Please Log In First');
+
+            localStorage.setItem('locationState', JSON.stringify(location.state))
+            localStorage.setItem('oldLocation', location.pathname)
+            navigate('/login')
+        }
+
+       
+        try {
+            
+            const response = await fetch(`http://localhost:4000/itemorder/addToCart?id=${datas._id}&size=${selectedSize}&count=1`, {
+                method: 'PUT',
+                credentials: 'include' // Include cookies in the request
+            });
+    
+            if (!response.ok) {
+                throw new Error('Failed to add item to cart');
+            }
+    
+            reFetch()
+            console.log("added to cart");
+            console.log(response);
+        } catch (error) {
+            console.log(error);
         }
     }
-
-
 
     return (
         <>
             <div className="productDetails">
-                <h3>{data.brandName}</h3>
-                <p>{data.name}</p>
+                <h3>{datas.brandName}</h3>
+                <p>{datas.name}</p>
                 <div className="rating">
                     <p>3.6</p><StarIcon className='icon' /><span className='rate'> | 745 Ratings</span>
                 </div>
@@ -49,15 +82,15 @@ function ProductDetails({ data }) {
                 <div className="price">
                     <div className="priceDetails">
                         {
-                            data.offerPrice ?
+                            datas.offerPrice ?
                                 (
                                     <>
-                                        <p className='currentPrice'>₹{data.offerPrice}</p>
-                                        <p className='actualprice'>MRP <strike>{data.price}</strike></p>
-                                        <p className="discount">({((data.price - data.offerPrice) / data.price * 100).toFixed(0)}% OFF)</p>
+                                        <p className='currentPrice'>₹{datas.offerPrice}</p>
+                                        <p className='actualprice'>MRP <strike>{datas.price}</strike></p>
+                                        <p className="discount">({((datas.price - datas.offerPrice) / datas.price * 100).toFixed(0)}% OFF)</p>
                                     </>
-                                ):(
-                                    <p className='currentPrice'>₹{data.price}</p>
+                                ) : (
+                                    <p className='currentPrice'>₹{datas.price}</p>
                                 )
                         }
                     </div>
@@ -99,8 +132,8 @@ function ProductDetails({ data }) {
                     </div>
                     <div className="details">
                         {
-                            data.productDetails &&
-                            data.productDetails.map((details, i) => (
+                            datas.productDetails &&
+                            datas.productDetails.map((details, i) => (
                                 <p key={i}>{details}</p>
                             ))
 
@@ -113,8 +146,8 @@ function ProductDetails({ data }) {
                     </div>
                     <div className="details">
                         {
-                            data.sizeAndFit &&
-                            data.sizeAndFit.map((details, i) => (
+                            datas.sizeAndFit &&
+                            datas.sizeAndFit.map((details, i) => (
                                 <p key={i}>{details}</p>
                             ))
 
@@ -127,9 +160,9 @@ function ProductDetails({ data }) {
                     </div>
                     <div className="details">
                         {
-                            data.materialAndCare &&
+                            datas.materialAndCare &&
 
-                            data.materialAndCare.map((details, i) => (
+                            datas.materialAndCare.map((details, i) => (
                                 <p key={i}>{details}</p>
                             ))
 

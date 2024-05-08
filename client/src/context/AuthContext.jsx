@@ -1,7 +1,7 @@
-import { createContext, useReducer } from "react";
+import { createContext, useEffect, useReducer } from "react";
 
 const INITIAL_STATE = {
-    user: null,
+    user:JSON.parse(localStorage.getItem('PersistUserLogin'))|| null,
     loading: false,
     error: null
 }
@@ -46,6 +46,12 @@ const authReducer = (state, action) => {
 export const AuthContextProvider = ({children})=>{
 
     const [state , dispatch] = useReducer(authReducer,INITIAL_STATE)
+
+    useEffect(()=>{
+
+        localStorage.setItem('PersistUserLogin',JSON.stringify(state.user))
+    
+       },[state.user])
 
     return(
 

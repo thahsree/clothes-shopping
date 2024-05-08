@@ -59,7 +59,10 @@ const checkOutProduct = async(req,res)=>{
 const addToCart = async(req,res)=>{
 
     try {
+        console.log('>>>>REACHED ADD TO CART');
         const { id ,size, count} = req.query
+        console.log(count);
+
         const username = req.username  // jwt assigned this username check verifyJWT.js for more..
 
         const foundUser =await User.findOne({username:username})

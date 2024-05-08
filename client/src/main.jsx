@@ -6,8 +6,7 @@ import {
   createBrowserRouter,
   Navigate,
   Outlet,
-  RouterProvider,
-  useLocation,
+  RouterProvider
 } from "react-router-dom";
 import { authContext, AuthContextProvider } from './context/AuthContext';
 import ErrorPage from './pages/ErrorPage';
@@ -22,11 +21,11 @@ import Root from './Root/Root';
 
 const ProtectedRoute = () => {
 
-  const {user } = useContext(authContext)
-  const location = useLocation()
+  const { user } = useContext(authContext)
+
   return (
-    
-    user ?<Outlet /> : <Navigate to='/login' state={{ from: location }} replace />
+
+    user ? <Outlet /> : <Navigate to='/login' state={{ from: location }} replace />
   )
 }
 
@@ -43,10 +42,10 @@ const router = createBrowserRouter([
       {
         path: '/products',
         //add protected route here
-        children:[
+        children: [
           {
-            path:'',
-            element:<List/>
+            path: '',
+            element: <List />
           }
         ]
       },
@@ -67,7 +66,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <AuthContextProvider>
+
       <RouterProvider router={router} />
+
     </AuthContextProvider>
   </React.StrictMode>,
 )
