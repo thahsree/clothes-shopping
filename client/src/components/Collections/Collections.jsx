@@ -10,7 +10,7 @@ function Collections(props) {
     const location = useLocation()
     const navigate = useNavigate()
 
-    const { data, err, loading, reFetch } = useFetch('http://localhost:4000/items')
+    const { data, err, loading, reFetch } = useFetch('https://clothes-shopping-1.onrender.com/items')
 
     const handleViewItem = (id) => {
 
