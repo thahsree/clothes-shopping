@@ -9,6 +9,7 @@ import {
   RouterProvider
 } from "react-router-dom";
 import { authContext, AuthContextProvider } from './context/AuthContext';
+import { DataContextProvider } from './context/DataContext';
 import ErrorPage from './pages/ErrorPage';
 import List from './pages/Lists/List';
 import Login from './pages/Login/Login';
@@ -60,22 +61,25 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />
       },
       {
-        path:'/signup',
-        element:<Signup/>,
+        path: '/signup',
+        element: <Signup />,
         errorElement: <ErrorPage />
       }
     ]
 
   },
- 
+
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <AuthContextProvider>
-    
+      <DataContextProvider>
+
         <RouterProvider router={router} />
-     
+
+      </DataContextProvider>
+
     </AuthContextProvider>
   </React.StrictMode>,
 )

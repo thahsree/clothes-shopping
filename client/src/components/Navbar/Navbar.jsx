@@ -2,11 +2,11 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { beautyOptions, kidsOptions, menOptions, womenOptions } from '../../Data/options';
 import { authContext } from '../../context/AuthContext';
+import { dataContext } from '../../context/DataContext';
 import NavOptions from '../NavOptions/NavOptions';
 import ToLogin from '../toLogin/ToLogin';
 import ToLogout from '../toLogout/ToLogout';
@@ -21,45 +21,26 @@ function Navbar(props) {
 
     // http://localhost:4000/users/${userID}
 
-    const [data , setData ] = useState({})
+    
+    
+    const {userData , dispatch : dataDispatch} = useContext(dataContext)
 
 
-    const fetchData = async()=>{
-
-        try {
-            const resposne = await axios.get(`http://localhost:4000/users/${userID}`,{
-                headers:{
-                    Authorization: user? `Bearer ${user.accessToken}`:''
-                }
-            })
-        
-            setData(resposne.data.details)
-            console.log(">>>>DATA",resposne.data);
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-    const [cartValue, setCartValue] = useState(null);
-    const [wishlistValue, setWishlistValue] = useState(null);
+    const [cartValue, setCartValue] = useState(0);
+    const [wishlistValue, setWishlistValue] = useState(0);
 
     const location = useLocation()
 
     const isLoginPage = location.pathname === '/login' || location.pathname === '/signup' 
 
 
-    useEffect(() => {
-
-        if(user){
-            fetchData()
-        }   
-    }, [user]);
+    
 
     useEffect(()=>{
-        setCartValue(data?.cart?.length)
-        setWishlistValue(data?.wishList?.length)
+        setCartValue(userData?.details?.cart?.length)
+        setWishlistValue(userData?.details?.wishList?.length)
 
-    },[data])
+    },[userData])
 
     const [activeItem, setActiveItem] = useState('');
 
@@ -69,6 +50,7 @@ function Navbar(props) {
 
     const handleLogout = () => {
 
+        dataDispatch({type:'CLEAR_DATA'})
         dispatch({ type: 'LOGOUT' });
         navigate('/login')
 

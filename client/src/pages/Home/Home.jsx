@@ -6,6 +6,7 @@ import './home.css';
 function Home(props) {
 
     
+    
     return (
         <div className='home'>
             <div className="middle">

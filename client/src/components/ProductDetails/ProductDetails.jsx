@@ -7,6 +7,7 @@ import axios from 'axios';
 import { useContext, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { authContext } from '../../context/AuthContext';
+import { dataContext } from '../../context/DataContext';
 import usePrivateFetch from '../../hooks/usePrivateFetch';
 import CheckPincode from '../CheckPincode/CheckPincode';
 import './details.css';
@@ -18,6 +19,8 @@ function ProductDetails({ datas }) {
     const [showSizeErr, setShowSizeErr] = useState(false)
 
     const { user, dispatch } = useContext(authContext)
+
+    const {userData} = useContext(dataContext)
 
 
 
@@ -65,7 +68,9 @@ function ProductDetails({ datas }) {
                 }
             });
     
+            
             console.log("added to cart");
+            reFetch()
             
             
         } catch (error) {

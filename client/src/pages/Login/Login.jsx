@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { authContext } from '../../context/AuthContext';
 import './login.css';
 
@@ -10,6 +10,8 @@ function Login(props) {
     const [password, setPass] = useState("")
 
     const { user, loading, error, dispatch } = useContext(authContext)
+
+    
 
 
 
@@ -31,6 +33,8 @@ function Login(props) {
             console.log('Login response:', response.data);
 
             dispatch({ type: "LOGIN_SUCCESS", payload: response.data });
+
+            
 
             const oldLocation = localStorage.getItem('oldLocation');
             const locationState = JSON.parse(localStorage.getItem('locationState'));
@@ -57,7 +61,9 @@ function Login(props) {
                 <input type="text" placeholder='username' onChange={(e) => setUserName(e.target.value)} />
                 <input type="password" placeholder='password' onChange={(e) => setPass(e.target.value)} />
                 <button onClick={(e) => submitForm(e)}>submit</button>
-                <p>create an account</p>
+                <Link to='/signup' style={{ textDecoration: 'none' }}>
+                    <p>create an account</p>
+                </Link>
             </div>
 
            
