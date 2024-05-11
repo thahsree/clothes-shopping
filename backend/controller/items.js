@@ -1,6 +1,8 @@
 const Products = require('../Model/productsModel') 
 
 const getItems = async(req,res)=>{
+
+    console.log("REACHED GET ITEMS");
    
     try {
         const {...queries} = req.query

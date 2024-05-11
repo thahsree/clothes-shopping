@@ -1,7 +1,12 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { authContext } from "../context/AuthContext";
+
 
 function useFetch(url) {
+
+
+    const {user}= useContext(authContext)
 
     if(url === ''){
         return 
@@ -15,16 +20,16 @@ function useFetch(url) {
 
         setLoading(true);
         try {
-            const response = await axios.get(url,{
-                withCredentials:true  // for adding browser cookie
-            })
+            const response = await axios.get(url)
 
             setData(response.data)
+           
         } catch (error) {
             setErr(error)
             console.log(error);
 
         }
+        setLoading(false);
     }
 
     useEffect(()=>{

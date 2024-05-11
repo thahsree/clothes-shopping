@@ -1,16 +1,35 @@
 import Grid from '@mui/material/Grid';
+import axios from 'axios';
 import * as React from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import useFetch from '../../hooks/useFetch';
+import { authContext } from '../../context/AuthContext';
 import './collections.css';
 
 
 function Collections(props) {
 
+    const [data , setData ] = useState([])
     const location = useLocation()
     const navigate = useNavigate()
 
-    const { data, err, loading, reFetch } = useFetch('https://clothes-shopping-1.onrender.com/items')
+    // const { data, err, loading, reFetch } = useFetch('http://localhost:4000/items')
+
+    const {user} = useContext(authContext)
+
+    const fetchUser = async()=>{
+        try {
+            const response = await axios.get('http://localhost:4000/items')
+            setData(response.data)
+            
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    useEffect(()=>{
+        
+       fetchUser()
+    },[])
 
     const handleViewItem = (id) => {
 

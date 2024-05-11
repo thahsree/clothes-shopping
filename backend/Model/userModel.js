@@ -1,5 +1,13 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
+
+
+const itemSchema = new Schema({
+    productID: String,
+    size: String,
+    nos: String
+}, { timestamps: true });
+
 const UserSchema = new Schema({
     username:{
         type:String,
@@ -21,9 +29,9 @@ const UserSchema = new Schema({
         type:Number,
         required:true
     },
-    wishList:[{productID:String,size: String}],
-    cart:[{productID:String,size: String, nos:String} ],
-    recentOrders:[{productID:String,size: String, nos:String} ],
+    wishList: [itemSchema], // Using the subdocument schema for wishList
+    cart: [itemSchema], // Using the subdocument schema for cart
+    recentOrders: [itemSchema], // Using the subdocument schema for recentOrders
     password:{
         type:String,
         required:true
@@ -35,7 +43,8 @@ const UserSchema = new Schema({
     country:{
         type:String,
         
-    }
+    },
+    address:[String]
 },{
     timestamps:true
 }

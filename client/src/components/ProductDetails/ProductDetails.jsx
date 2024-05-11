@@ -3,10 +3,11 @@ import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined
 import NotesIcon from '@mui/icons-material/Notes';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import StarIcon from '@mui/icons-material/Star';
+import axios from 'axios';
 import { useContext, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { authContext } from '../../context/AuthContext';
-import useFetch from '../../hooks/useFetch';
+import usePrivateFetch from '../../hooks/usePrivateFetch';
 import CheckPincode from '../CheckPincode/CheckPincode';
 import './details.css';
 
@@ -18,11 +19,14 @@ function ProductDetails({ datas }) {
 
     const { user, dispatch } = useContext(authContext)
 
-    const userID = user?._id
-    
-    const {data , err , loading , reFetch } = useFetch(`https://clothes-shopping-1.onrender.com/users/${userID}`)
 
+
+
+    const userID = user?.details?._id
+
+    const {data , reFetch , setData} = usePrivateFetch(`http://localhost:4000/users/${userID}`)
     
+
 
     const handleSelectSize = (size) => {
 
@@ -30,11 +34,12 @@ function ProductDetails({ datas }) {
         setShowSizeErr(false)
 
     }
-
-
     
     const navigate = useNavigate()
     const location = useLocation()
+
+
+
     const handleAddToCart = async () => {
 
         if (!selectedSize) {
@@ -47,23 +52,22 @@ function ProductDetails({ datas }) {
             localStorage.setItem('locationState', JSON.stringify(location.state))
             localStorage.setItem('oldLocation', location.pathname)
             navigate('/login')
+
+            return
         }
 
        
         try {
             
-            const response = await fetch(`https://clothes-shopping-1.onrender.com/itemorder/addToCart?id=${datas._id}&size=${selectedSize}&count=1`, {
-                method: 'PUT',
-                credentials: 'include' // Include cookies in the request
+            const response = await axios.put(`http://localhost:4000/itemorder/addToCart?id=${datas._id}&size=${selectedSize}&count=1`,null, {
+                headers: {
+                    Authorization: user?`Bearer ${user?.accessToken}` : ''
+                }
             });
     
-            if (!response.ok) {
-                throw new Error('Failed to add item to cart');
-            }
-    
-            reFetch()
             console.log("added to cart");
-            console.log(response);
+            
+            
         } catch (error) {
             console.log(error);
         }

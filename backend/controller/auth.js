@@ -34,6 +34,8 @@ const register = async (req, res) => {
 
 const login = async(req,res)=>{
 
+    console.log(">>>>REACHED LOGIN");
+
     try {
         const {username} = req.body
         const foundUser = await User.findOne({username})
@@ -59,7 +61,7 @@ const login = async(req,res)=>{
         },
         process.env.ACCESS_TOKEN_SECRET
         )
-        const {password ,...others} = foundUser._doc
+        const {password,email,...others} = foundUser._doc
 
         res.cookie('accessToken',accessToken,{httpOnly:true ,secure:true, sameSite:'None', maxAge: 24 * 60 * 60 * 1000})
         res.status(200).json({details:{...others },accessToken})

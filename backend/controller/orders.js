@@ -92,7 +92,8 @@ const addToCart = async(req,res)=>{
 
         await foundUser.save();  // to update cart schema of user
 
-        return res.status(200).json(updatedCart);
+        const {password,email,...others} = foundUser
+        return res.status(200).json({details:others});
 
     } catch (error) {
         console.log(error);

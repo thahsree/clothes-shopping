@@ -18,7 +18,11 @@ const getUser = async(req,res)=>{
       const foundUser = await User.find({_id:req.params.id})
       
       if(req.username === foundUser[0].username){
-         return res.status(200).json(foundUser)
+
+         const {password,email,...others} = foundUser[0]._doc
+
+
+         return res.status(200).json({details:others})
       }else{
          return res.sendStatus(401)
       }

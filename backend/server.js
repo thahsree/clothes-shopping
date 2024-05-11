@@ -5,12 +5,16 @@ const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
 const { verifyJWT } = require('./middleware/verifyJWT');
 
-const cors = require('cors')
+const cors = require('cors');
+const credentials = require('./middleware/credentials');
+const corsOptions = require('./config/corsOption');
 
-app.use(cors({
-    origin: true,
-    credentials: true
-  }))
+
+app.use(credentials)
+app.use(cors(corsOptions))
+
+app.use(express.urlencoded({extended:false}))
+
 app.use(express.json())
 app.use(cookieParser())
 

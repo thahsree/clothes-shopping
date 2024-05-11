@@ -1,0 +1,79 @@
+.toLogout {
+    position: absolute;
+    top: 70px;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid lightgray;
+    gap: 10px;
+    z-index: 100;
+    background-color: white;
+
+
+    .Welcome {
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        border-bottom: 1px solid lightgray;
+
+
+        .heading {
+
+            gap: 5px;
+
+            h4 {
+                color: grey;
+                font-size: 15px;
+                font-weight: 700;
+            }
+
+            p {
+                color: grey;
+                font-size: 16px;
+                font-weight: 600;
+            }
+        }
+
+    }
+
+    .loginAction {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border: 1px solid lightgray;
+        width: max-content;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+
+        .icon {
+            font-size: 15px !important;
+        }
+
+        p {
+            font-size: 13px;
+        }
+    }
+    .actions{
+
+        padding: 10px;
+
+        ul{
+            list-style: none;
+
+            li{
+                color: grey;
+                font-size: 13px;
+                padding: 2px;
+                font-weight: 300;
+                cursor: pointer;
+            }
+            li:hover{
+                color: rgb(109, 109, 109);
+                font-weight: 500;
+            }
+        }
+    }
+
+}
