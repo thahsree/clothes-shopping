@@ -1,15 +1,9 @@
 import Grid from '@mui/material/Grid';
 import axios from 'axios';
 import * as React from 'react';
-<<<<<<< HEAD
 import { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { authContext } from '../../context/AuthContext';
-=======
-import { useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { PORT } from '../../connections/PORT';
->>>>>>> d87c2ef816c6448d5afd55f84fe7126873b947b1
 import './collections.css';
 
 
@@ -19,7 +13,6 @@ function Collections(props) {
     const location = useLocation()
     const navigate = useNavigate()
 
-<<<<<<< HEAD
     // const { data, err, loading, reFetch } = useFetch('http://localhost:4000/items')
 
     const {user} = useContext(authContext)
@@ -36,15 +29,6 @@ function Collections(props) {
     useEffect(()=>{
         
        fetchUser()
-=======
-    let data
-    useEffect(()=>{
-        try {
-            data = axios.get(`${PORT}/items`)
-        } catch (error) {
-            console.log(error);
-        }
->>>>>>> d87c2ef816c6448d5afd55f84fe7126873b947b1
     },[])
 
     const handleViewItem = (id) => {

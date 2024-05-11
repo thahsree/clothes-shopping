@@ -1,13 +1,6 @@
 import axios from 'axios';
-<<<<<<< HEAD
 import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-=======
-import { useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Cookies from 'universal-cookie';
-import { PORT } from '../../connections/PORT';
->>>>>>> d87c2ef816c6448d5afd55f84fe7126873b947b1
 import { authContext } from '../../context/AuthContext';
 import './login.css';
 
@@ -39,11 +32,7 @@ function Login(props) {
             const response = await axios.post('http://localhost:4000/auth/login', loginData);
             console.log('Login response:', response.data);
 
-<<<<<<< HEAD
             dispatch({ type: "LOGIN_SUCCESS", payload: response.data });
-=======
-            const response = await axios.post(`${PORT}/auth/login`, LoginData)
->>>>>>> d87c2ef816c6448d5afd55f84fe7126873b947b1
 
             
 

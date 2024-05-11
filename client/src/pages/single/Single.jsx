@@ -2,7 +2,6 @@ import { useLocation } from 'react-router-dom';
 import Crumps from '../../components/Crumps/Crumps';
 import ItemImage from '../../components/ItemImages/ItemImage';
 import ProductDetails from '../../components/ProductDetails/ProductDetails';
-import { PORT } from '../../connections/PORT';
 import useFetch from '../../hooks/useFetch';
 import './single.css';
 
@@ -13,12 +12,7 @@ function Single(props) {
     const id = location?.state?.id
    
 
-<<<<<<< HEAD
     const {data , loading , error , reFetch } = useFetch(`http://localhost:4000/items/${id}`)
-=======
-    const {data , loading , error , reFetch } = useFetch(`${PORT}/items/${id}`)
-    
->>>>>>> d87c2ef816c6448d5afd55f84fe7126873b947b1
 
 
     const category = location?.state?.catogory?.toUpperCase()
