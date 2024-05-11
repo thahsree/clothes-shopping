@@ -36,9 +36,7 @@ function Collections(props) {
         navigate(`/products/${id}`, { state: { ...location.state, id } });
     }
 
-    useEffect(()=>{
-        console.log(PORT);
-    })
+    
     return (
         <div className='collectionsMain'>
             <Grid container spacing={5} style={{ width: '80vw' }} justifyContent="space-evenly">

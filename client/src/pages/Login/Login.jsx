@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { authContext } from '../../context/AuthContext';
+import { dataContext } from '../../context/DataContext';
 import './login.css';
 
 function Login(props) {
@@ -10,6 +11,8 @@ function Login(props) {
     const [password, setPass] = useState("")
 
     const { user, loading, error, dispatch } = useContext(authContext)
+
+    const {userData , dispatch:dataDispatch} = useContext(dataContext)
 
     
 
@@ -33,6 +36,7 @@ function Login(props) {
             console.log('Login response:', response.data);
 
             dispatch({ type: "LOGIN_SUCCESS", payload: response.data });
+            dataDispatch({ type: "FETCH_SUCCESS", payload: response.data });
 
             
 
