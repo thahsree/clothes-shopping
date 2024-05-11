@@ -15,6 +15,23 @@ app.use(cors(corsOptions))
 
 app.use(express.urlencoded({extended:false}))
 
+<<<<<<< HEAD
+=======
+
+var whitelist = [ '*']
+var corsOptions = {
+//   origin: function (origin, callback) {
+//     if (whitelist.indexOf(origin) !== -1) {
+//       callback(null, true)
+//     } else {
+//       callback(new Error('Not allowed by CORS'))
+//     }
+//   },
+    origin:"*",
+  credentials: true
+}
+app.use(cors(corsOptions))
+>>>>>>> d87c2ef816c6448d5afd55f84fe7126873b947b1
 app.use(express.json())
 app.use(cookieParser())
 

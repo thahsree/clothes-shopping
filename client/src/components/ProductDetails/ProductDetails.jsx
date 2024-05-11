@@ -6,6 +6,7 @@ import StarIcon from '@mui/icons-material/Star';
 import axios from 'axios';
 import { useContext, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { PORT } from '../../connections/PORT';
 import { authContext } from '../../context/AuthContext';
 import { dataContext } from '../../context/DataContext';
 import usePrivateFetch from '../../hooks/usePrivateFetch';
@@ -20,7 +21,13 @@ function ProductDetails({ datas }) {
 
     const { user, dispatch } = useContext(authContext)
 
+<<<<<<< HEAD
     const {userData} = useContext(dataContext)
+=======
+    const userID = user?._id
+    
+    const {data , err , loading , reFetch } = useFetch(`${PORT}/users/${userID}`)
+>>>>>>> d87c2ef816c6448d5afd55f84fe7126873b947b1
 
 
 
@@ -62,10 +69,16 @@ function ProductDetails({ datas }) {
        
         try {
             
+<<<<<<< HEAD
             const response = await axios.put(`http://localhost:4000/itemorder/addToCart?id=${datas._id}&size=${selectedSize}&count=1`,null, {
                 headers: {
                     Authorization: user?`Bearer ${user?.accessToken}` : ''
                 }
+=======
+            const response = await fetch(`${PORT}/itemorder/addToCart?id=${datas._id}&size=${selectedSize}&count=1`, {
+                method: 'PUT',
+                credentials: 'include' // Include cookies in the request
+>>>>>>> d87c2ef816c6448d5afd55f84fe7126873b947b1
             });
     
             

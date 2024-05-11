@@ -5,6 +5,7 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import React, { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { beautyOptions, kidsOptions, menOptions, womenOptions } from '../../Data/options';
+import { PORT } from '../../connections/PORT';
 import { authContext } from '../../context/AuthContext';
 import { dataContext } from '../../context/DataContext';
 import NavOptions from '../NavOptions/NavOptions';
@@ -19,11 +20,16 @@ function Navbar(props) {
 
     const userID = user?.details._id
 
+<<<<<<< HEAD
     // http://localhost:4000/users/${userID}
 
     
     
     const {userData , dispatch : dataDispatch} = useContext(dataContext)
+=======
+    const url = user ? `${PORT}/users/${userID}` : undefined
+    const { data, err, loading, reFetch } = useFetch(url)
+>>>>>>> d87c2ef816c6448d5afd55f84fe7126873b947b1
 
 
     const [cartValue, setCartValue] = useState(0);
