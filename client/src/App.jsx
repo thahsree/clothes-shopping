@@ -8,7 +8,7 @@ function App() {
   const { user, loading, error, dispatch } = useContext(authContext)
 
   const userID = user?.details._id
-  const {data , reFetch } = usePrivateFetch(`http://localhost:4000/users/${userID}`)
+  const {data , reFetch } = usePrivateFetch(`/users/${userID}`)
 
   useEffect(()=>{
     

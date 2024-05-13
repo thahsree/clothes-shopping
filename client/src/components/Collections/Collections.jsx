@@ -1,8 +1,8 @@
 import Grid from '@mui/material/Grid';
-import axios from 'axios';
 import * as React from 'react';
 import { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import axios from '../../axios/axios';
 import { authContext } from '../../context/AuthContext';
 import './collections.css';
 
@@ -19,7 +19,7 @@ function Collections(props) {
 
     const fetchUser = async()=>{
         try {
-            const response = await axios.get('http://localhost:4000/items')
+            const response = await axios.get('/items')
             setData(response.data)
             
         } catch (error) {

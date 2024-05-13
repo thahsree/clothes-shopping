@@ -22,12 +22,14 @@ function ProductDetails({ datas }) {
 
     const {userData} = useContext(dataContext)
 
+    const BASE_URL =  'https://clothes-shopping-1.onrender.com'
+
 
 
 
     const userID = user?.details?._id
 
-    const {data , reFetch , setData} = usePrivateFetch(`http://localhost:4000/users/${userID}`)
+    const {data , reFetch , setData} = usePrivateFetch(`/users/${userID}`)
     
 
 
@@ -62,7 +64,7 @@ function ProductDetails({ datas }) {
        
         try {
             
-            const response = await axios.put(`http://localhost:4000/itemorder/addToCart?id=${datas._id}&size=${selectedSize}&count=1`,null, {
+            const response = await axios.put(`${BASE_URL}/itemorder/addToCart?id=${datas._id}&size=${selectedSize}&count=1`,null, {
                 headers: {
                     Authorization: user?`Bearer ${user?.accessToken}` : ''
                 }

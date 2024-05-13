@@ -8,6 +8,8 @@ function useFetch(url) {
 
     const {user}= useContext(authContext)
 
+    const BASE_URL = 'https://clothes-shopping-1.onrender.com' 
+
     if(url === ''){
         return 
     }
@@ -20,7 +22,7 @@ function useFetch(url) {
 
         setLoading(true);
         try {
-            const response = await axios.get(url)
+            const response = await axios.get(BASE_URL+url)
 
             setData(response.data)
            
@@ -40,7 +42,7 @@ function useFetch(url) {
     const reFetch = async()=>{
         setLoading(true);
         try {
-            const response = await axios.get(url,{
+            const response = await axios.get(BASE_URL+url,{
                 withCredentials: true // Add this option to include cookies
             })
             setData(response.data)

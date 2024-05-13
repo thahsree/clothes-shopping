@@ -13,6 +13,9 @@ function usePrivateFetch(url) {
     const [err, setErr] = useState();
 
     const {userData , dispatch} = useContext(dataContext)
+
+
+    const BASE_URL = 'https://clothes-shopping-1.onrender.com'
     
 
     if (!url || url.includes('undefined')) {
@@ -29,7 +32,7 @@ function usePrivateFetch(url) {
         setLoading(true)
         dispatch({type:'FETCH_START'})
         try {
-            const response = await axios.get(url,{
+            const response = await axios.get(BASE_URL+url,{
                 headers: {
                     Authorization: user?`Bearer ${user?.accessToken}` : ''
                 }
@@ -55,7 +58,7 @@ function usePrivateFetch(url) {
 
         try {
 
-            const response  = await axios.get(url,{
+            const response  = await axios.get(BASE_URL+url,{
                 headers:{
                     Authorization: user? `Bearer ${user.accessToken}`:''
                 }

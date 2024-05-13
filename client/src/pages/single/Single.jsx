@@ -12,7 +12,7 @@ function Single(props) {
     const id = location?.state?.id
    
 
-    const {data , loading , error , reFetch } = useFetch(`http://localhost:4000/items/${id}`)
+    const {data , loading , error , reFetch } = useFetch(`/items/${id}`)
 
 
     const category = location?.state?.catogory?.toUpperCase()

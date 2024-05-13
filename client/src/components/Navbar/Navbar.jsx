@@ -21,29 +21,29 @@ function Navbar(props) {
 
     // http://localhost:4000/users/${userID}
 
-    
-    
-    const {userData , dispatch : dataDispatch} = useContext(dataContext)
+
+
+    const { userData, dispatch: dataDispatch } = useContext(dataContext)
 
 
     const [cartValue, setCartValue] = useState(0);
     const [wishlistValue, setWishlistValue] = useState(0);
 
-    const cartvalueToDisplay = cartValue >0 && cartValue <=9 ? cartValue : 
-                                cartValue>9 ? '9+' : null
+    const cartvalueToDisplay = cartValue > 0 && cartValue <= 9 ? cartValue :
+        cartValue > 9 ? '9+' : null
 
     const location = useLocation()
 
-    const isLoginPage = location.pathname === '/login' || location.pathname === '/signup' 
+    const isLoginPage = location.pathname === '/login' || location.pathname === '/signup'
 
 
-    
 
-    useEffect(()=>{
+
+    useEffect(() => {
         setCartValue(userData?.details?.cart?.length)
         setWishlistValue(userData?.details?.wishList?.length)
 
-    },[userData])
+    }, [userData])
 
     const [activeItem, setActiveItem] = useState('');
 
@@ -53,7 +53,7 @@ function Navbar(props) {
 
     const handleLogout = () => {
 
-        dataDispatch({type:'CLEAR_DATA'})
+        dataDispatch({ type: 'CLEAR_DATA' })
         dispatch({ type: 'LOGOUT' });
         navigate('/login')
 
@@ -61,12 +61,12 @@ function Navbar(props) {
 
     const handleLogin = () => {
 
-       
+
         navigate('/login')
         console.log(user);
     }
 
-    useEffect(()=>{ console.log(cartvalueToDisplay);},[])
+    useEffect(() => { console.log(cartvalueToDisplay); }, [])
 
     return (
         <div className='navbar'>
@@ -128,7 +128,10 @@ function Navbar(props) {
                             <div className="count">{wishlistValue}</div>
                         }
                     </div>
-                    <Link className='listItems' to='/cart'>
+                    <Link className='listItems' to='/cart' style={{
+                        textDecoration: 'none',
+                        color:"#000"
+                    }}>
                         <ShoppingCartOutlinedIcon className='icon' />
                         {
                             cartvalueToDisplay &&

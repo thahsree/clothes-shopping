@@ -1,14 +1,11 @@
 import axios from 'axios'
 
-const BASE_URL = 'http://localhost:4000' || ''
+const BASE_URL = 'https://clothes-shopping-1.onrender.com'
+
 
 
 export default axios.create({
     baseURL:BASE_URL
 })
 
-export const axiosPrivate = axios.create({
-    baseURL:BASE_URL,
-    headers:{'Content-Type':'application/json'},
-    withCredentials:true
-})
+// Create another axios instance for private requests, where you might need to attach the user's access token

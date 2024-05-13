@@ -1,6 +1,6 @@
-import axios from 'axios';
 import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from '../../axios/axios';
 import { authContext } from '../../context/AuthContext';
 import { dataContext } from '../../context/DataContext';
 import './login.css';
@@ -32,7 +32,7 @@ function Login(props) {
         }
 
         try {
-            const response = await axios.post('http://localhost:4000/auth/login', loginData);
+            const response = await axios.post('/auth/login', loginData);
             console.log('Login response:', response.data);
 
             dispatch({ type: "LOGIN_SUCCESS", payload: response.data });
