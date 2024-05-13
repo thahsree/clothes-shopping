@@ -10,6 +10,7 @@ import {
 } from "react-router-dom";
 import { authContext, AuthContextProvider } from './context/AuthContext';
 import { DataContextProvider } from './context/DataContext';
+import CartPage from './pages/Cart/CartPage';
 import ErrorPage from './pages/ErrorPage';
 import List from './pages/Lists/List';
 import Login from './pages/Login/Login';
@@ -68,6 +69,11 @@ const router = createBrowserRouter([
     ]
 
   },
+  {
+    path:'/cart',
+    element:<CartPage/>,
+    errorElement:<ErrorPage/>
+  }
 
 ]);
 

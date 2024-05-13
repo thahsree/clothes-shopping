@@ -1,0 +1,230 @@
+.cart {
+
+    .cartContent {
+        display: flex;
+        width: 100vw;
+        height: 100vh;
+        justify-content: center;
+
+        .contentLeft {
+            width: 600px;
+            border-right: 1px solid lightgray;
+            padding: 30px;
+
+
+            .address {
+                margin-top: 10px;
+
+                padding: 10px;
+                display: flex;
+                justify-content: space-between;
+                border: 1px solid lightgray;
+                border-radius: 10px;
+
+                .addressDetails {
+
+                    .userDetails {
+                        font-size: 14px;
+                        font-weight: 300;
+
+                        span {
+
+                            font-weight: 700;
+                            color: #000;
+
+                        }
+                    }
+
+                    .location {
+                        font-weight: 300;
+                        font-size: 13px;
+                    }
+
+                }
+
+                .changeAddress {
+
+                    padding: 5px 10px;
+                    border: 1px solid red;
+                    border-radius: 10px;
+                    color: red;
+                    background-color: transparent;
+                    cursor: pointer;
+                }
+            }
+
+            .cartItems {
+
+                margin-top: 40px;
+                border: 1px solid lightgray;
+                padding: 10px;
+                border-radius: 10px;
+
+
+                .item {
+                    display: flex;
+                    gap: 10px;
+                    position: relative;
+                    
+
+                    .icon{
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        cursor: pointer;
+                    }
+
+                    img{
+                        width: 120px;
+                 
+                    }
+
+                    .details{
+                        display: flex;
+                        flex-direction: column;
+                        gap: 20px;
+
+                        .top{
+
+                            display: flex;
+                            flex-direction: column;
+                            gap: 3px;
+                            h3{
+                                font-size: 14px;
+                                font-weight: 800;
+                            }
+                            .productName{
+                                font-weight: 400;
+                                font-size: 13px;
+                            }
+                            .soldBy{
+                                font-size: 12px;
+                                color: gray;
+                            }
+                        }
+
+                        .middle{
+                            display: flex;
+                            gap: 20px;
+
+                            .size , .qty{
+
+                                p{
+                                    font-size: 14px;
+                                }
+
+                                select{
+
+                                    cursor: pointer;
+                                    border-radius: 10px;
+                                    color: gray;
+
+                                }
+                                select:focus {
+                                    outline: none; /* Remove the outline when the select is focused */
+                                }
+                                
+                            }
+                            
+                        }
+                        .bottom{
+
+                            display: flex;
+                            gap: 5px;
+
+                            p{
+                                font-size: 15px;
+                                font-weight: 700;
+
+
+                            }
+                            strike{
+
+                                color: gray;
+                                font-size: 14px;
+                                font-weight: 300;
+                            }
+                            .off{
+                                color: orange;
+                                font-size: 14px;
+                                font-weight: 500;
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+
+        .contentRight {
+            width: 350px;
+            margin-top: 40px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            .priceDetails{
+
+                border-bottom: 1px solid gray;
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+                padding-bottom: 20px;
+
+
+                .heading{
+                    font-size: 15px;
+                    font-weight: 600;
+                    margin-top: 10px;
+                    margin-bottom: 10px;
+
+                    .count{
+                        color: gray;
+                        font-size: 13px;
+                        font-weight: 400;
+                    }
+                }
+
+                .billInput{
+                    display: flex;
+                    justify-content: space-between;
+
+                    .field{
+                        font-size: 14px;
+                        font-weight: 300;
+                    }
+                    .discount{
+                        color: green;
+                    }
+                    .price{
+                        font-size: 14px;
+                        font-weight: 400;
+                    }
+
+                }
+            }
+            .billAmount{
+                display: flex;
+                justify-content: space-between;
+
+                p{
+                    font-size: 15px;
+                    font-weight: 700;
+                }
+            }
+            .placeOrder{
+                padding: 10px 15px;
+                border-radius: 10px;
+                border: none;
+                cursor: pointer;
+                font-size: 15px;
+                font-weight: 600;
+                color: white;
+                background-color: #000;
+            }
+            
+
+        }
+    }
+}

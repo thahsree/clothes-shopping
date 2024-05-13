@@ -1,8 +1,11 @@
+import { useState } from 'react';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import './banner.css';
 function Banner(props) {
+
+    const [isOffer, setOffer] = useState(false)
     const settings = {
         dots: true,
         infinite: false,
@@ -14,10 +17,14 @@ function Banner(props) {
 
     return (
         <div className='banner'>
+            {
+                    isOffer &&
+                    <div className="salesTimer">
+                        <p>Offer Starts in <span className="time">00</span> h : <span className="time">15</span> m : <span className="time">45</span> s</p>
+                    </div>
+                }
             <div className="bannerItems">
-                <div className="salesTimer">
-                    <p>Offer Starts in <span className="time">00</span> h : <span className="time">15</span> m : <span className="time">45</span> s</p>
-                </div>
+                
                 <div className="images">
                     <Slider {...settings}>
                         <div className="image">

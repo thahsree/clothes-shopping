@@ -3,7 +3,7 @@ import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import React, { useContext, useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { beautyOptions, kidsOptions, menOptions, womenOptions } from '../../Data/options';
 import { authContext } from '../../context/AuthContext';
 import { dataContext } from '../../context/DataContext';
@@ -28,6 +28,9 @@ function Navbar(props) {
 
     const [cartValue, setCartValue] = useState(0);
     const [wishlistValue, setWishlistValue] = useState(0);
+
+    const cartvalueToDisplay = cartValue >0 && cartValue <=9 ? cartValue : 
+                                cartValue>9 ? '9+' : null
 
     const location = useLocation()
 
@@ -57,9 +60,13 @@ function Navbar(props) {
     }
 
     const handleLogin = () => {
+
+       
         navigate('/login')
         console.log(user);
     }
+
+    useEffect(()=>{ console.log(cartvalueToDisplay);},[])
 
     return (
         <div className='navbar'>
@@ -121,14 +128,14 @@ function Navbar(props) {
                             <div className="count">{wishlistValue}</div>
                         }
                     </div>
-                    <div className='listItems'>
+                    <Link className='listItems' to='/cart'>
                         <ShoppingCartOutlinedIcon className='icon' />
                         {
-                            cartValue > 0 &&
-                            <div className="count">{cartValue}</div>
+                            cartvalueToDisplay &&
+                            <div className="count">{cartvalueToDisplay}</div>
                         }
 
-                    </div>
+                    </Link>
                 </div>
             </div>
 

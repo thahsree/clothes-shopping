@@ -1,6 +1,6 @@
-import axios from 'axios';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from '../../axios/axios';
 import './signup.css';
 
 function Signup(props) {
@@ -33,7 +33,7 @@ function Signup(props) {
 
         try {
 
-            const response = await axios.post('http://localhost:4000/auth/register', {
+            const response = await axios.post('/auth/register', {
                 username: signupData.username,
                 phone: Number(signupData.phone),
                 email: signupData.email,

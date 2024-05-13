@@ -1,0 +1,59 @@
+.CartNav{
+    display: flex;
+    justify-content: space-between;
+    height: 70px;
+    width: 100vw;
+    background-color: whitesmoke;
+    align-items: center;
+    box-shadow: 0px 0px 5px 0px rgba(137, 135, 135, 0.41);
+
+    .logo{
+        margin-left: 60px;
+        display: flex;
+        font-family: teko;
+        text-decoration: none;
+        color: black;
+        
+    }
+
+    .locations{
+
+        margin-right: 20px;
+
+        ul{
+            list-style: none;
+            display: flex;
+            gap: 15px;
+
+            li{
+                font-size: 13px;
+                color: gray;
+            }
+            .active{
+                font-weight: 700;
+                color: rgb(70, 194, 146);
+                border-bottom: 2px solid rgb(70, 194, 146);
+                width: max-content;
+            }
+        }
+    }
+    .other{
+
+        display: flex;
+        margin-right: 70px;
+        align-items: center;
+       
+
+        h5{
+            margin-top: 5px;
+            font-size: 12px;
+            font-weight: 500;
+            color: grey;
+        }
+
+        .icon{
+            font-size: 35px;
+            color: rgb(70, 194, 146);
+        }
+    }
+}

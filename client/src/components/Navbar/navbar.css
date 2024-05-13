@@ -121,13 +121,13 @@
                         font-weight: 600;
                     }
                 }
-                .count{
+                .count {
                     position: absolute;
-                    top:19px;
-                    right:-4px;
+                    top: 19px;
+                    right: -7px;
                     font-size: 12px;
                     background-color: red;
-                    width: 15px;
+                    width: 20px; /* Adjusted width */
                     display: flex;
                     justify-content: center;
                     border-radius: 50%;

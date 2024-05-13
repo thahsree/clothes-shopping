@@ -11,6 +11,7 @@ function App() {
   const {data , reFetch } = usePrivateFetch(`http://localhost:4000/users/${userID}`)
 
   useEffect(()=>{
+    
     if(user){
       reFetch()
     }
