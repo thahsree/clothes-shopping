@@ -1,3 +1,4 @@
+import { useSnackbar } from 'notistack';
 import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from '../../axios/axios';
@@ -14,9 +15,7 @@ function Login(props) {
 
     const {userData , dispatch:dataDispatch} = useContext(dataContext)
 
-    
-
-
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
     const navigate = useNavigate()
 
@@ -35,8 +34,13 @@ function Login(props) {
             const response = await axios.post('/auth/login', loginData);
             console.log('Login response:', response.data);
 
+            enqueueSnackbar("LOGGED IN SUCCESSFULLY", { variant: 'success' })
             dispatch({ type: "LOGIN_SUCCESS", payload: response.data });
             dataDispatch({ type: "FETCH_SUCCESS", payload: response.data });
+            setTimeout(()=>{
+                closeSnackbar()
+            },[1000])
+            
 
             
 
@@ -51,8 +55,15 @@ function Login(props) {
                 navigate('/');
             }
         } catch (error) {
+            const errorMSG = JSON.stringify(error.response.data.message)
+            enqueueSnackbar(JSON.parse(errorMSG), { variant: 'error' })
             dispatch({ type: "LOGIN_FAILED", payload: error.response || error.message });
-            console.error('Login error:', error);
+            console.error('Login error:', error.response.data);
+            setTimeout(()=>{
+                closeSnackbar()
+            },[1000])
+            
+            
         }
 
     }

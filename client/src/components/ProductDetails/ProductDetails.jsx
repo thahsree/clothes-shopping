@@ -4,6 +4,7 @@ import NotesIcon from '@mui/icons-material/Notes';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import StarIcon from '@mui/icons-material/Star';
 import axios from 'axios';
+import { useSnackbar } from 'notistack';
 import { useContext, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { authContext } from '../../context/AuthContext';
@@ -22,10 +23,9 @@ function ProductDetails({ datas }) {
 
     const {userData} = useContext(dataContext)
 
-    const BASE_URL =  'https://clothes-shopping-1.onrender.com'
+    const BASE_URL =  import.meta.env.VITE_BASE_URL
 
-
-
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
     const userID = user?.details?._id
 
@@ -52,11 +52,15 @@ function ProductDetails({ datas }) {
             return
         }
         if (!user) {
-            console.log('Please Log In First');
+            enqueueSnackbar("PLEASE LOGIN FIRST", { variant: 'info' })
 
             localStorage.setItem('locationState', JSON.stringify(location.state))
             localStorage.setItem('oldLocation', location.pathname)
             navigate('/login')
+
+            setTimeout(()=>{
+                closeSnackbar()
+            },[1500])
 
             return
         }
@@ -71,11 +75,21 @@ function ProductDetails({ datas }) {
             });
     
             
-            console.log("added to cart");
+            enqueueSnackbar("ADDED TO  CART", { variant: 'success' })
+
+            setTimeout(()=>{
+                closeSnackbar()
+            },[1500])
             reFetch()
             
             
         } catch (error) {
+
+            enqueueSnackbar("Internal Server Error", { variant: 'error' })
+
+            setTimeout(()=>{
+                closeSnackbar()
+            },[1500])
             console.log(error);
         }
     }

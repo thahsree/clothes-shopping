@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 
+import { SnackbarProvider } from 'notistack';
 import {
   createBrowserRouter,
   Navigate,
@@ -70,23 +71,22 @@ const router = createBrowserRouter([
 
   },
   {
-    path:'/cart',
-    element:<CartPage/>,
-    errorElement:<ErrorPage/>
+    path: '/cart',
+    element: <CartPage />,
+    errorElement: <ErrorPage />
   }
 
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  
+
   <React.StrictMode>
     <AuthContextProvider>
-      <DataContextProvider>
-
-        <RouterProvider router={router} />
-
-      </DataContextProvider>
-
+      <SnackbarProvider>
+        <DataContextProvider>
+          <RouterProvider router={router} />
+        </DataContextProvider>
+      </SnackbarProvider>
     </AuthContextProvider>
   </React.StrictMode>,
 )

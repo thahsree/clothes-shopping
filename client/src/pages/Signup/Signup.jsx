@@ -1,3 +1,4 @@
+import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from '../../axios/axios';
@@ -17,6 +18,8 @@ function Signup(props) {
 
     const navigate = useNavigate()
 
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
     const addLoginData = (e) => {
         setSignUpData({
             ...signupData,
@@ -27,7 +30,11 @@ function Signup(props) {
     const submitForm = async () => {
 
         if (signupData.password !== signupData.confirmPassword) {
-            alert('password missmatch');
+            enqueueSnackbar("PASSWORD MISSMATCH", { variant: 'warning' })
+
+            setTimeout(()=>{
+                closeSnackbar()
+            },[1500])
             return;
         }
 
@@ -40,10 +47,20 @@ function Signup(props) {
                 password: signupData.password
             })
 
+            enqueueSnackbar("USER CREATED SUCCESSFULLY", { variant: 'success' })
+
+            setTimeout(()=>{
+                closeSnackbar()
+            },[1500])
+
             navigate('/login')
 
         } catch (error) {
-            console.log(error);
+            const errorMSG = JSON.stringify(error.response.data.message)
+            enqueueSnackbar(JSON.parse(errorMSG), { variant: 'error' })
+            setTimeout(()=>{
+                closeSnackbar()
+            },[1000])
         }
     };
 

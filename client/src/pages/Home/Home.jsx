@@ -3,9 +3,8 @@ import { globalBrands, worthyBrandSection } from '../../Data/dummyDatas';
 import Banner from '../../components/Banner/Banner';
 import Corousal from '../../components/Corousal/Corousal';
 import './home.css';
-function Home(props) {
 
-    
+function Home(props) {
     
     return (
         <div className='home'>

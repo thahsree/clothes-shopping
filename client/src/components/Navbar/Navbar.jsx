@@ -70,9 +70,9 @@ function Navbar(props) {
 
     return (
         <div className='navbar'>
-            <div className="logo">
+            <Link className="logo" to='/'>
                 <h1>Fashion Galleria</h1>
-            </div>
+            </Link>
             <div className="navs">
                 <ul>
                     <li className={activeItem === 'men' ? 'men' : ''} onMouseEnter={() => handleActive('men')} onMouseLeave={() => handleActive('')}>Men</li>

@@ -3,16 +3,20 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const register = async (req, res) => {
-    const { email, username ,password} = req.body;
+    const { email, username ,password , phone} = req.body;
 
     try {
         const foundEmail = await User.findOne({ email });
         const foundUser = await User.findOne({ username });
 
+        console.log(phone);
+
         if (foundEmail) {
             return res.status(405).json({ "message": "Email  already in use" });
         }else if(foundUser){
             return res.status(405).json({ "message": "Username  already in use" });
+        }else if(!phone){
+            return res.status(405).json({ "message": "Please enter valid Phone Number" });
         }
 
         const salt = await bcrypt.genSalt(10);
