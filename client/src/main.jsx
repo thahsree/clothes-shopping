@@ -29,9 +29,11 @@ const ProtectedRoute = () => {
 
   return (
 
-    user ? <Outlet /> : <Navigate to='/login' state={{ from: location }} replace />
+    user ? <Outlet /> : <Navigate to='/login' />
   )
 }
+
+
 
 const router = createBrowserRouter([
   {
@@ -72,8 +74,15 @@ const router = createBrowserRouter([
   },
   {
     path: '/cart',
-    element: <CartPage />,
-    errorElement: <ErrorPage />
+    element: <ProtectedRoute />,
+    errorElement: <ErrorPage />,
+    children:[
+      {
+        path:'',
+        element:<CartPage/>,
+        errorElement:<ErrorPage/>
+      }
+    ]
   }
 
 ]);

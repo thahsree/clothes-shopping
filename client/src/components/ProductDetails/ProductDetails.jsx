@@ -68,7 +68,7 @@ function ProductDetails({ datas }) {
        
         try {
             
-            const response = await axios.put(`${BASE_URL}/itemorder/addToCart?id=${datas._id}&size=${selectedSize}&count=1`,null, {
+            const response = await axios.put(`${BASE_URL}/cart/addToCart?id=${datas._id}&size=${selectedSize}&count=1`,null, {
                 headers: {
                     Authorization: user?`Bearer ${user?.accessToken}` : ''
                 }

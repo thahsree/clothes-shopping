@@ -1,5 +1,5 @@
 import { useSnackbar } from 'notistack';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from '../../axios/axios';
 import { authContext } from '../../context/AuthContext';
@@ -10,6 +10,7 @@ function Login(props) {
 
     const [username, setUserName] = useState("")
     const [password, setPass] = useState("")
+
 
     const { user, loading, error, dispatch } = useContext(authContext)
 
@@ -69,6 +70,11 @@ function Login(props) {
     }
 
 
+    useEffect(()=>{
+        if(user){
+            return navigate('/')
+        }
+    },[user])
     return (
         <div className='loginMain'>
             <h3>L O G I N</h3>

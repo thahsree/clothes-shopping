@@ -26,11 +26,12 @@ app.get('/',(req,res)=>{
 
 app.use('/auth',require('./routes/authRoute'))
 
-
 app.use('/items',require('./routes/itemsRoute'))
 app.use('/users',require('./routes/userRoute'))
 
-app.use('/itemorder',require('./routes/orderRoute'))
+app.use('/cart',require('./routes/cartRoute'))
+app.use('/wishlist',require('./routes/wishlistRoute'))
+app.use('/checkout',require('./routes/checkoutRoute'))
 
 
 mongoose.connect(process.env.MONGO_URL)
