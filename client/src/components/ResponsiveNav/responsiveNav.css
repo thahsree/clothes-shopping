@@ -40,8 +40,9 @@
                     font-size: 15px;
                     font-weight: 500;
                     color: rgba(130, 127, 127, 0.697);
-                    
+                    padding: 10px;
                     cursor: pointer;
+                    
                 }
                 .item:hover{
                     color: gray;
@@ -54,7 +55,7 @@
 
 }
 
-.icon {
+.resicon {
     cursor: pointer;
     margin: 10px;
 }

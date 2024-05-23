@@ -72,7 +72,7 @@ function Navbar(props) {
         <div className='navbar'>
             <div className="LOGO-Section">
                 <div className="ham">
-                    <MenuIcon className='icon' onClick={toggleDrawer(true)} />
+                    <MenuIcon className='resicon' onClick={toggleDrawer(true)} />
                     <Drawer open={open} onClose={toggleDrawer(false)}>
                         <ResponsiveNav setOpen={setOpen}/>
                     </Drawer>

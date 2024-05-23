@@ -11,7 +11,7 @@ function ResponsiveNav({ setOpen }) {
         <div className='resNav'>
             <div className="top">
                 <div className="null"></div>
-                <CloseIcon className='icon' onClick={() => setOpen(false)} />
+                <CloseIcon className='resicon' onClick={() => setOpen(false)} />
             </div>
             <div className="middle">
                 <div className='category'>
