@@ -6,18 +6,31 @@
     background-color: whitesmoke;
     align-items: center;
     box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.41);
-    position: sticky;
+    position: relative;
     top: 0;
     z-index: 1000;
 
     
-
-    .logo{
-        text-decoration: none;
+    .LOGO-Section{
         display: flex;
-        color: #000;
-        font-family: teko;
+        justify-content: space-between;
+        gap: 10px;
+        align-items: center;
+
+        .ham{
+            display: none;
+        }
+
+        .logo{
+            text-wrap: nowrap;
+            text-decoration: none;
+            display: flex;
+            color: #000;
+            font-family: teko;
+            font-size: 15px;
+        }
     }
+   
 
     .navs{
         display: flex;
@@ -150,3 +163,31 @@
         }
     }
 }
+.icon{
+    cursor: pointer;
+}
+
+@media screen and (max-width: 1080px) {
+
+    .navbar{
+        justify-content: space-between;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .navs{
+        display: none !important;
+    }
+    
+    .search{
+        display: none !important;
+    }
+    .LOGO-Section{
+        .ham{
+            display: block !important;
+        }
+        .logo{
+            text-wrap: nowrap;
+            font-size: 12px !important;
+        }
+    }
+ }

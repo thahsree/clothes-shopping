@@ -1,13 +1,16 @@
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import MenuIcon from '@mui/icons-material/Menu';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import Drawer from '@mui/material/Drawer';
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { beautyOptions, kidsOptions, menOptions, womenOptions } from '../../Data/options';
 import { authContext } from '../../context/AuthContext';
 import { dataContext } from '../../context/DataContext';
 import NavOptions from '../NavOptions/NavOptions';
+import ResponsiveNav from '../ResponsiveNav/ResponsiveNav';
 import ToLogin from '../toLogin/ToLogin';
 import ToLogout from '../toLogout/ToLogout';
 import './navbar.css';
@@ -17,15 +20,12 @@ function Navbar(props) {
     const { user, dispatch } = useContext(authContext)
     const navigate = useNavigate()
 
-    const userID = user?.details._id
-
-    // http://localhost:4000/users/${userID}
-
-
-
     const { userData, dispatch: dataDispatch } = useContext(dataContext)
 
-
+    const [open, setOpen] = useState(false);
+    const toggleDrawer = (newOpen) => () => {
+        setOpen(newOpen);
+    };
     const [cartValue, setCartValue] = useState(0);
     const [wishlistValue, setWishlistValue] = useState(0);
 
@@ -70,9 +70,17 @@ function Navbar(props) {
 
     return (
         <div className='navbar'>
-            <Link className="logo" to='/'>
-                <h1>Fashion Galleria</h1>
-            </Link>
+            <div className="LOGO-Section">
+                <div className="ham">
+                    <MenuIcon className='icon' onClick={toggleDrawer(true)} />
+                    <Drawer open={open} onClose={toggleDrawer(false)}>
+                        <ResponsiveNav setOpen={setOpen}/>
+                    </Drawer>
+                </div>
+                <Link className="logo" to='/'>
+                    <h1>Fashion Galleria</h1>
+                </Link>
+            </div>
             <div className="navs">
                 <ul>
                     <li className={activeItem === 'men' ? 'men' : ''} onMouseEnter={() => handleActive('men')} onMouseLeave={() => handleActive('')}>Men</li>
@@ -130,7 +138,7 @@ function Navbar(props) {
                     </div>
                     <Link className='listItems' to='/cart' style={{
                         textDecoration: 'none',
-                        color:"#000"
+                        color: "#000"
                     }}>
                         <ShoppingCartOutlinedIcon className='icon' />
                         {

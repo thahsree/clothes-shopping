@@ -1,0 +1,60 @@
+.resNav {
+    display: flex;
+    flex-direction: column;
+    width: 70vw;
+
+    .top {
+        display: flex;
+        justify-content: space-between;
+
+    }
+
+    .middle {
+
+        display: flex;
+        flex-direction: column;
+
+
+        .category {
+            display: flex;
+            flex-direction: column;
+            
+
+            .heading {
+                padding: 10px;
+                background-color: aliceblue;
+                font-weight: 700;
+                cursor: pointer;
+            }
+
+            .heading:hover {
+                background-color: gray;
+            }
+
+            .catogorylist {
+                display: flex;
+                flex-direction: column;
+          
+
+                .item {
+                    font-size: 15px;
+                    font-weight: 500;
+                    color: rgba(130, 127, 127, 0.697);
+                    
+                    cursor: pointer;
+                }
+                .item:hover{
+                    color: gray;
+                    
+                }
+            }
+        }
+    }
+
+
+}
+
+.icon {
+    cursor: pointer;
+    margin: 10px;
+}
