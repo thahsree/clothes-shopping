@@ -49,3 +49,30 @@
         }
     }
 }
+@media screen and (max-width: 1080px) {
+    .Corousel{
+       
+
+        .top{
+            width: 100%;
+            height: max-content;
+
+            img{
+                width: 150px;
+                object-fit: cover;
+            }
+        }
+        .bottom{
+            gap: 1px;
+        }
+        .type{
+            font-size: 15px !important;
+        }
+        .desc{
+            font-size: 10px !important;
+        }
+        .offer{
+            font-size: 15px !important;
+        }
+    }
+ }

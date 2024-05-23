@@ -1,11 +1,18 @@
 import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { beautyOptions, kidsOptions, menOptions, womenOptions } from '../../Data/options';
 import './responsiveNav.css';
 
 function ResponsiveNav({ setOpen }) {
 
     const [activeItem, setActiveItem] = useState('');
+    const navigate = useNavigate()
+
+    const handleProductListing = (catogory,data) => {
+        navigate('/products', { state: { catogory,data } });
+        setOpen(false)
+    };
 
     return (
         <div className='resNav'>
@@ -19,7 +26,7 @@ function ResponsiveNav({ setOpen }) {
                     <div className="catogorylist">
                         {
                             activeItem==='Men' && menOptions.map((data,i)=>(
-                                <p className='item' key={i}>{data.heading}</p>
+                                <p className='item' key={i} onClick={()=> handleProductListing("Men",data.heading)}>{data.heading}</p>
                             ))
                         }
                     </div>
@@ -29,7 +36,7 @@ function ResponsiveNav({ setOpen }) {
                     <div className="catogorylist">
                         {
                             activeItem==='Women' && womenOptions.map((data,i)=>(
-                                <p className='item' key={i}>{data.heading}</p>
+                                <p className='item' key={i} onClick={()=> handleProductListing("Women",data.heading)}>{data.heading}</p>
                             ))
                         }
                     </div>
@@ -39,7 +46,7 @@ function ResponsiveNav({ setOpen }) {
                     <div className="catogorylist">
                         {
                             activeItem==='Kids' && kidsOptions.map((data,i)=>(
-                                <p className='item' key={i}>{data.heading}</p>
+                                <p className='item' key={i} onClick={()=> handleProductListing("Kids",data.heading)}>{data.heading}</p>
                             ))
                         }
                     </div>
@@ -49,7 +56,7 @@ function ResponsiveNav({ setOpen }) {
                     <div className="catogorylist">
                         {
                             activeItem==='Beauty' && beautyOptions.map((data,i)=>(
-                                <p className='item' key={i}>{data.heading}</p>
+                                <p className='item' key={i} onClick={()=> handleProductListing("Beauty",data.heading)}>{data.heading}</p>
                             ))
                         }
                     </div>
