@@ -36,7 +36,8 @@
                 font-weight: 700
             }
         }
-        .sort{
+
+        .sort {
             width: 250px;
             display: flex;
             flex-direction: column;
@@ -48,27 +49,29 @@
             font-size: 15px;
             font-weight: 300;
 
-            p{
+            p {
                 text-wrap: nowrap;
             }
 
-            .customSelect{
+            .customSelect {
                 gap: 10px;
                 width: 100%;
                 display: flex;
                 justify-content: space-between;
 
-                .selectedOptions{
+                .selectedOptions {
                     font-weight: 600;
                 }
-                .icon{
-                    
+
+                .icon {
+
                     color: rgba(128, 128, 128, 0.692);
-                    
+
                 }
-                
+
             }
-            .options{
+
+            .options {
                 background-color: white;
                 z-index: 1000;
                 width: 249px;
@@ -82,21 +85,23 @@
                 top: 45px;
                 left: 0px;
 
-                .option{
+                .option {
                     text-align: left;
-                    
+
                     width: 100%;
                     padding: 10px 15px;
                 }
-                .option:hover{
+
+                .option:hover {
                     background-color: rgba(226, 225, 225, 0.805);
                 }
-                .selected{
+
+                .selected {
                     background-color: rgba(226, 225, 225, 0.805);
                     font-weight: 600;
                 }
             }
-            
+
 
         }
     }
@@ -116,5 +121,77 @@
             width: 83vw;
             padding: 10px;
         }
+    }
+}
+
+@media screen and (max-width: 1080px) {
+
+    .sort {
+        padding: 5px 7px !important;
+        width: 150px !important;
+        display: flex;
+        align-items: center !important;
+        justify-content: center !important;
+        flex-direction: column;
+        gap: 5px !important;
+        border: 1px solid rgba(211, 211, 211, 0.863);
+        cursor: pointer;
+        position: relative;
+        font-size: 10px !important;
+        font-weight: 300;
+
+
+        p {
+            text-wrap: nowrap;
+        }
+
+        .customSelect {
+            gap: 10px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+
+            .selectedOptions {
+                font-weight: 600;
+            }
+
+            .icon {
+
+                color: rgba(128, 128, 128, 0.692);
+
+            }
+
+        }
+
+        .options {
+            z-index: 1000;
+            width: max-content !important;
+            position: absolute;
+            border: 1px solid rgba(211, 211, 211, 0.863);
+            flex-direction: column;
+            justify-content: center;
+            border-top: none;
+            align-items: center;
+
+            top: 40px !important;
+            left: 0px;
+
+            .option {
+                text-align: left;
+
+                width: 100%;
+                padding: 10px 15px;
+            }
+
+            .option:hover {
+                background-color: rgba(226, 225, 225, 0.805);
+            }
+
+            .selected {
+                background-color: rgba(226, 225, 225, 0.805);
+                font-weight: 600;
+            }
+        }
+
     }
 }

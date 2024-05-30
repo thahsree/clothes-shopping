@@ -1,3 +1,4 @@
+import Skeleton from 'react-loading-skeleton';
 import { useLocation } from 'react-router-dom';
 import Crumps from '../../components/Crumps/Crumps';
 import ItemImage from '../../components/ItemImages/ItemImage';
@@ -18,6 +19,7 @@ function Single(props) {
     const category = location?.state?.catogory?.toUpperCase()
     return (
         <div>
+          
             <div className="single">
                 <div className="crumbs">
                 <Crumps category={category} data={location?.state?.data} subData={location?.state?.subData} id={location?.state?.id}/>
@@ -26,7 +28,7 @@ function Single(props) {
                     <section className="itemImages">
                         {
                             data?.images &&
-                            <ItemImage images = {data?.images}/>
+                            <ItemImage images = {data?.images}/> || <Skeleton/>
                         }
                     </section>
                     <section className="itemDesc">

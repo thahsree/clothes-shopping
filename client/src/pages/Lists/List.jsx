@@ -55,7 +55,7 @@ function List(props) {
 
     const category = location.state?.catogory?.toUpperCase()
     return (
-        <div>
+ 
             <div className="lists">
                 <div className="breadCrumbs">
                     <Crumps category={category} data={location?.state?.data} subData={location?.state?.subData}/>
@@ -99,7 +99,7 @@ function List(props) {
                     </section>
                 </div>
             </div>
-        </div>
+        
     );
 }
 
