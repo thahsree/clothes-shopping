@@ -19,15 +19,17 @@ function Collections(props) {
     const fetchItems = async () => {
         try {
             dispatch({ type: 'LOADING' });
-            setTimeout(async () => {
-               
-                const response = await axios.get('/items');
-                setData(response.data);
-                dispatch({ type: 'SUCCESS' });
-                
-            }, 3000)
-   
-            
+
+            const response = await axios.get('/items');
+            setData(response.data);
+            dispatch({ type: 'SUCCESS' });
+            // setTimeout(async () => {
+
+
+
+            // }, 3000)
+
+
         } catch (error) {
             console.log(error);
             dispatch({ type: 'ERROR', payload: error.message });
@@ -48,7 +50,7 @@ function Collections(props) {
                 {data?.map((item, i) => (
                     <Grid item xs={2.4} key={i}>
                         {loading ? (
-                            <SkeletonLoading type='cards'/>
+                            <SkeletonLoading type='cards' />
                         ) : (
                             <div className="displayItem" onClick={() => handleViewItem(item._id)}>
                                 <div className="image">
