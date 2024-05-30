@@ -11,6 +11,7 @@ import {
 } from "react-router-dom";
 import { authContext, AuthContextProvider } from './context/AuthContext';
 import { DataContextProvider } from './context/DataContext';
+import { LoadingContextProvider } from './context/LoadingContext';
 import CartPage from './pages/Cart/CartPage';
 import ErrorPage from './pages/ErrorPage';
 import List from './pages/Lists/List';
@@ -76,11 +77,11 @@ const router = createBrowserRouter([
     path: '/cart',
     element: <ProtectedRoute />,
     errorElement: <ErrorPage />,
-    children:[
+    children: [
       {
-        path:'',
-        element:<CartPage/>,
-        errorElement:<ErrorPage/>
+        path: '',
+        element: <CartPage />,
+        errorElement: <ErrorPage />
       }
     ]
   }
@@ -93,7 +94,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <AuthContextProvider>
       <SnackbarProvider>
         <DataContextProvider>
-          <RouterProvider router={router} />
+          <LoadingContextProvider>
+            <RouterProvider router={router} />
+          </LoadingContextProvider>
         </DataContextProvider>
       </SnackbarProvider>
     </AuthContextProvider>

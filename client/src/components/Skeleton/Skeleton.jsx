@@ -3,10 +3,10 @@ import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import './skeleton.css';
 
-function SkeletonLoading(props) {
+function SkeletonLoading({type}) {
     return (
-        <div className=''>
-            <Skeleton  className='skeleton'/>
+        <div className={type+'Main'}>
+            <Skeleton  className={type}/>
         </div>
     );
 }

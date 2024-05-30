@@ -1,3 +1,14 @@
-.skeleton{
+.cards{
     height: 250px;
+}
+.sideFilterMain{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.sideFilter{
+
+    margin-top: 10px;
+    height: 500px;
+    width: 220px;
 }

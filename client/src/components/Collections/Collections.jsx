@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from '../../axios/axios';
 import { authContext } from '../../context/AuthContext';
+import { loadingContext } from '../../context/LoadingContext';
 import SkeletonLoading from '../Skeleton/Skeleton';
 import './collections.css';
 
@@ -11,18 +12,25 @@ function Collections(props) {
     const [data, setData] = useState(Array(15).fill({})); // Simulate 8 items for skeleton loading
     const location = useLocation();
     const navigate = useNavigate();
-    const [isLoading, setIsLoading] = useState(false);
+
     const { user } = useContext(authContext);
+    const { loading, dispatch } = useContext(loadingContext)
 
     const fetchItems = async () => {
         try {
-            setIsLoading(true);
-            const response = await axios.get('/items');
+            dispatch({ type: 'LOADING' });
+            setTimeout(async () => {
+               
+                const response = await axios.get('/items');
                 setData(response.data);
-                setIsLoading(false);
+                dispatch({ type: 'SUCCESS' });
+                
+            }, 3000)
+   
+            
         } catch (error) {
             console.log(error);
-            setIsLoading(false);
+            dispatch({ type: 'ERROR', payload: error.message });
         }
     };
 
@@ -39,31 +47,31 @@ function Collections(props) {
             <Grid container spacing={5} style={{ width: '80vw' }} justifyContent="space-evenly">
                 {data?.map((item, i) => (
                     <Grid item xs={2.4} key={i}>
-                        {isLoading ? (
-                            <SkeletonLoading />
+                        {loading ? (
+                            <SkeletonLoading type='cards'/>
                         ) : (
                             <div className="displayItem" onClick={() => handleViewItem(item._id)}>
                                 <div className="image">
                                     {item.images && item.images[0] ? (
                                         <img src={item.images[0]} alt="" />
                                     ) : (
-                                        <SkeletonLoading /> // or a placeholder image if you prefer
+                                        ''// or a placeholder image if you prefer
                                     )}
                                 </div>
                                 <div className="details">
                                     <h3>{item.brandName}</h3>
                                     <p>{item.name}</p>
                                     <div className="pay">
-                                        {item.offerPrice ? (
+                                        {item?.offerPrice ? (
                                             <>
-                                                <p className="price">₹{item.offerPrice}</p>
+                                                <p className="price">₹{item?.offerPrice}</p>
                                                 <strike>{item.price}</strike>
                                                 <p className="offer">
                                                     {((item.price - item.offerPrice) / item.price * 100).toFixed(0)}% OFF
                                                 </p>
                                             </>
                                         ) : (
-                                            <p className="price">₹{item.price}</p>
+                                            <p className="price">{item?.price}</p>
                                         )}
                                     </div>
                                 </div>
