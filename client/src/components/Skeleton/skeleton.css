@@ -12,3 +12,13 @@
     height: 500px;
     width: 220px;
 }
+.singlePageImageMain{
+    padding-left: 20px;
+    display: inline-block;
+    margin: 10px;
+}
+.singlePageImage{
+    width: 300px;
+    height: 300px !important;
+
+}

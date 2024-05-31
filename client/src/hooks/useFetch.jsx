@@ -35,7 +35,6 @@ function useFetch(url) {
     }
 
     useEffect(()=>{
-        
         fetchData()
     },[])
 
