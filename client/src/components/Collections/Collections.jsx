@@ -46,7 +46,7 @@ function Collections(props) {
 
     return (
         <div className='collectionsMain'>
-            <Grid container spacing={5} style={{ width: '80vw' }} justifyContent="space-evenly">
+            <Grid container spacing={2} style={{ width: '80vw' }} justifyContent="space-evenly">
                 {data?.map((item, i) => (
                     <Grid item xs={2.4} key={i}>
                         {loading ? (
@@ -73,7 +73,7 @@ function Collections(props) {
                                                 </p>
                                             </>
                                         ) : (
-                                            <p className="price">{item?.price}</p>
+                                            <p className="price">₹{item?.price}</p>
                                         )}
                                     </div>
                                 </div>

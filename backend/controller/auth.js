@@ -38,10 +38,9 @@ const register = async (req, res) => {
 
 const login = async(req,res)=>{
 
-    console.log(">>>>REACHED LOGIN");
-
     try {
         const {username} = req.body
+        
         const foundUser = await User.findOne({username})
 
         if(!foundUser){

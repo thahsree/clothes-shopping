@@ -2,6 +2,7 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'universal-cookie';
 import './addform.css';
 
 function AddForm(props) {
@@ -122,8 +123,17 @@ function AddForm(props) {
 
             }
 
+            const cookies = new Cookies()
+
+            const user = cookies.get('accessToken')
+            
+            console.log('====================================');
+            console.log(JSON.stringify(user));
+            console.log('====================================');
             await axios.post('http://localhost:4000/items', newDetails, {
-                withCredentials: true
+                headers: {
+                    Authorization: user?`Bearer ${user}` : ''
+                }
             })
 
             navigate('/products')

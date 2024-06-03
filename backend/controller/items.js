@@ -32,7 +32,7 @@ const getItems = async(req,res)=>{
 const createItem = async(req,res)=>{
 
     try {
-        
+
         const data = req.body
         const newProduct = await Products.create(data);
 

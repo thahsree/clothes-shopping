@@ -29,8 +29,7 @@ function Navbar(props) {
     const [cartValue, setCartValue] = useState(0);
     const [wishlistValue, setWishlistValue] = useState(0);
 
-    const cartvalueToDisplay = cartValue > 0 && cartValue <= 9 ? cartValue :
-        cartValue > 9 ? '9+' : null
+    const cartvalueToDisplay = cartValue 
 
     const location = useLocation()
 
@@ -60,13 +59,8 @@ function Navbar(props) {
     }
 
     const handleLogin = () => {
-
-
         navigate('/login')
-        console.log(user);
     }
-
-    useEffect(() => { console.log(cartvalueToDisplay); }, [])
 
     return (
         <div className='navbar'>

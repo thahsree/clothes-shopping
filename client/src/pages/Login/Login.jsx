@@ -33,7 +33,6 @@ function Login(props) {
 
         try {
             const response = await axios.post('/auth/login', loginData);
-            console.log('Login response:', response.data);
 
             enqueueSnackbar("LOGGED IN SUCCESSFULLY", { variant: 'success' })
             dispatch({ type: "LOGIN_SUCCESS", payload: response.data });

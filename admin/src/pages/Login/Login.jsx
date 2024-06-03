@@ -44,6 +44,8 @@ function Login(props) {
                 dispatch({ type: "LOGIN_SUCCESS", payload: response.data });
                 cookies.set('accessToken', response.data.accessToken);
                 navigate('/');
+            }else{
+                alert('PLEASE ENTER ADMIN ADDRESS')
             }
         } catch (error) {
             console.log(error);
