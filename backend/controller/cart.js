@@ -7,9 +7,8 @@ const User = require('../Model/userModel');
 const addToCart = async(req,res)=>{
 
     try {
-        console.log('>>>>REACHED ADD TO CART');
+
         const { id ,size, count} = req.query
-        console.log(count);
 
         const username = req.username  // jwt assigned this username check verifyJWT.js for more..
 
@@ -34,10 +33,6 @@ const addToCart = async(req,res)=>{
 
         const isItemInCart = foundUser?.cart?.findIndex(item =>  item?.productID ===foundProduct?._id.toString())
         
-        
-        console.log('====================================');
-        console.log(isItemInCart);
-        console.log('====================================');
         
 
         if(isItemInCart >-1){
@@ -73,29 +68,21 @@ const addToCart = async(req,res)=>{
 
 const getCartItems = async(req,res)=>{
 
-
-    console.log('====================================');
-    console.log("Reached Cart");
-    console.log('====================================');
     try {
         const username = req.username
 
         console.log(username);
 
-        const foundUser =await User.findOne({username:username})
-
-        console.log(foundUser);
-       
+        const foundUser =await User.findOne({username:username})       
 
         if(!foundUser){
             return res.sendStatus(410) //valid auth but token expire
         }
 
-        
 
         res.status(200).json(foundUser.cart)
     } catch (error) {
-        
+        console.log(error);
     }
 }
 module.exports = {addToCart , getCartItems}
