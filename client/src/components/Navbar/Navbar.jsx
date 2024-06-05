@@ -136,7 +136,7 @@ function Navbar(props) {
                     }}>
                         <ShoppingCartOutlinedIcon className='icon' />
                         {
-                            cartvalueToDisplay &&
+                            cartvalueToDisplay>0 &&
                             <div className="count">{cartvalueToDisplay}</div>
                         }
 

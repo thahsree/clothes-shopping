@@ -5,7 +5,7 @@ const Schema = mongoose.Schema
 const itemSchema = new Schema({
     productID: String,
     size: String,
-    nos: String
+    nos: Number
 }, { timestamps: true });
 
 const UserSchema = new Schema({

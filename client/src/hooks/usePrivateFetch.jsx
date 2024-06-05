@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { authContext } from "../context/AuthContext";
 import { dataContext } from "../context/DataContext";
 
@@ -30,17 +30,12 @@ function usePrivateFetch(url) {
     async function fetchData(){
 
         setLoading(true)
-        dispatch({type:'FETCH_START'})
         try {
             const response = await axios.get(BASE_URL+url,{
                 headers: {
                     Authorization: user?`Bearer ${user?.accessToken}` : ''
                 }
             })
-
-            dispatch({type:'FETCH_SUCCESS', payload:response.data})
-
-            
             setData(response.data)
         } catch (error) {
             
@@ -75,7 +70,9 @@ function usePrivateFetch(url) {
         setLoading(false);
     }
 
-   
+   useEffect(()=>{
+    fetchData()
+   },[])
 
     return { data , err , loading , reFetch , fetchData}
 }

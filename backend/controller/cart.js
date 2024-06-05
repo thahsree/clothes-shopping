@@ -29,14 +29,34 @@ const addToCart = async(req,res)=>{
         if(productStock <=0){   // checking product stock 
             return res.sendStatus(410)
         }
-        
-        const updatedCart = {
-            productID:foundProduct._id,
-            size:size,
-            nos:count
-        }
 
-        foundUser.cart.push(updatedCart)
+        //checking item already there
+
+        const isItemInCart = foundUser?.cart?.findIndex(item =>  item?.productID ===foundProduct?._id.toString())
+        
+        
+        console.log('====================================');
+        console.log(isItemInCart);
+        console.log('====================================');
+        
+
+        if(isItemInCart >-1){
+
+            foundUser.cart[isItemInCart].nos += parseInt(count)
+            
+        }else{
+
+            const updatedCart = {
+                productID:foundProduct._id,
+                size:size,
+                nos:count
+            }
+            foundUser.cart.push(updatedCart)
+        }
+        
+       
+
+        
 
         await foundUser.save();  // to update cart schema of user
 
@@ -53,6 +73,10 @@ const addToCart = async(req,res)=>{
 
 const getCartItems = async(req,res)=>{
 
+
+    console.log('====================================');
+    console.log("Reached Cart");
+    console.log('====================================');
     try {
         const username = req.username
 
@@ -66,6 +90,8 @@ const getCartItems = async(req,res)=>{
         if(!foundUser){
             return res.sendStatus(410) //valid auth but token expire
         }
+
+        
 
         res.status(200).json(foundUser.cart)
     } catch (error) {

@@ -1,8 +1,56 @@
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import CartNav from '../../components/CartNav/CartNav';
+import usePrivateFetch from '../../hooks/usePrivateFetch';
 import './CartPage.css';
 
 function CartPage(props) {
+
+
+    const { data, loading, err } = usePrivateFetch('/cart')
+
+    const [cartItems, setCartItems] = useState([])
+
+    const [fetchedProduct, setFetchedProduct] = useState([])
+
+
+    const BASE_URL = import.meta.env.VITE_BASE_URL
+
+    const fetchCartItems = async () => {
+
+        try {
+            const items = await Promise.all(data.map(async (item) => {
+                const response = await axios.get(BASE_URL + `/items/${item.productID}`)
+                return { ...item, product: response.data } // for getting user cart-items, qty, images
+            }))
+            setCartItems(items)
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    useEffect(() => {
+        if (data.length) {
+            fetchCartItems()
+        }
+    }, [data])
+    
+    const totalMRP = cartItems.reduce((total, item) => total + item?.product?.price, 0);
+    const discountedMRP = cartItems.reduce((total, item) => total + item?.product?.offerPrice, 0);
+
+    useEffect(() => {
+
+        console.log('====================================');
+        console.log(cartItems);
+        console.log('====================================');
+    }, [cartItems])
+
+   useEffect(()=>{
+
+    console.log(totalMRP);
+   },[])
+
+
     return (
         <div className='cart'>
             <CartNav />
@@ -17,234 +65,69 @@ function CartPage(props) {
                         </div>
                         <button className="changeAddress">Change Address</button>
                     </div>
-                    <div className="cartItems">
-                        <div className="item">
-                            <CloseRoundedIcon className='icon'/>
-                            <img src="https://www.snitch.co.in/cdn/shop/files/4MSS1918-02-M8208.jpg?v=1685454418" alt="" />
+                    {
+                        cartItems?.map((item, i) => (
+                            <div className="cartItems" key={i}>
+                                <div className="item">
+                                    <CloseRoundedIcon className='icon' />
+                                    <img src={item?.product?.images[1]} alt="" />
 
-                            <div className="details">
-                                <div className="top">
-                                    <h3>SNITCH</h3>
-                                    <p className='productName'>LEON WHITE EMBROIDERY SHIRT</p>
-                                    <p className='soldBy'>Sold by: Snitch Store</p>
-                                </div>
-                                <div className="middle">
-                                    <div className="size">
-                                        <p>Size:</p>
-                                        <select name="size" id="">
-                                            <option value="S">S</option>
-                                            <option value="M">M</option>
-                                            <option value="L">L</option>
-                                            <option value="XL">XL</option>
-                                            <option value="XXL">XXL</option>
-                                        </select>
+                                    <div className="details">
+                                        <div className="top">
+                                            <h3>{item?.product?.brandName}</h3>
+                                            <p className='productName'>{item?.product?.name}</p>
+                                            <p className='soldBy'>Sold by: {item?.product?.brandName} Store</p>
+                                        </div>
+                                        <div className="middle">
+                                            <div className="size">
+                                                <p>Size:</p>
+                                                <select name="size" id="">
+                                                    <option value="S">S</option>
+                                                    <option value="M">M</option>
+                                                    <option value="L">L</option>
+                                                    <option value="XL">XL</option>
+                                                    <option value="XXL">XXL</option>
+                                                </select>
+                                            </div>
+                                            <div className="qty">
+                                                <p>Qty:</p>
+                                                <select name="qty" id="">
+                                                    <option value="">1</option>
+                                                    <option value="">2</option>
+                                                    <option value="">3</option>
+                                                    <option value="">4</option>
+                                                    <option value="">5</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        {
+                                            item?.product?.offerPrice ?
+                                            <div className="bottom">
+                                                <p>₹{item?.product?.offerPrice}</p><strike>{item?.product?.price}</strike>
+                                                <p className="off">{((item?.product?.price - item.product?.offerPrice) / item?.product?.price * 100).toFixed(0)}% OFF</p>
+                                            </div>
+                                            :
+                                            <div className="bottom">
+                                                <p>₹{item?.product?.price}</p>
+                                            </div>
+                                        }
                                     </div>
-                                    <div className="qty">
-                                        <p>Qty:</p>
-                                        <select name="qty" id="">
-                                            <option value="">1</option>
-                                            <option value="">2</option>
-                                            <option value="">3</option>
-                                            <option value="">4</option>
-                                            <option value="">5</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div className="bottom">
-                                    <p>₹899</p><strike>1999</strike>
-                                    <p className="off">62% off</p>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                        ))
+                    }
 
-                    <div className="cartItems">
-                        <div className="item">
-                            <CloseRoundedIcon className='icon'/>
-                            <img src="https://www.snitch.co.in/cdn/shop/files/4MSS1918-02-M8208.jpg?v=1685454418" alt="" />
-
-                            <div className="details">
-                                <div className="top">
-                                    <h3>SNITCH</h3>
-                                    <p className='productName'>LEON WHITE EMBROIDERY SHIRT</p>
-                                    <p className='soldBy'>Sold by: Snitch Store</p>
-                                </div>
-                                <div className="middle">
-                                    <div className="size">
-                                        <p>Size:</p>
-                                        <select name="size" id="">
-                                            <option value="S">S</option>
-                                            <option value="M">M</option>
-                                            <option value="L">L</option>
-                                            <option value="XL">XL</option>
-                                            <option value="XXL">XXL</option>
-                                        </select>
-                                    </div>
-                                    <div className="qty">
-                                        <p>Qty:</p>
-                                        <select name="qty" id="">
-                                            <option value="">1</option>
-                                            <option value="">2</option>
-                                            <option value="">3</option>
-                                            <option value="">4</option>
-                                            <option value="">5</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div className="bottom">
-                                    <p>₹899</p><strike>1999</strike>
-                                    <p className="off">62% off</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        
-                        
-                    </div>
-
-                    <div className="cartItems">
-                        <div className="item">
-                            <CloseRoundedIcon className='icon'/>
-                            <img src="https://www.snitch.co.in/cdn/shop/files/4MSS1918-02-M8208.jpg?v=1685454418" alt="" />
-
-                            <div className="details">
-                                <div className="top">
-                                    <h3>SNITCH</h3>
-                                    <p className='productName'>LEON WHITE EMBROIDERY SHIRT</p>
-                                    <p className='soldBy'>Sold by: Snitch Store</p>
-                                </div>
-                                <div className="middle">
-                                    <div className="size">
-                                        <p>Size:</p>
-                                        <select name="size" id="">
-                                            <option value="S">S</option>
-                                            <option value="M">M</option>
-                                            <option value="L">L</option>
-                                            <option value="XL">XL</option>
-                                            <option value="XXL">XXL</option>
-                                        </select>
-                                    </div>
-                                    <div className="qty">
-                                        <p>Qty:</p>
-                                        <select name="qty" id="">
-                                            <option value="">1</option>
-                                            <option value="">2</option>
-                                            <option value="">3</option>
-                                            <option value="">4</option>
-                                            <option value="">5</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div className="bottom">
-                                    <p>₹899</p><strike>1999</strike>
-                                    <p className="off">62% off</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        
-                        
-                    </div>
-
-                    <div className="cartItems">
-                        <div className="item">
-                            <CloseRoundedIcon className='icon'/>
-                            <img src="https://www.snitch.co.in/cdn/shop/files/4MSS1918-02-M8208.jpg?v=1685454418" alt="" />
-
-                            <div className="details">
-                                <div className="top">
-                                    <h3>SNITCH</h3>
-                                    <p className='productName'>LEON WHITE EMBROIDERY SHIRT</p>
-                                    <p className='soldBy'>Sold by: Snitch Store</p>
-                                </div>
-                                <div className="middle">
-                                    <div className="size">
-                                        <p>Size:</p>
-                                        <select name="size" id="">
-                                            <option value="S">S</option>
-                                            <option value="M">M</option>
-                                            <option value="L">L</option>
-                                            <option value="XL">XL</option>
-                                            <option value="XXL">XXL</option>
-                                        </select>
-                                    </div>
-                                    <div className="qty">
-                                        <p>Qty:</p>
-                                        <select name="qty" id="">
-                                            <option value="">1</option>
-                                            <option value="">2</option>
-                                            <option value="">3</option>
-                                            <option value="">4</option>
-                                            <option value="">5</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div className="bottom">
-                                    <p>₹899</p><strike>1999</strike>
-                                    <p className="off">62% off</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        
-                        
-                    </div>
-
-                    <div className="cartItems">
-                        <div className="item">
-                            <CloseRoundedIcon className='icon'/>
-                            <img src="https://www.snitch.co.in/cdn/shop/files/4MSS1918-02-M8208.jpg?v=1685454418" alt="" />
-
-                            <div className="details">
-                                <div className="top">
-                                    <h3>SNITCH</h3>
-                                    <p className='productName'>LEON WHITE EMBROIDERY SHIRT</p>
-                                    <p className='soldBy'>Sold by: Snitch Store</p>
-                                </div>
-                                <div className="middle">
-                                    <div className="size">
-                                        <p>Size:</p>
-                                        <select name="size" id="">
-                                            <option value="S">S</option>
-                                            <option value="M">M</option>
-                                            <option value="L">L</option>
-                                            <option value="XL">XL</option>
-                                            <option value="XXL">XXL</option>
-                                        </select>
-                                    </div>
-                                    <div className="qty">
-                                        <p>Qty:</p>
-                                        <select name="qty" id="">
-                                            <option value="">1</option>
-                                            <option value="">2</option>
-                                            <option value="">3</option>
-                                            <option value="">4</option>
-                                            <option value="">5</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div className="bottom">
-                                    <p>₹899</p><strike>1999</strike>
-                                    <p className="off">62% off</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        
-                        
-                    </div>
-                    
                 </div>
                 <div className="contentRight">
                     <div className="priceDetails">
                         <p className="heading">PRICE DETAILS <span className="count">(1 Item)</span></p>
                         <div className="billInput">
                             <p className="field">Total MRP</p>
-                            <p className="price">₹1999</p>
+                            <p className="price">₹{totalMRP}</p>
                         </div>
                         <div className="billInput">
                             <p className="field ">Discount on MRP</p>
-                            <p className="price discount">-₹1100</p>
+                            <p className="price discount">-{discountedMRP}</p>
                         </div>
                         <div className="billInput">
                             <p className="field ">Platform Fee</p>
