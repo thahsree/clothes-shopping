@@ -80,7 +80,7 @@ function CartContent({cartItems}) {
                     </div>
                     <div className="billInput">
                         <p className="field ">Discount on MRP</p>
-                        <p className="price discount">-{discountedMRP}</p>
+                        <p className="price discount">-{totalMRP - discountedMRP }</p>
                     </div>
                     <div className="billInput">
                         <p className="field ">Platform Fee</p>
@@ -94,7 +94,7 @@ function CartContent({cartItems}) {
                 </div>
                 <div className="billAmount">
                     <p >Total Amount</p>
-                    <p>₹{totalMRP - discountedMRP + 20}</p>
+                    <p>₹{ discountedMRP + 20}</p>
                 </div>
                 <button className='placeOrder'>PLACE ORDER</button>
             </div>
