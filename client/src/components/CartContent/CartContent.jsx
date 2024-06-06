@@ -1,23 +1,57 @@
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import { useContext, useEffect, useState } from 'react';
+import { dataContext } from '../../context/DataContext';
+import AddAddressInput from '../AddAddressInput/AddAddressInput';
 import './cartContent.css';
 
 
-function CartContent({cartItems}) {
+function CartContent({ cartItems }) {
 
 
+    const { userData } = useContext(dataContext)
     const totalMRP = cartItems.reduce((total, item) => total + item?.product?.price, 0);
     const discountedMRP = cartItems.reduce((total, item) => total + item?.product?.offerPrice, 0);
-    return (
-        <div className="cartContent">
-            <div className="contentLeft">
-                <div className="address">
-                    <div className="addressDetails">
-                        <p className='userDetails'>Deliver to : <span>Thashreef, 670561</span></p>
-                        <p className="location">Kannur , Pappinissery</p>
 
+    const [showAddressInput, setShowAddressInput] = useState(false);
+
+
+    useEffect(() => {
+        console.log('====================================');
+        console.log(userData);
+        console.log('====================================');
+    }, [])
+
+    return (
+        <div className={`cartContent ${showAddressInput ? `blur`: ''}`}>
+            {
+                showAddressInput && (
+                    <div className='addressInputMain' >
+                        <AddAddressInput setShowAddressInput={setShowAddressInput}/>
                     </div>
-                    <button className="changeAddress">Change Address</button>
-                </div>
+                )
+            }
+            <div className="contentLeft">
+
+                {
+                    userData?.details?.address?.length > 0  || userData?.address?.length>0 ? (
+                        <div className="address">
+                            <div className="addressDetails">
+                                <p className='userDetails'>Deliver to : <span>{userData.address[0].name}, {userData.address[0].pincode}</span></p>
+                                <p className="location">{userData.address[0].city} , {userData.address[0].state}</p>
+
+                            </div>
+                            <button className="changeAddress">Change Address</button>
+                        </div>
+                    ) : (
+                        <div className="address">
+                            <div className="addressDetails check">
+                                check delivery time & services
+                            </div>
+                            <button className='changeAddress' onClick={() => setShowAddressInput(true)}>Add Address</button>
+                        </div>
+                    )
+
+                }
                 {
                     cartItems?.map((item, i) => (
                         <div className="cartItems" key={i}>
@@ -80,7 +114,7 @@ function CartContent({cartItems}) {
                     </div>
                     <div className="billInput">
                         <p className="field ">Discount on MRP</p>
-                        <p className="price discount">-{totalMRP - discountedMRP }</p>
+                        <p className="price discount">-{totalMRP - discountedMRP}</p>
                     </div>
                     <div className="billInput">
                         <p className="field ">Platform Fee</p>
@@ -94,7 +128,7 @@ function CartContent({cartItems}) {
                 </div>
                 <div className="billAmount">
                     <p >Total Amount</p>
-                    <p>₹{ discountedMRP + 20}</p>
+                    <p>₹{discountedMRP + 20}</p>
                 </div>
                 <button className='placeOrder'>PLACE ORDER</button>
             </div>

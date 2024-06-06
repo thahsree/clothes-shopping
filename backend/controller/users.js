@@ -33,5 +33,17 @@ const getUser = async(req,res)=>{
    }
 }
 
+const updateUser = async(req,res)=>{
 
-module.exports = {getUsers , getUser}
+   try {
+      
+      const updatedUser = await User.findByIdAndUpdate(req.params.id,{$set: req.body},{new:true})
+
+      res.status(200).json(updatedUser)
+   } catch (error) {
+      console.log(error);
+      return res.status(500).json({ error: 'Internal Server Error' });
+   }
+}
+
+module.exports = {getUsers , getUser , updateUser}

@@ -1,0 +1,72 @@
+.Main-Address{
+
+    color: rgb(81, 79, 79);
+
+    .top{
+        
+        display: flex;
+        justify-content: space-between;
+        padding: 20px;
+        border-bottom: 1px solid gray;
+        align-items: center;
+
+
+        h3{
+            font-size: 19px;
+            font-weight: 900;
+
+        }
+    }
+    .middle{
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        color: rgb(81, 79, 79);
+        font-size: 18px;
+
+        .input{
+            border: 1px solid rgba(128, 128, 128, 0.418);
+            padding: 10px;
+            border-radius: 5px;
+
+            input{
+                height: 100%;
+                width: 100%;
+                border: none;
+            }
+            
+            input:focus {
+                outline: none;
+            }
+        }
+        
+        .input .focus{
+            border: 1px solid black;
+        }
+        .stateanddistrict{
+            display: flex !important;
+            gap: 20px;
+
+            .input{
+                width: 40% !important;
+            }
+        }
+    }
+    .bottom{
+        margin-top: 20px;
+        border-top: 1px solid #33333343;
+        padding: 10px;
+
+        button{
+            width: 100%;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            background-color: #333;
+            color: white;
+            border-radius: 5px;
+        }
+    }
+}
+

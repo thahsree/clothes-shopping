@@ -8,6 +8,16 @@ const itemSchema = new Schema({
     nos: Number
 }, { timestamps: true });
 
+const addressSchema = new Schema({
+    name:String,
+    contactNumber:String,
+    address: String,
+    pincode: String,
+    state:String,
+    city:String, 
+    country:String
+}, { timestamps: true });
+
 const UserSchema = new Schema({
     username:{
         type:String,
@@ -44,7 +54,7 @@ const UserSchema = new Schema({
         type:String,
         
     },
-    address:[String]
+    address:[addressSchema]
 },{
     timestamps:true
 }

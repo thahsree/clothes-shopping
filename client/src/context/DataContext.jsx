@@ -1,7 +1,7 @@
 import { createContext, useEffect, useReducer } from "react";
 
 const INITIAL_STATE = {
-    userData:JSON.parse(localStorage.getItem('UserData'))|| null,
+    userData: JSON.parse(localStorage.getItem('UserData')) || null,
     loading: false,
     error: null
 }
@@ -26,16 +26,24 @@ const dataReducer = (state, action) => {
                 error: null
             }
         case 'FETCH_FAILED':
-            return{
-                userData:null,
-                loading:false,
-                error:action.payload
+            return {
+                userData: null,
+                loading: false,
+                error: action.payload
             }
         case 'CLEAR_DATA':
-            return{
-                userData:null,
-                loading:false,
-                error:null
+            return {
+                userData: null,
+                loading: false,
+                error: null
+            }
+        case 'ADD_ADDRESS':
+            return {
+                ...state,
+                userData: {
+                    ...state.userData,
+                    address: [ action.payload]
+                }
             }
         default:
             return state
@@ -43,19 +51,19 @@ const dataReducer = (state, action) => {
     }
 }
 
-export const DataContextProvider = ({children})=>{
+export const DataContextProvider = ({ children }) => {
 
-    const [state , dispatch] = useReducer(dataReducer,INITIAL_STATE)
+    const [state, dispatch] = useReducer(dataReducer, INITIAL_STATE)
 
-    useEffect(()=>{
+    useEffect(() => {
 
-        localStorage.setItem('UserData',JSON.stringify(state.userData))
-    
-       },[state.userData])
+        localStorage.setItem('UserData', JSON.stringify(state.userData))
 
-    return(
+    }, [state.userData])
 
-        <dataContext.Provider value={{userData:state.userData , loading:state.loading , error:state.error , dispatch}}>
+    return (
+
+        <dataContext.Provider value={{ userData: state.userData, loading: state.loading, error: state.error, dispatch }}>
             {children}
         </dataContext.Provider>
     )

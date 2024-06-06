@@ -71,8 +71,6 @@ const getCartItems = async(req,res)=>{
     try {
         const username = req.username
 
-        console.log(username);
-
         const foundUser =await User.findOne({username:username})       
 
         if(!foundUser){
