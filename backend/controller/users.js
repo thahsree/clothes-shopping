@@ -46,4 +46,28 @@ const updateUser = async(req,res)=>{
    }
 }
 
-module.exports = {getUsers , getUser , updateUser}
+const updateAddress = async(req,res)=>{
+
+   try {
+      
+      console.log("REACHED UPDATE ADDRESS");
+      const foundUser = await User.findById(req.params.id)
+
+      if(!foundUser){
+         return res.status(404).json({"Message":"User Not Found"})
+      }
+
+      console.log(req.body);
+      foundUser.address.push(req.body)
+
+      await foundUser.save()
+
+      res.sendStatus(200);
+
+   } catch (error) {
+      console.log(error);
+      return res.status(500).json({error:'Internal Server Error'})
+   }
+}
+
+module.exports = {getUsers , getUser , updateUser , updateAddress}

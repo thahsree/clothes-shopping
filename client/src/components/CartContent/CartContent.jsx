@@ -36,9 +36,8 @@ function CartContent({ cartItems }) {
                     userData?.details?.address?.length > 0  || userData?.address?.length>0 ? (
                         <div className="address">
                             <div className="addressDetails">
-                                <p className='userDetails'>Deliver to : <span>{userData.address[0].name}, {userData.address[0].pincode}</span></p>
-                                <p className="location">{userData.address[0].city} , {userData.address[0].state}</p>
-
+                                <p className='userDetails'>Deliver to : <span>{userData?.details?.address[0]?.name}, {userData?.details?.address[0]?.pincode  }</span></p>
+                                <p className="location">{userData?.details?.address[0]?.city } , {userData?.details?.address[0]?.state }</p>
                             </div>
                             <button className="changeAddress">Change Address</button>
                         </div>

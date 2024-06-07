@@ -2,8 +2,11 @@ import CloseIcon from '@mui/icons-material/Close';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
 import { useContext, useState } from 'react';
+import { authContext } from '../../context/AuthContext';
 import { dataContext } from '../../context/DataContext';
+import usePrivateFetch from '../../hooks/usePrivateFetch';
 import './addAddressInput.css';
+
 function AddAddressInput({ setShowAddressInput }) {
 
     const [validatedState , setValidatedState] = useState('')
@@ -21,8 +24,10 @@ function AddAddressInput({ setShowAddressInput }) {
     })
 
     const {userData , dispatch} = useContext(dataContext);
+    const {user} = useContext(authContext)
 
-
+    const userID = user?.details?._id
+    const {data , reFetch , setData} = usePrivateFetch(`/users/${userID}`)
 
     const handleAddAddress = (e)=>{
 
@@ -53,7 +58,9 @@ function AddAddressInput({ setShowAddressInput }) {
             }
     }
 
-    const handleSubmit = ()=>{
+    const BASE_URL = import.meta.env.VITE_BASE_URL
+
+    const handleSubmit = async()=>{
         
         if(
             !address.name ||
@@ -68,8 +75,17 @@ function AddAddressInput({ setShowAddressInput }) {
             return 
         }
 
-        console.log(address);
-        dispatch({type:'ADD_ADDRESS',payload:address})
+        const UserID = userData?.details?._id
+
+        console.log(user?.accessToken);
+        const response = await axios.post(BASE_URL+`/users/updateAddress/${UserID}`,address,{
+            headers: {
+                Authorization: `Bearer ${user?.accessToken}`
+            }
+        })
+        reFetch()
+
+        console.log(response);
         setShowAddressInput(false)
 
     }

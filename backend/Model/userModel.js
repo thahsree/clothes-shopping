@@ -11,12 +11,12 @@ const itemSchema = new Schema({
 const addressSchema = new Schema({
     name:String,
     contactNumber:String,
-    address: String,
+    houseName: String,
     pincode: String,
     state:String,
     city:String, 
     country:String
-}, { timestamps: true });
+});
 
 const UserSchema = new Schema({
     username:{
@@ -45,14 +45,6 @@ const UserSchema = new Schema({
     password:{
         type:String,
         required:true
-    },
-    city:{
-        type:String,
-       
-    },
-    country:{
-        type:String,
-        
     },
     address:[addressSchema]
 },{

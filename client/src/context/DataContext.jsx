@@ -37,14 +37,6 @@ const dataReducer = (state, action) => {
                 loading: false,
                 error: null
             }
-        case 'ADD_ADDRESS':
-            return {
-                ...state,
-                userData: {
-                    ...state.userData,
-                    address: [ action.payload]
-                }
-            }
         default:
             return state
 
