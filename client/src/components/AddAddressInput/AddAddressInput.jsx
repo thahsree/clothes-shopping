@@ -27,7 +27,7 @@ function AddAddressInput({ setShowAddressInput }) {
     const {user} = useContext(authContext)
 
     const userID = user?.details?._id
-    const {data , reFetch , setData} = usePrivateFetch(`/users/${userID}`)
+    const {data , reFetch } = usePrivateFetch(`/users/${userID}`)
 
     const handleAddAddress = (e)=>{
 
