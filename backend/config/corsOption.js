@@ -18,7 +18,8 @@ const corsOptions = {
             callback(new Error('Not allowed by CORS'));
         }
     },
-    optionsSuccessStatus: 200 // Set the status code for successful preflight requests
+    credentials: true,
+    optionsSuccessStatus: 200,// Set the status code for successful preflight requests
 };
 
 // Export the CORS options

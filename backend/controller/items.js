@@ -36,7 +36,7 @@ const createItem = async(req,res)=>{
         const data = req.body
         const newProduct = await Products.create(data);
 
-        res.status(200).json(newProduct)
+        res.status(200).json({"MESSAGE":"ITEM CREATED",newProduct})
 
     } catch (error) {
         console.log(error);

@@ -13,6 +13,7 @@ const corsOptions = require('./config/corsOption');
 app.use(credentials)
 app.use(cors(corsOptions))
 
+
 app.use(express.urlencoded({extended:false}))
 
 app.use(express.json())
@@ -24,14 +25,14 @@ app.get('/',(req,res)=>{
     res.send("Hello World");
 })
 
-app.use('/auth',require('./routes/authRoute'))
+app.use('/v1/auth',require('./routes/authRoute'))
 
-app.use('/items',require('./routes/itemsRoute'))
-app.use('/users',require('./routes/userRoute'))
+app.use('/v1/items',require('./routes/itemsRoute'))
+app.use('/v1/users',require('./routes/userRoute'))
 
-app.use('/cart',require('./routes/cartRoute'))
-app.use('/wishlist',require('./routes/wishlistRoute'))
-app.use('/checkout',require('./routes/checkoutRoute'))
+app.use('/v1/cart',require('./routes/cartRoute'))
+app.use('/v1/wishlist',require('./routes/wishlistRoute'))
+app.use('/v1/checkout',require('./routes/checkoutRoute'))
 
 
 mongoose.connect(process.env.MONGO_URL)

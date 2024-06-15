@@ -3,7 +3,11 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const register = async (req, res) => {
-    const { email, username ,password , phone} = req.body;
+    const { email, username ,password,confirmPassword , phone , isAdmin} = req.body;
+
+    if(password !== confirmPassword){
+        return res.status(404).json({"message":"Password missmatch"})
+    }
 
     try {
         const foundEmail = await User.findOne({ email });
@@ -25,8 +29,14 @@ const register = async (req, res) => {
             username:req.body.username,
             email:req.body.email,
             phone:req.body.phone,
-            password:hashedPass
+            password:hashedPass,
+            roles:{}
         }
+
+        if(isAdmin){
+            newUser.roles.Admin = 5555
+        }
+
         await User.create(newUser);
 
         res.status(200).json({ "message": "User created" });
@@ -66,12 +76,35 @@ const login = async(req,res)=>{
         )
         const {password,email,...others} = foundUser._doc
 
-        res.cookie('accessToken',accessToken,{httpOnly:true ,secure:true, sameSite:'None', maxAge: 24 * 60 * 60 * 1000})
-        res.status(200).json({details:{...others },accessToken})
+        res.cookie('accessToken', "HELLOOO", {
+            expires: new Date(new Date().getTime() + 30 * 1000),
+		    sameSite: 'strict',
+		    httpOnly: true
+        });
+        res.status(200).json({"message":"LOGGED IN",details:{...others },accessToken})
         
     } catch (error) {
         console.error(error);
         res.status(500).json({ "message": "Internal server error" });
     }
 }
-module.exports = { register ,login};
+
+
+const logout = async(req,res)=>{
+
+    try {
+        
+        res.clearCookie('accessToken', {
+            secure: true,
+            sameSite: 'None'
+        });
+
+        res.status(200).json({ "message": "Logout successful"});
+
+
+    } catch (error) {
+        
+    }
+}
+
+module.exports = { register ,login ,logout};

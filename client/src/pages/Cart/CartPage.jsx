@@ -16,6 +16,8 @@ function CartPage(props) {
     const [fetchedProduct, setFetchedProduct] = useState([])
 
 
+
+
     const BASE_URL = import.meta.env.VITE_BASE_URL
 
     const fetchCartItems = async () => {
