@@ -1,3 +1,16 @@
+.adminLoginBtn{
+
+    float: right;
+    margin-top: 20px;margin-right: 20px;
+    padding: 6px 20px;
+    border-radius: 10px;
+    border: none;
+    background-color: rgba(6, 81, 33, 0.63);
+    font-weight: 600;
+    font-size: 15px;
+    color: white;
+    cursor: pointer;
+}
 .loginMain{
     width: 100%;
     height: 100vh;

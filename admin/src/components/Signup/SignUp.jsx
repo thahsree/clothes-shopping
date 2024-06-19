@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import NavBar from '../NavBar/NavBar';
 import './signup.css';
@@ -60,18 +60,12 @@ function SignUp(props) {
             navigate('/login')
 
         } catch (error) {
-            enqueueSnackbar(error.response.data.message, { variant: 'error' })
+            enqueueSnackbar(error.response.data.message || 'Signup failed. Please try again.', { variant: 'error' })
             setTimeout(() => {
                 closeSnackbar()
             }, [1000])
         }
     };
-
-    useEffect(()=>{
-        console.log('====================================');
-        console.log(signupData);
-        console.log('====================================');
-    },[signupData])
     return (
         <>
             <NavBar />

@@ -75,7 +75,9 @@ function Login(props) {
         }
     },[user])
     return (
-        <div className='loginMain'>
+        <>
+         <Link to='https://clothes-shopping-admin.vercel.app/login' style={{ textDecoration: 'none' }} className='adminLoginBtn'>ADMIN LOGIN</Link>
+         <div className='loginMain'>
             <h3>L O G I N</h3>
             <div className="inputBox">
                 <input type="text" placeholder='username' onChange={(e) => setUserName(e.target.value)} />
@@ -88,6 +90,7 @@ function Login(props) {
 
            
         </div>
+        </>
     );
 }
 
