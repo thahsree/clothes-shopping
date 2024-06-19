@@ -10,16 +10,21 @@ import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import SettingsSystemDaydreamOutlinedIcon from '@mui/icons-material/SettingsSystemDaydreamOutlined';
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import Cookies from 'universal-cookie';
 import { authContext } from '../../context/AuthContext';
 import './sidebar.css';
 function SideBar(props) {
 
     const { admin, error, loading, dispatch } = useContext(authContext)
 
+    const cookies = new Cookies()
+
     const handleLogout = ()=>{
 
         dispatch({ type: "LOGOUT"});
         localStorage.removeItem('PersistLogin')
+        cookies.remove('accessToken')
+
         
     }
     return (

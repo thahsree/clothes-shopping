@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { Navigate, Outlet, Route, Routes, useLocation } from 'react-router-dom';
+import SignUp from './components/Signup/SignUp';
 import { authContext } from './context/AuthContext';
 import { productColumns, userColumns } from './datatable';
 import Home from './pages/Home/Home';
@@ -26,6 +27,7 @@ function App(props) {
       <Routes>
         <Route path='/'>
           <Route path='login' element={<Login />} />
+          <Route path='signup' element={<SignUp />} />
 
           {/* protected routes */}
 

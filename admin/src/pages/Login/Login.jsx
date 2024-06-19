@@ -1,66 +1,77 @@
 import axios from 'axios';
+import { useSnackbar } from 'notistack';
 import { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
+import NavBar from '../../components/NavBar/NavBar';
 import { authContext } from '../../context/AuthContext';
 import './login.css';
 
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+const ALLOWED_ROLES = [5555]; // admin role in backend
+
 function Login(props) {
+    const [username, setUserName] = useState("");
+    const [password, setPass] = useState("");
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    const cookies = new Cookies();
+    const navigate = useNavigate();
+    const { dispatch } = useContext(authContext);
 
-    const [username, setUserName] = useState("")
-    const [password, setPass] = useState("")
-
-    const cookies = new Cookies()
-    const navigate = useNavigate()
-    const { admin, error, loading, dispatch } = useContext(authContext)
-
-    const BASE_URL = import.meta.env.VITE_BASE_URL
     const submitForm = async (e) => {
-        e.preventDefault()
-
+        e.preventDefault();
         dispatch({ type: "LOGIN_START", payload: true });
-        const LoginData = {
-            username,
-            password
-        }
+
+        const loginData = { username, password };
 
         try {
+            const response = await axios.post(`${BASE_URL}/auth/login`, loginData);
 
-            const response = await axios.post(BASE_URL+'/auth/login', LoginData)
-
-            const allowedRoles = [5555]  // admin role in backend
-
-            
             let isAdmin = false;
             const userRoles = response?.data?.details?.roles;
 
             if (userRoles) {
-                Object.keys(userRoles).forEach(role => {
-                    if (allowedRoles.includes(userRoles[role])) {
-                        isAdmin = true;
-                    }
-                });
+                isAdmin = Object.values(userRoles).some(role => ALLOWED_ROLES.includes(role));
             }
+
             if (isAdmin) {
                 dispatch({ type: "LOGIN_SUCCESS", payload: response.data });
                 cookies.set('accessToken', response.data.accessToken);
+                enqueueSnackbar('Logged In' , { variant: 'success' });
                 navigate('/');
-            }else{
-                alert('PLEASE ENTER ADMIN ADDRESS')
+            } else {
+                enqueueSnackbar('PLEASE ENTER VALID ADMIN CERDENTIALS' , { variant: 'info' });
             }
         } catch (error) {
-            console.log(error);
+            closeSnackbar();
+            enqueueSnackbar(error.response?.data?.message || 'Login failed. Please try again.' , { variant: 'error' });
+            dispatch({ type: "LOGIN_FAILURE", payload: error });
         }
-
-    }
-
+    };
 
     return (
-        <div className='login'>
-            <input type="text" placeholder='username' onChange={(e) => setUserName(e.target.value)} />
-            <input type="password" placeholder='password' onChange={(e) => setPass(e.target.value)} />
-            <button onClick={(e) => submitForm(e)}>submit</button>
-        </div>
+        <>
+            <NavBar />
+            <div className="loginMain">
+                <h3>L O G I N</h3>
+                <div className="inputBox">
+                    <input
+                        type="text"
+                        placeholder="Username"
+                        onChange={(e) => setUserName(e.target.value)}
+                    />
+                    <input
+                        type="password"
+                        placeholder="Password"
+                        onChange={(e) => setPass(e.target.value)}
+                    />
+                    <button onClick={submitForm}>Submit</button>
+                    <Link to="/signup" className="link">
+                        <p>Create an account</p>
+                    </Link>
+                </div>
+            </div>
+        </>
     );
 }
 
