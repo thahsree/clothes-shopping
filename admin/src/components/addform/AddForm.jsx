@@ -5,6 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import './addform.css';
 
+
+const BASE_URL = import.meta.env.VITE_BASE_URL
+
 function AddForm(props) {
 
     const [details, setDetails] = useState({
@@ -130,7 +133,7 @@ function AddForm(props) {
             console.log('====================================');
             console.log(JSON.stringify(user));
             console.log('====================================');
-            await axios.post('http://localhost:4000/items', newDetails, {
+            await axios.post(BASE_URL+'/items', newDetails, {
                 headers: {
                     Authorization: user?`Bearer ${user}` : ''
                 }

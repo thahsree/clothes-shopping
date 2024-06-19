@@ -14,6 +14,7 @@ function Login(props) {
     const navigate = useNavigate()
     const { admin, error, loading, dispatch } = useContext(authContext)
 
+    const BASE_URL = import.meta.env.VITE_BASE_URL
     const submitForm = async (e) => {
         e.preventDefault()
 
@@ -25,7 +26,7 @@ function Login(props) {
 
         try {
 
-            const response = await axios.post('http://localhost:4000/auth/login', LoginData)
+            const response = await axios.post(BASE_URL+'/auth/login', LoginData)
 
             const allowedRoles = [5555]  // admin role in backend
 

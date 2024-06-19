@@ -10,11 +10,13 @@ function DataTable({columns}) {
     const location = useLocation()
     const path = location.pathname.split('/')[1]
 
+    const BASE_URL = import.meta.env.VITE_BASE_URL
+
     let url;
     if(path === 'buyers'){
-        url = 'http://localhost:4000/users'
+        url = BASE_URL+'/users'
     }else{
-        url = 'http://localhost:4000/items'
+        url = BASE_URL+'/items'
     }
     const {data , loading , error , reFetch} = useFetch(url)
     

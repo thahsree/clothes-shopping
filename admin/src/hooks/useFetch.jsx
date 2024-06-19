@@ -1,19 +1,25 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-
+import Cookies from 'universal-cookie';
 
 function useFetch(url) {
 
-    const [data , setData] = useState([])
-    const [loading ,setLoading]  =useState(false)
+    const [data, setData] = useState([])
+    const [loading, setLoading] = useState(false)
     const [err, setErr] = useState()
 
-    useEffect(()=>{
-        const fetchData = async()=>{
+    const cookies = new Cookies()
+
+    const token = cookies.get('accessToken')
+
+    useEffect(() => {
+        const fetchData = async () => {
             setLoading(true);
             try {
                 const response = await axios.get(url, {
-                    withCredentials: true // Add this option to include cookies
+                    headers: {
+                        Authorization: token ?`Bearer ${token}` : ''
+                    }
                 })
                 setData(response.data)
             } catch (error) {
@@ -24,12 +30,12 @@ function useFetch(url) {
         }
 
         fetchData()
-    },[])
+    }, [])
 
-    const reFetch = async()=>{
+    const reFetch = async () => {
         setLoading(true);
         try {
-            const response = await axios.get(url,{
+            const response = await axios.get(url, {
                 withCredentials: true // Add this option to include cookies
             })
             setData(response.data)
@@ -39,7 +45,7 @@ function useFetch(url) {
         setLoading(false)
     }
 
-    return {data , loading , err , reFetch}
+    return { data, loading, err, reFetch }
 }
 
 export default useFetch;
