@@ -2,7 +2,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
 import { useContext, useState } from 'react';
-import { authContext } from '../../context/AuthContext';
+import { authContext } from '../../context/AuthContexts';
 import { dataContext } from '../../context/DataContext';
 import usePrivateFetch from '../../hooks/usePrivateFetch';
 import './addAddressInput.css';

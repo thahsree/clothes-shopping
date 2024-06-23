@@ -1,15 +1,17 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import CartContent from '../../components/CartContent/CartContent';
 import EmptyCart from '../../components/CartContent/EmptyCart';
 import CartNav from '../../components/CartNav/CartNav';
+import { authContext } from '../../context/AuthContexts';
 import usePrivateFetch from '../../hooks/usePrivateFetch';
 import './CartPage.css';
 
 function CartPage(props) {
 
 
-    const { data, loading, err } = usePrivateFetch('/cart')
+    const {user } = useContext(authContext)
+    const { data, loading, err } = usePrivateFetch(user?'/cart':'')
 
     const [cartItems, setCartItems] = useState([])
 
@@ -33,7 +35,7 @@ function CartPage(props) {
         }
     }
     useEffect(() => {
-        if (data.length) {
+        if (data?.length) {
             fetchCartItems()
         }
     }, [data])

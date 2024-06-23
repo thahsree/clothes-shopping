@@ -3,7 +3,7 @@ import * as React from 'react';
 import { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from '../../axios/axios';
-import { authContext } from '../../context/AuthContext';
+import { authContext } from '../../context/AuthContexts';
 import { loadingContext } from '../../context/LoadingContext';
 import SkeletonLoading from '../Skeleton/Skeleton';
 import './collections.css';
@@ -60,20 +60,20 @@ function Collections(props) {
                                         ''// or a placeholder image if you prefer
                                     )}
                                 </div>
-                                <div className="details">
+                                <div className="displayItem_details">
                                     <h3>{item.brandName}</h3>
                                     <p>{item.name}</p>
-                                    <div className="pay">
+                                    <div className="displayItem_pay">
                                         {item?.offerPrice ? (
                                             <>
-                                                <p className="price">₹{item?.offerPrice}</p>
+                                                <p className="displayItem_price">₹{item?.offerPrice}</p>
                                                 <strike>{item.price}</strike>
-                                                <p className="offer">
+                                                <p className="displayItem_offer">
                                                     {((item.price - item.offerPrice) / item.price * 100).toFixed(0)}% OFF
                                                 </p>
                                             </>
                                         ) : (
-                                            <p className="price">₹{item?.price}</p>
+                                            <p className="displayItem_price">₹{item?.price}</p>
                                         )}
                                     </div>
                                 </div>

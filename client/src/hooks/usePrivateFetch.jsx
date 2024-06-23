@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import { useContext, useEffect, useState } from "react";
-import { authContext } from "../context/AuthContext";
+import { authContext } from "../context/AuthContexts";
 import { dataContext } from "../context/DataContext";
 
 function usePrivateFetch(url) {

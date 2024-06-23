@@ -43,17 +43,17 @@ function Corousal({ lists }) {
                 {
                     lists.map((list) => (
                         <div className='Corousel' key={list.title}>
-                            <div className="top">
+                            <div className="Corousel_top">
                                 <img src={list.img} alt="" />
 
                             </div>
-                            <div className="bottom">
-                                <p className="type">{list.title}</p>
+                            <div className="Corousel_bottom">
+                                <p className="Corousel_type">{list.title}</p>
                                 {
                                     list.desc&&
-                                    <p className='desc'>{list.desc}</p>
+                                    <p className='Corousel_desc'>{list.desc}</p>
                                 }
-                                <p className="offer">{list.offer}</p>
+                                <p className="Corousel_offer">{list.offer}</p>
                             </div>
                         </div>
                     ))

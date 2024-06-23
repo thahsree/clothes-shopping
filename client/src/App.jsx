@@ -1,5 +1,5 @@
 import { useContext, useEffect } from 'react'
-import { authContext } from './context/AuthContext'
+import { authContext } from './context/AuthContexts'
 import usePrivateFetch from './hooks/usePrivateFetch'
 import './index.css'
 import Home from './pages/Home/Home'

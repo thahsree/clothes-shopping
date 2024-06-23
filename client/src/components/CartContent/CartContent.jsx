@@ -53,8 +53,8 @@ function CartContent({ cartItems }) {
                 }
                 {
                     cartItems?.map((item, i) => (
-                        <div className="cartItems" key={i}>
-                            <div className="item">
+                        <div className="cartItems1" key={i}>
+                            <div className="item1">
                                 <CloseRoundedIcon className='icon' />
                                 <img src={item?.product?.images[1]} alt="" />
 

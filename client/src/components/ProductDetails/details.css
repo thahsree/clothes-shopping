@@ -200,12 +200,12 @@
     border-bottom: 1px solid rgba(211, 211, 211, 0.863);
     color: rgba(0, 0, 0, 0.777);
 
-    .about{
+    .productDesc_about{
         display: flex;
         flex-direction: column;
         gap: 20px;
 
-        .aboutHeading{
+        .productDesc_aboutHeading{
             display: flex;
             gap: 10px;
             align-items: center;
@@ -216,26 +216,26 @@
                 font-size: 15px;
             }
         }
-        .details{
+        .productDesc_details{
             display: flex;
             flex-direction: column;
             gap: 5px;
             font-size: 15px;
         }
     }
-    .others{
+    .productDesc_others{
         margin-top: 20px;
         display: flex;
         flex-direction: column;
         gap: 10px;
 
-        .otherHeading{
+        .productDesc_otherHeading{
 
             h3{
                 font-size: 14.5px;
             }
         }
-        .details{
+        .productDesc_details{
             display: flex;
             flex-direction: column;
             gap: 5px;

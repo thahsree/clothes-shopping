@@ -1,0 +1,85 @@
+.wishlist {
+    flex-wrap: wrap; /* Ensure items wrap if there's not enough space */
+    gap: 16px; /* Add some space between items */
+    padding: 40px;
+}
+
+.item {
+    display: flex;
+    width: 100%; 
+    box-sizing: border-box; 
+    flex: 1 1 100vw;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+}
+
+.details {
+    margin-left: 6px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.details h3 {
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.details p {
+    font-size: 14px;
+    font-weight: 300;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.pay {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.pay .price {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.pay .offer {
+    font-size: 12px;
+    font-weight: 300;
+    color: orange;
+}
+
+.pay strike {
+    font-size: 12px;
+    font-weight: 300;
+    color: rgba(0, 0, 0, 0.76);
+}
+
+.button {
+    width: 100%;
+    padding: 15px 15px;
+    text-align: center;
+    border-top: 1px solid lightgray;
+    color: gray;
+    font-weight: 600;
+}
+.head{
+    display: flex;
+    gap: 5px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    align-items: center;
+    width: max-content;
+    margin-left: 20px;
+
+    h4{
+        font-size: 20px;
+        font-weight: 600;
+    }
+    .count{
+        font-weight: 400;
+    }
+}

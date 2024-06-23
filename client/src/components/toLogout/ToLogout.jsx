@@ -1,6 +1,6 @@
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useContext } from 'react';
-import { authContext } from '../../context/AuthContext';
+import { authContext } from '../../context/AuthContexts';
 import './toLogout.css';
 
 function ToLogout({handleLogout}) {

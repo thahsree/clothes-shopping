@@ -7,7 +7,7 @@ import Drawer from '@mui/material/Drawer';
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { beautyOptions, kidsOptions, menOptions, womenOptions } from '../../Data/options';
-import { authContext } from '../../context/AuthContext';
+import { authContext } from '../../context/AuthContexts';
 import { dataContext } from '../../context/DataContext';
 import NavOptions from '../NavOptions/NavOptions';
 import ResponsiveNav from '../ResponsiveNav/ResponsiveNav';

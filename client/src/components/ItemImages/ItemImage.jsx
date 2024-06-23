@@ -5,7 +5,7 @@ import './itemImage.css';
 
 function ItemImage({images}) {
     return (
-        <div className='images'>
+        <div className='images_single'>
             <Grid container spacing={1}>
                 {
                     images.map((url,i) => (

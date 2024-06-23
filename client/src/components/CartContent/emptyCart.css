@@ -40,29 +40,41 @@
             color: gray;
         }
 
-                 
-        button {
-            background-image: linear-gradient(to right, #EDE574 0%, #E1F5C4  51%, #EDE574  100%);
-            margin: 10px;
-            padding: 15px 45px;
-            text-align: center;
-            text-transform: uppercase;
-            transition: 0.5s;
-            background-size: 200% auto;
-            color: rgba(0, 0, 0, 0.663);            
-            box-shadow: 0 0 20px #eee;
-            border: none;
-            border-radius: 10px;
-            display: block;
-            cursor: pointer;
-            font-weight: 600;
-          }
 
-          button:hover {
-            background-position: right center; /* change the direction of the change here */
-            text-decoration: none;
-          }
-         
+        .buttons {
+
+            display: flex;
+
+            button {
+                margin: 10px;
+                padding: 15px 45px;
+                text-align: center;
+                text-transform: uppercase;
+                transition: 0.5s;
+                background-size: 200% auto;
+                color: rgba(0, 0, 0, 0.663);
+                box-shadow: 0 0 20px #eee;
+                border: none;
+                border-radius: 10px;
+                display: block;
+                cursor: pointer;
+                font-weight: 600;
+            }
+            
+            button:nth-child(1) {
+                background-image: linear-gradient(to right, #EDE574 0%, #E1F5C4 51%, #EDE574 100%);
+            }
+            
+            button:nth-child(2) {
+                background-image: linear-gradient(to right, #f6d365 0%, #fda085 51%, #f6d365 100%);
+            }
+            button:hover {
+                background-position: right center;
+                /* change the direction of the change here */
+                text-decoration: none;
+            }
+        }
+
     }
-    
+
 }

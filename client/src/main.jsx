@@ -9,7 +9,7 @@ import {
   Outlet,
   RouterProvider
 } from "react-router-dom";
-import { authContext, AuthContextProvider } from './context/AuthContext';
+import { authContext, AuthContextProvider } from './context/AuthContexts';
 import { DataContextProvider } from './context/DataContext';
 import { LoadingContextProvider } from './context/LoadingContext';
 import CartPage from './pages/Cart/CartPage';
@@ -18,6 +18,7 @@ import List from './pages/Lists/List';
 import Login from './pages/Login/Login';
 import Signup from './pages/Signup/Signup';
 import Single from './pages/single/Single';
+import WishList from './pages/wishList/WishList';
 import Root from './Root/Root';
 
 
@@ -69,13 +70,24 @@ const router = createBrowserRouter([
         path: '/signup',
         element: <Signup />,
         errorElement: <ErrorPage />
-      }
+      },
+      {
+        path: '/wishlist',
+        errorElement: <ErrorPage />,
+        children: [
+          {
+            path: '',
+            element: <WishList />,
+            errorElement: <ErrorPage />
+          }
+        ]
+      },
+      
     ]
 
   },
   {
     path: '/cart',
-    element: <ProtectedRoute />,
     errorElement: <ErrorPage />,
     children: [
       {
@@ -85,6 +97,7 @@ const router = createBrowserRouter([
       }
     ]
   }
+  
 
 ]);
 

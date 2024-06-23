@@ -10,7 +10,7 @@
     
     cursor: pointer;
 
-    .top{
+    .Corousel_top{
         margin: 0;
         width: 100%;
         height: 250px;
@@ -23,7 +23,7 @@
         }
     }
 
-    .bottom{
+    .Corousel_bottom{
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -32,17 +32,17 @@
         margin-top: 10px;
         
 
-        .type{
+        .Corousel_type{
             font-size: 20px;
             font-weight: 600;
             color: gray;
         }
-        .offer{
+        .Corousel_offer{
             font-size: 18px;
             font-weight: 800;
             
         }
-        .desc{
+        .Corousel_desc{
             font-size: 15px;
             font-weight: 600;
 
@@ -53,7 +53,7 @@
     .Corousel{
        
 
-        .top{
+        .Corousel_top{
             width: 100%;
             height: max-content;
 
@@ -62,16 +62,16 @@
                 object-fit: cover;
             }
         }
-        .bottom{
+        .Corousel_bottom{
             gap: 1px;
         }
-        .type{
+        .Corousel_type{
             font-size: 15px !important;
         }
-        .desc{
+        .Corousel_desc{
             font-size: 10px !important;
         }
-        .offer{
+        .Corousel_offer{
             font-size: 15px !important;
         }
     }

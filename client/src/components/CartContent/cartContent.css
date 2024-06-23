@@ -76,7 +76,7 @@
             }
         }
 
-        .cartItems {
+        .cartItems1 {
 
             margin-top: 40px;
             border: 1px solid lightgray;
@@ -84,7 +84,7 @@
             border-radius: 10px;
 
 
-            .item {
+            .item1{
                 display: flex;
                 gap: 10px;
                 position: relative;

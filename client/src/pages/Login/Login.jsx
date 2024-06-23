@@ -2,7 +2,7 @@ import { useSnackbar } from 'notistack';
 import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from '../../axios/axios';
-import { authContext } from '../../context/AuthContext';
+import { authContext } from '../../context/AuthContexts';
 import { dataContext } from '../../context/DataContext';
 import './login.css';
 

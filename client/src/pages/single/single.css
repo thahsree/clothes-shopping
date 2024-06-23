@@ -1,31 +1,35 @@
-.single {
+.singlePage {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
 
-    .crumbs {
-        height: 70px;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        gap: 5px;
-        padding-left: 20px;
-    }
+.crumbs {
+    height: 70px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+    padding-left: 20px;
+    
+}
 
+.single_itemDetails {
+    display: flex;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
 
-    .itemDetails {
-        display: flex;
+.single_itemImages {
 
-        .itemImages {
-            flex: 4;
-            position: sticky;
-            top: 0;
-          
-        }
+    flex: 4;
+    overflow: hidden;
+}
 
-        .itemDesc {
-            flex: 3;
-            padding-left: 25px;
-            margin-right: 20px;
-           
-        }
-    }
+.single_itemDesc {
+  
+    flex: 3;
+    padding-left: 25px;
+    margin-right: 20px;
 }

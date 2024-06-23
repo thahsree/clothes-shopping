@@ -15,7 +15,7 @@
             
         }
 
-        .details {
+        .displayItem_details {
             margin-left: 6px;
 
             h3 {
@@ -32,17 +32,17 @@
                 white-space: nowrap;
             }
 
-            .pay {
+            .displayItem_pay {
                 display: flex;
                 align-items: center;
                 gap: 10px;
 
-                .price {
+                .displayItem_price {
                     font-size: 15px;
                     font-weight: 600;
                 }
 
-                .offer {
+                .displayItem_offer {
                     font-size: 12px;
                     font-weight: 300;
                     color: orange;

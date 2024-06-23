@@ -7,7 +7,7 @@ import axios from 'axios';
 import { useSnackbar } from 'notistack';
 import { useContext, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { authContext } from '../../context/AuthContext';
+import { authContext } from '../../context/AuthContexts';
 import { dataContext } from '../../context/DataContext';
 import usePrivateFetch from '../../hooks/usePrivateFetch';
 import CheckPincode from '../CheckPincode/CheckPincode';
@@ -150,12 +150,12 @@ function ProductDetails({ datas }) {
                 <CheckPincode />
             </div>
             <div className="productDesc">
-                <div className="about">
-                    <div className="aboutHeading">
+                <div className="productDesc_about">
+                    <div className="productDesc_aboutHeading">
                         <h3>PRODUCT DETAILS</h3>
                         <NotesIcon />
                     </div>
-                    <div className="details">
+                    <div className="productDesc_details">
                         {
                             datas.productDetails &&
                             datas.productDetails.map((details, i) => (
@@ -165,11 +165,11 @@ function ProductDetails({ datas }) {
                         }
                     </div>
                 </div>
-                <div className="others">
-                    <div className="otherHeading">
+                <div className="productDesc_others">
+                    <div className="productDesc_otherHeading">
                         <h3>Size & Fit</h3>
                     </div>
-                    <div className="details">
+                    <div className="productDesc_details">
                         {
                             datas.sizeAndFit &&
                             datas.sizeAndFit.map((details, i) => (
@@ -179,11 +179,11 @@ function ProductDetails({ datas }) {
                         }
                     </div>
                 </div>
-                <div className="others">
-                    <div className="otherHeading">
+                <div className="productDesc_others">
+                    <div className="productDesc_otherHeading">
                         <h3>Material & Care</h3>
                     </div>
-                    <div className="details">
+                    <div className="productDesc_details">
                         {
                             datas.materialAndCare &&
 

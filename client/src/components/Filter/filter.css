@@ -15,10 +15,10 @@
             font-size: 15px;
             font-weight: 700
         }
-        .items{
+        .catogories_items{
             margin-left: 5px;
 
-            .item{
+            .catogories_item{
                 font-size: 14px;
                 font-weight: 300;
                 margin-bottom: 4px;
