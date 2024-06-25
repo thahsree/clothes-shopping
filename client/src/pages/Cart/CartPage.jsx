@@ -45,7 +45,7 @@ function CartPage(props) {
             <CartNav />
 
             {
-                cartItems.length>0 ?<CartContent cartItems={cartItems}/> :<EmptyCart/>
+                cartItems.length>0 ?<CartContent cartItems={cartItems} setCartItems={setCartItems}/> :<EmptyCart/>
             }
             
         </div>

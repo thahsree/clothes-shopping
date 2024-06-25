@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Neucha&display=swap');
+.pleaseLogin{
+
+    display: flex;
+    width: 100vw;
+    height: 80vh;
+    justify-content: center;
+    align-items: center;
+}
+.plogin_content{
+
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+    font-family: neucha;
+    font-size: 20px;
+    color: gray;
+}
+.request{
+
+    color: black;
+    font-size: 25px;
+    font-weight: 900;
+    font-family: monospace;
+}
+.login_button{
+
+    padding: 15px 35px;
+    background-color: transparent;
+    border: 1px solid rgba(27, 27, 221, 0.653);
+    border-radius: 5px;
+    font-size: 15px;
+    cursor: pointer;
+    color: rgba(27, 27, 221, 0.653);
+}
+.emtyWL{
+
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.emtyWL_Content{
+
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    font-family: neucha;
+    align-items: center;
+    font-size: 20px;
+    color: gray;
+    gap: 30px;
+
+}
+.emtyWL_Content p{
+
+    width: 70%;
+    text-align: center;
+}
+.emtyWL_Content h3{
+    color: black;
+    font-size: 25px;
+    font-weight: 900;
+    font-family: monospace;
+}
+.emtyWL_Content button{
+
+    padding: 15px 35px;
+    background-color: transparent;
+    border: 1px solid rgba(27, 27, 221, 0.653);
+    border-radius: 5px;
+    font-size: 15px;
+    cursor: pointer;
+    font-weight: 600;
+    color: rgba(27, 27, 221, 0.653);
+    
+}

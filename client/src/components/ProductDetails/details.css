@@ -244,3 +244,21 @@
     }
 
 }
+.actionButton{
+
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background-color: rgba(245, 245, 220, 0.426);
+    padding: 5px 7px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+}
+.actionLOGO{
+    font-size: 16px !important;
+}

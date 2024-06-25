@@ -4,266 +4,261 @@
     height: 100vh;
     justify-content: center;
     position: relative;
-
-    .addressInputMain{
-        position: absolute;
-        width: 400px;
-        top: 0;
-        left: 50%;
-        transform: translateX(-50%); /* Center horizontally */
-        border-radius: 5px;
-        background-color: white;
-        z-index: 200; /* Above the overlay */
-    }
-
-    .blur {
-        pointer-events: none; /* Prevent interaction with blurred elements */
-    }
-    .contentLeft {
-        width: 600px;
-        border-right: 1px solid lightgray;
-        padding: 30px;
-
-
-        .address {
-            background-color: rgba(217, 209, 178, 0.158);
-            margin-top: 10px;
-            min-height: 60px;
-            padding: 10px;
-            display: flex;
-            justify-content: space-between;
-            border: 1px solid lightgray;
-            border-radius: 10px;
-
-            .addressDetails {
-
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-
-                .userDetails {
-                    font-size: 14px;
-                    font-weight: 300;
-
-                    span {
-
-                        font-weight: 700;
-                        color: #000;
-
-                    }
-                }
-
-                .location {
-                    font-weight: 300;
-                    font-size: 13px;
-                }
-
-            }
-            .check{
-
-                font-size: 15px;
-                font-weight: 600;
-            }
-
-            .changeAddress {
-
-                padding: 5px 10px;
-                border: 1px solid red;
-                border-radius: 10px;
-                color: red;
-                background-color: transparent;
-                cursor: pointer;
-            }
-        }
-
-        .cartItems1 {
-
-            margin-top: 40px;
-            border: 1px solid lightgray;
-            padding: 10px;
-            border-radius: 10px;
-
-
-            .item1{
-                display: flex;
-                gap: 10px;
-                position: relative;
-                
-
-                .icon{
-                    position: absolute;
-                    top: 0;
-                    right: 0;
-                    cursor: pointer;
-                }
-
-                img{
-                    width: 120px;
-                    height: 200px;
-                    object-fit: cover;
-             
-                }
-
-                .details{
-                    display: flex;
-                    flex-direction: column;
-                    gap: 20px;
-
-                    .top{
-
-                        display: flex;
-                        flex-direction: column;
-                        gap: 3px;
-                        h3{
-                            font-size: 14px;
-                            font-weight: 800;
-                        }
-                        .productName{
-                            font-weight: 400;
-                            font-size: 13px;
-                        }
-                        .soldBy{
-                            font-size: 12px;
-                            color: gray;
-                        }
-                    }
-
-                    .middle{
-                        display: flex;
-                        gap: 20px;
-
-                        .size , .qty{
-
-                            p{
-                                font-size: 14px;
-                            }
-
-                            select{
-
-                                cursor: pointer;
-                                border-radius: 10px;
-                                color: gray;
-
-                            }
-                            select:focus {
-                                outline: none; /* Remove the outline when the select is focused */
-                            }
-                            
-                        }
-                        
-                    }
-                    .bottom{
-
-                        display: flex;
-                        gap: 5px;
-
-                        p{
-                            font-size: 15px;
-                            font-weight: 700;
-
-
-                        }
-                        strike{
-
-                            color: gray;
-                            font-size: 14px;
-                            font-weight: 300;
-                        }
-                        .off{
-                            color: orange;
-                            font-size: 14px;
-                            font-weight: 500;
-                        }
-                    }
-                }
-            }
-        }
-
-    }
-
-    .contentRight {
-        width: 350px;
-        margin-top: 40px;
-        padding: 10px;
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-
-        .priceDetails{
-
-            border-bottom: 1px solid gray;
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            padding-bottom: 20px;
-
-
-            .heading{
-                font-size: 15px;
-                font-weight: 600;
-                margin-top: 10px;
-                margin-bottom: 10px;
-
-                .count{
-                    color: gray;
-                    font-size: 13px;
-                    font-weight: 400;
-                }
-            }
-
-            .billInput{
-                display: flex;
-                justify-content: space-between;
-
-                .field{
-                    font-size: 14px;
-                    font-weight: 300;
-                }
-                .discount{
-                    color: green;
-                }
-                .price{
-                    font-size: 14px;
-                    font-weight: 400;
-                }
-
-            }
-        }
-        .billAmount{
-            display: flex;
-            justify-content: space-between;
-
-            p{
-                font-size: 15px;
-                font-weight: 700;
-            }
-        }
-        .placeOrder{
-            padding: 10px 15px;
-            border-radius: 10px;
-            border: none;
-            cursor: pointer;
-            font-size: 15px;
-            font-weight: 600;
-            color: white;
-            background-color: #000;
-        }
-        
-
-    }
 }
+
+.cartContent .addressInputMain {
+    position: absolute;
+    width: 400px;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 5px;
+    background-color: white;
+    z-index: 200;
+}
+
+.cartContent .blur {
+    pointer-events: none;
+}
+
+.cartContent .contentLeft {
+    width: 600px;
+    border-right: 1px solid lightgray;
+    padding: 30px;
+}
+
+.cartContent .contentLeft .address {
+    background-color: rgba(217, 209, 178, 0.158);
+    margin-top: 10px;
+    min-height: 60px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+}
+
+.cartContent .contentLeft .address .addressDetails {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.cartContent .contentLeft .address .addressDetails .userDetails {
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.cartContent .contentLeft .address .addressDetails .userDetails span {
+    font-weight: 700;
+    color: #000;
+}
+
+.cartContent .contentLeft .address .addressDetails .location {
+    font-weight: 300;
+    font-size: 13px;
+}
+
+.cartContent .contentLeft .address .check {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.cartContent .contentLeft .address .changeAddress {
+    padding: 5px 10px;
+    border: 1px solid red;
+    border-radius: 10px;
+    color: red;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.cartContent .contentLeft .cartItems1 {
+    margin-top: 40px;
+    border: 1px solid lightgray;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.cartContent .contentLeft .cartItems1 .item1 {
+    display: flex;
+    gap: 10px;
+    position: relative;
+  
+   
+}
+
+.cartContent .contentLeft .cartItems1 .item1 .icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}
+
+.cartContent .contentLeft .cartItems1 .item1 img {
+    width: 120px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.cartContent .contentLeft .cartItems1 .item1 .details {
+    margin-top: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.cartContent .contentLeft .cartItems1 .item1 .details .top {
+    display: flex;
+    flex-direction: column;
+   
+    gap: 3px;
+}
+
+.cartContent .contentLeft .cartItems1 .item1 .details .top h3 {
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.cartContent .contentLeft .cartItems1 .item1 .details .top .productName {
+    font-weight: 400;
+    font-size: 13px;
+    
+}
+
+.cartContent .contentLeft .cartItems1 .item1 .details .top .soldBy {
+    font-size: 12px;
+    color: gray;
+}
+
+.cartContent .contentLeft .cartItems1 .item1 .details .middle {
+    display: flex;
+    gap: 20px;
+}
+
+.cartContent .contentLeft .cartItems1 .item1 .details .middle .size,
+.cartContent .contentLeft .cartItems1 .item1 .details .middle .qty {
+    font-size: 14px;
+}
+
+.cartContent .contentLeft .cartItems1 .item1 .details .middle .size select,
+.cartContent .contentLeft .cartItems1 .item1 .details .middle .qty select {
+    cursor: pointer;
+    border-radius: 10px;
+    color: gray;
+}
+
+.cartContent .contentLeft .cartItems1 .item1 .details .middle .size select:focus,
+.cartContent .contentLeft .cartItems1 .item1 .details .middle .qty select:focus {
+    outline: none;
+}
+
+.cartContent .contentLeft .cartItems1 .item1 .details .bottom {
+    display: flex;
+    gap: 5px;
+}
+
+.cartContent .contentLeft .cartItems1 .item1 .details .bottom p {
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.cartContent .contentLeft .cartItems1 .item1 .details .bottom strike {
+    color: gray;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.cartContent .contentLeft .cartItems1 .item1 .details .bottom .off {
+    color: orange;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.cartContent .contentRight {
+    width: 350px;
+    margin-top: 40px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.cartContent .contentRight .priceDetails {
+    border-bottom: 1px solid gray;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding-bottom: 20px;
+}
+
+.cartContent .contentRight .priceDetails .heading {
+    font-size: 15px;
+    font-weight: 600;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.cartContent .contentRight .priceDetails .heading .count {
+    color: gray;
+    font-size: 13px;
+    font-weight: 400;
+}
+
+.cartContent .contentRight .priceDetails .billInput {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cartContent .contentRight .priceDetails .billInput .field {
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.cartContent .contentRight .priceDetails .billInput .discount {
+    color: green;
+}
+
+.cartContent .contentRight .priceDetails .billInput .price {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.cartContent .contentRight .billAmount {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cartContent .contentRight .billAmount p {
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.cartContent .contentRight .placeOrder {
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+    background-color: #000;
+}
+
 .cartContent::before {
     content: "";
-    position: fixed; /* Cover the entire screen */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
-    backdrop-filter: blur(.3px); /* Apply the blur effect */
-    z-index: 100; /* Below the address input but above everything else */
-    display: none; /* Initially hidden */
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(.3px);
+    z-index: 100;
+    display: none;
 }
+
 .cartContent.blur::before {
-    display: block; /* Show the overlay when blur is active */
+    display: block;
 }

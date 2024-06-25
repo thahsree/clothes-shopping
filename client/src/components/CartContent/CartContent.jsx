@@ -1,11 +1,14 @@
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
+import { authContext } from '../../context/AuthContexts';
 import { dataContext } from '../../context/DataContext';
+import usePrivateFetch from '../../hooks/usePrivateFetch';
 import AddAddressInput from '../AddAddressInput/AddAddressInput';
 import './cartContent.css';
 
 
-function CartContent({ cartItems }) {
+function CartContent({ cartItems, setCartItems }) {
 
 
     const { userData } = useContext(dataContext)
@@ -14,6 +17,34 @@ function CartContent({ cartItems }) {
 
     const [showAddressInput, setShowAddressInput] = useState(false);
 
+    const BASE_URL = import.meta.env.VITE_BASE_URL
+
+    const { user } = useContext(authContext)
+    const userID = user?.details?._id
+
+    const { reFetch , setData} = usePrivateFetch(`/users/${userID}`)
+
+    const handleDeleteCartItem = async(id) => {
+
+        try {
+
+
+            console.log(id);
+            const response = await axios.delete(BASE_URL + `/cart/${id}`, {
+                headers: {
+                    Authorization: user ? `Bearer ${user?.accessToken}` : ''
+                }
+            })
+            const newCartItem = cartItems.filter(item => item._id !== id)
+
+            setCartItems(newCartItem)
+            reFetch()
+
+        } catch (error) {
+
+            console.log(error);
+        }
+    }
 
     useEffect(() => {
         console.log('====================================');
@@ -22,22 +53,22 @@ function CartContent({ cartItems }) {
     }, [])
 
     return (
-        <div className={`cartContent ${showAddressInput ? `blur`: ''}`}>
+        <div className={`cartContent ${showAddressInput ? `blur` : ''}`}>
             {
                 showAddressInput && (
                     <div className='addressInputMain' >
-                        <AddAddressInput setShowAddressInput={setShowAddressInput}/>
+                        <AddAddressInput setShowAddressInput={setShowAddressInput} />
                     </div>
                 )
             }
             <div className="contentLeft">
 
                 {
-                    userData?.details?.address?.length > 0  || userData?.address?.length>0 ? (
+                    userData?.details?.address?.length > 0 || userData?.address?.length > 0 ? (
                         <div className="address">
                             <div className="addressDetails">
-                                <p className='userDetails'>Deliver to : <span>{userData?.details?.address[0]?.name}, {userData?.details?.address[0]?.pincode  }</span></p>
-                                <p className="location">{userData?.details?.address[0]?.city } , {userData?.details?.address[0]?.state }</p>
+                                <p className='userDetails'>Deliver to : <span>{userData?.details?.address[0]?.name}, {userData?.details?.address[0]?.pincode}</span></p>
+                                <p className="location">{userData?.details?.address[0]?.city} , {userData?.details?.address[0]?.state}</p>
                             </div>
                             <button className="changeAddress">Change Address</button>
                         </div>
@@ -55,7 +86,7 @@ function CartContent({ cartItems }) {
                     cartItems?.map((item, i) => (
                         <div className="cartItems1" key={i}>
                             <div className="item1">
-                                <CloseRoundedIcon className='icon' />
+                                <CloseRoundedIcon className='icon' onClick={() => handleDeleteCartItem(item._id)} />
                                 <img src={item?.product?.images[1]} alt="" />
 
                                 <div className="details">

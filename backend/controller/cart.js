@@ -89,16 +89,15 @@ const deleteCartItem = async(req,res)=>{
 
         const foundItem = foundUser.cart.some(item => item._id == req.params.id); //sorting out unwanted item
 
+        console.log(foundItem);
+
         if (!foundItem) {
             return res.status(404).json({ message: "Item not found in cart" });
         }
-
-        if(!foundItem){
-
-            return res.status(404).json({"message":"item not found"})
-        }
         
-        foundUser.cart = foundUser.cart.filter(item => item.productID != req.params.id)
+        foundUser.cart = foundUser.cart.filter(item => item._id != req.params.id)
+
+
 
         await foundUser.save()
 

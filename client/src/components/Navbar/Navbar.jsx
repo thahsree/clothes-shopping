@@ -123,13 +123,16 @@ function Navbar(props) {
 
                         </div>
                     }
-                    <div className='listItems' >
+                    <Link className='listItems' to='/wishlist' style={{
+                        textDecoration: 'none',
+                        color: "#000"
+                    }}>
                         <FavoriteBorderIcon className='icon' />
                         {
                             wishlistValue > 0 &&
                             <div className="count">{wishlistValue}</div>
                         }
-                    </div>
+                    </Link>
                     <Link className='listItems' to='/cart' style={{
                         textDecoration: 'none',
                         color: "#000"

@@ -1,5 +1,6 @@
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
+import LoginIcon from '@mui/icons-material/Logout';
 import NotesIcon from '@mui/icons-material/Notes';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import StarIcon from '@mui/icons-material/Star';
@@ -52,19 +53,23 @@ function ProductDetails({ datas }) {
             return
         }
         if (!user) {
-            enqueueSnackbar("PLEASE LOGIN FIRST", { variant: 'info' })
-
-            localStorage.setItem('locationState', JSON.stringify(location.state))
-            localStorage.setItem('oldLocation', location.pathname)
-            navigate('/login')
-
-            setTimeout(()=>{
-                closeSnackbar()
-            },[1500])
-
-            return
+            const action = (
+                <div className='actionButton' onClick={()=> navigate('/login')}>
+                    LOGIN <LoginIcon className='actionLOGO'/>
+                </div>
+            );
+            enqueueSnackbar("PLEASE LOGIN FIRST", { action, variant: 'info' });
+    
+            localStorage.setItem('locationState', JSON.stringify(location.state));
+            localStorage.setItem('oldLocation', location.pathname);
+    
+            setTimeout(() => {
+                closeSnackbar();
+            }, 1500);
+    
+            return;
         }
-
+    
        
         try {
             
@@ -73,7 +78,6 @@ function ProductDetails({ datas }) {
                     Authorization: user?`Bearer ${user?.accessToken}` : ''
                 }
             });
-    
             
             enqueueSnackbar("ADDED TO  CART", { variant: 'success' })
 
@@ -81,10 +85,52 @@ function ProductDetails({ datas }) {
                 closeSnackbar()
             },[1500])
             reFetch()
-            
-            
         } catch (error) {
+            enqueueSnackbar("Internal Server Error", { variant: 'error' })
 
+            setTimeout(()=>{
+                closeSnackbar()
+            },[1500])
+            console.log(error);
+        }
+    }
+
+    const handleAddToWishList = async () => {
+
+        if (!user) {
+            const action = (
+                <div className='actionButton' onClick={()=> navigate('/login')}>
+                    LOGIN <LoginIcon className='actionLOGO'/>
+                </div>
+            );
+            enqueueSnackbar("PLEASE LOGIN FIRST", { action, variant: 'info' });
+    
+            localStorage.setItem('locationState', JSON.stringify(location.state));
+            localStorage.setItem('oldLocation', location.pathname);
+    
+            setTimeout(() => {
+                closeSnackbar();
+            }, 1500);
+    
+            return;
+        }
+    
+       
+        try {
+            
+            const response = await axios.put(`${BASE_URL}/wishlist/addToWishList?id=${datas._id}`,null, {
+                headers: {
+                    Authorization: user?`Bearer ${user?.accessToken}` : ''
+                }
+            });
+            
+            enqueueSnackbar("ADDED TO  WISHLIST", { variant: 'success' })
+
+            setTimeout(()=>{
+                closeSnackbar()
+            },[1500])
+            reFetch()
+        } catch (error) {
             enqueueSnackbar("Internal Server Error", { variant: 'error' })
 
             setTimeout(()=>{
@@ -138,7 +184,7 @@ function ProductDetails({ datas }) {
                     <div className="addToCart" onClick={handleAddToCart}>
                         ADD TO CART <ShoppingCartOutlinedIcon className='icon' />
                     </div>
-                    <div className="wishList">
+                    <div className="wishList" onClick={handleAddToWishList}>
                         WISHLIST <FavoriteBorderIcon className='icon' />
                     </div>
                 </div>

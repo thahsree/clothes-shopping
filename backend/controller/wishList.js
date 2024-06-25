@@ -5,7 +5,7 @@ const User = require('../Model/userModel');
 const addToWishList = async(req,res)=>{
 
     try {
-        const { id ,size, count} = req.query
+        const { id } = req.query
         const username = req.username  // jwt assigned this username check verifyJWT.js for more..
 
         const foundUser =await User.findOne({username:username})
@@ -21,23 +21,16 @@ const addToWishList = async(req,res)=>{
 
         //check item already in wish list
 
-        const isItemInCart = foundUser?.wishList?.findIndex(item =>  item?.productID === id)
+        const isItemInList = foundUser?.wishList?.findIndex(item =>  item?.productID === id)
 
-        if(isItemInCart >-1){
+        if(isItemInList >-1){
 
             return res.status(400).json({"message":"Item Already in WishList"})
         }
 
-        const productStock = foundProduct.availableStock[size]
-         
-        if(productStock <=0){   // checking product stock 
-            return res.sendStatus(410)
-        }
         
         const updatedWishList = {
-            productID:foundProduct._id,
-            size:size,
-            nos:count
+            productID:foundProduct._id
         }
 
         foundUser.wishList.push(updatedWishList)
