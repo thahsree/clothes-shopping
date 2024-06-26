@@ -14,6 +14,7 @@ function CartContent({ cartItems, setCartItems }) {
     const { userData } = useContext(dataContext)
     const totalMRP = cartItems.reduce((total, item) => total + item?.product?.price, 0);
     const discountedMRP = cartItems.reduce((total, item) => total + item?.product?.offerPrice, 0);
+    
 
     const [showAddressInput, setShowAddressInput] = useState(false);
 
@@ -27,71 +28,99 @@ function CartContent({ cartItems, setCartItems }) {
 
 
     const handleCheckout = async (e) => {
-
-        const amount = (discountedMRP + 20) * 100
-        const currency = "INR"
-        const receipt = "RES_123123"
-        let txt;
-        const response = await fetch(BASE_URL + '/checkout/checkoutProduct', {
-            method: 'POST',
-            body: JSON.stringify({
-                amount,
-                currency,
-                receipt
-            }),
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: user ? `Bearer ${user?.accessToken}` : ''
-            }
-        })
-
-        const order = await response.json()
-
-        var options = {
-            "key": "rzp_test_OQX01X7xEcY9Bk", // Enter the Key ID generated from the Dashboard
-            amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-            currency,
-            "name": "Fashion Galleria", //your business name
-            "description": "Total cart amount",
-            "image": "https://example.com/your_logo",
-            "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-            "handler": async function (response) {
-                const body = {
-                    ...response,
-                }
-
-                const validateResponse = await fetch(BASE_URL + '/checkout/validateOrder', {
-                    method: 'POST',
-                    body: JSON.stringify(body),
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: user ? `Bearer ${user?.accessToken}` : ''
-                    }
-                })
-
-                const jsonRes = await validateResponse.json()
-
-                console.log(jsonRes);
-            },
-            "prefill": { //We recommend using the prefill parameter to auto-fill customer's contact information, especially their phone number
-                "name": "customer", //your customer's name
-                "email": "gaurav.kumar@example.com",
-                "contact": "9000090000"  //Provide the customer's phone number for better conversion rates 
-            },
-            "notes": {
-                "address": "Razorpay Corporate Office"
-            },
-            "theme": {
-                "color": "#3399cc"
-            }
-        };
-
-        var rzp1 = new Razorpay(options);
-
-        rzp1.open();
         e.preventDefault();
-    }
+        
+        const amount = (discountedMRP + 20) * 100;
+        const currency = "INR";
+        const receipt = "RES_123123";
+    
+        console.log(cartItems);
 
+        const itemArr = cartItems.map(item => ({
+            id: item.productID,
+            count: 1,
+            size: item.size.toString()
+        }));
+    
+        try {
+            const response = await fetch(`${BASE_URL}/checkout/checkoutProduct`, {
+                method: 'POST',
+                body: JSON.stringify({
+                    amount,
+                    currency,
+                    receipt,
+                    itemArr
+                }),
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: user ? `Bearer ${user?.accessToken}` : ''
+                }
+            });
+    
+            if (!response.ok) {
+                throw new Error('Failed to create order');
+            }
+    
+            const order = await response.json();
+    
+            const options = {
+                key: "rzp_test_OQX01X7xEcY9Bk", // Enter the Key ID generated from the Dashboard
+                amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                currency,
+                name: "Fashion Galleria", // your business name
+                description: "Total cart amount",
+                image: "https://example.com/your_logo",
+                order_id: order.id, // This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                handler: async function (response) {
+                    const body = {
+                        ...response,
+                        itemArr
+                    };
+    
+                    const validateResponse = await fetch(`${BASE_URL}/checkout/validateOrder`, {
+                        method: 'POST',
+                        body: JSON.stringify(body),
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: user ? `Bearer ${user?.accessToken}` : ''
+                        }
+                    });
+    
+                    if (!validateResponse.ok) {
+                        throw new Error('Payment validation failed');
+                    }
+    
+                    const jsonRes = await validateResponse.json();
+    
+                    if (jsonRes.message === 'Success') {
+                        setCartItems([]);
+                    }
+    
+                    console.log(">>>JSON RES", jsonRes.message);
+                },
+                prefill: { // We recommend using the prefill parameter to auto-fill customer's contact information, especially their phone number
+                    name: "customer", // your customer's name
+                    email: "gaurav.kumar@example.com",
+                    contact: "9000090000" // Provide the customer's phone number for better conversion rates 
+                },
+                notes: {
+                    address: "Razorpay Corporate Office"
+                },
+                theme: {
+                    color: "#3399cc"
+                }
+            };
+    
+            const rzp1 = new Razorpay(options);
+            rzp1.on('payment.failed', function (response) {
+                console.log('Payment Failed', response.error);
+            });
+    
+            rzp1.open();
+        } catch (error) {
+            console.error('Error during checkout:', error);
+        }
+    };
     const handleDeleteCartItem = async (id) => {
 
         try {

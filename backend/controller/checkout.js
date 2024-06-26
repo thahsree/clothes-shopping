@@ -1,84 +1,61 @@
-const Products = require('../Model/productsModel')
+const Products = require('../Model/productsModel');
 const User = require('../Model/userModel');
-const Razorpay = require('razorpay')
-const crypto = require('crypto')
+const Razorpay = require('razorpay');
+const crypto = require('crypto');
 
-const checkOutProduct = async(req,res)=>{
+const checkOutProduct = async (req, res) => {
+
+    // Change updation code to after validate , because item reducing if payment cancelled
 
     try {
-        const { productID , cartID ,size, count , amount , currency , receipt } = req.body
-        const username = req.username  // jwt assigned this username check verifyJWT.js for more..
+        const { itemArr, amount, currency, receipt } = req.body;
+        const username = req.username; // jwt assigned this username check verifyJWT.js for more..
 
-        // const foundUser =await User.findOne({username:username})
-        // const foundProduct = await Products.findOne({_id:productID})
+        const foundUser = await User.findOne({ username });
 
+        if (!foundUser) {
+            return res.sendStatus(403); // valid auth but token expired
+        }
 
-        // if(!foundUser){
-        //     return res.sendStatus(403) //valid auth but token expire
-        // }
-        // if(!foundProduct){
-        //     return res.sendStatus(404)  //item not found
-        // }
-        
+        console.log(itemArr);
 
-        // const updatedCount = foundProduct.availableStock[size] -= parseInt(count);
-        
-        // if( updatedCount < 1 ){
-        //     return res.sendStatus(410) // no longer available
-        // }
+        // Ensure stock is available
+        for (const item of itemArr) {
+            const foundProduct = await Products.findOne({ _id: item.id });
 
-        //payment razorpay
+            const currentCount = foundProduct.availableStock[item.size];
+            
+            if (currentCount < parseInt(item.count)) {
+                return res.status(400).json({ message: `Insufficient stock for product ${item.id} size ${item.size}` });
+            }
+        }
+
+        // Create Razorpay order
         const razorpay = new Razorpay({
-            key_id:process.env.RAZOR_PAY_KEY_ID,
-            key_secret:process.env.RAZOR_PAY_KEY_SECRET
-        })
+            key_id: process.env.RAZOR_PAY_KEY_ID,
+            key_secret: process.env.RAZOR_PAY_KEY_SECRET
+        });
 
-        const options = {
-            amount,
-            currency,
-            receipt
+        const options = { amount, currency, receipt };
+        const order = await razorpay.orders.create(options);
+
+        if (!order) {
+            return res.status(402).json({ message: "Payment Error" });
         }
 
-        const order = await razorpay.orders.create(options)
-
-        if(!order){
-            return res.status(402).json({"message":"Payment Error"})
-        }
-
-
-        res.status(200).json(order)
-        // const updatedAvailableStock = {
-        //     ...foundProduct.availableStock,
-        //     [size]: updatedCount
-        // };
-        
-        // const updatedRecentOrders = {
-        //     productID:foundProduct._id,
-        //     size:size,
-        //     nos:count
-
-        // }
-        
-        // foundProduct.availableStock = updatedAvailableStock;
-
-        // // Save the updated product
-        // const updatedProduct = await foundProduct.save();
-
-        // foundUser.recentOrders.push(updatedRecentOrders)
-
-        // await foundUser.save()
-        // return res.status(200).json(updatedProduct , order);
+        return res.status(200).json(order);
 
     } catch (error) {
         console.log(error);
-        return res.sendStatus(403) //forbidden
+        return res.status(500).json({ message: "Internal Server Error" });
     }
-
-    
-}
+};
 
 const validateOrder = async (req, res) => {
-    const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
+    const { razorpay_order_id, razorpay_payment_id, razorpay_signature , itemArr } = req.body;
+
+    const username = req.username; // jwt assigned this username check verifyJWT.js for more..
+    const foundUser = await User.findOne({ username });
 
     try {
         // Ensure all required fields are present
@@ -99,6 +76,26 @@ const validateOrder = async (req, res) => {
             return res.status(402).json({ message: "Transaction failed: signature mismatch" });
         }
 
+        // Update stocks
+        await Promise.all(itemArr.map(async (item) => {
+            const foundProduct = await Products.findOne({ _id: item.id });
+       
+            foundProduct.availableStock[item.size] -= parseInt(item.count);
+
+            await foundProduct.save();
+        }));
+
+        // Update user orders and cart
+        const updatedRecentOrders = itemArr.map((item) => ({
+            productID: item.id,
+            size: item.size,
+            nos: item.count,
+        }));
+
+        foundUser.recentOrders.push(...updatedRecentOrders);
+        foundUser.cart = [];
+        await foundUser.save();
+
         // If signatures match, send success response
         res.status(200).json({
             message: "Success",
@@ -111,4 +108,4 @@ const validateOrder = async (req, res) => {
     }
 };
 
-module.exports = {checkOutProduct , validateOrder}
+module.exports = { checkOutProduct, validateOrder };
