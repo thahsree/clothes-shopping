@@ -5,7 +5,6 @@ import EmptyCart from '../../components/CartContent/EmptyCart';
 import CartNav from '../../components/CartNav/CartNav';
 import { authContext } from '../../context/AuthContexts';
 import usePrivateFetch from '../../hooks/usePrivateFetch';
-import './CartPage.css';
 
 function CartPage(props) {
 

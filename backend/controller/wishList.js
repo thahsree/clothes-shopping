@@ -25,7 +25,7 @@ const addToWishList = async(req,res)=>{
 
         if(isItemInList >-1){
 
-            return res.status(400).json({"message":"Item Already in WishList"})
+            return res.status(409).json({"message":"Item Already in WishList"})
         }
 
         

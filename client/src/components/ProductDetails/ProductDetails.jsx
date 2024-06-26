@@ -131,12 +131,11 @@ function ProductDetails({ datas }) {
             },[1500])
             reFetch()
         } catch (error) {
-            enqueueSnackbar("Internal Server Error", { variant: 'error' })
+            enqueueSnackbar(error?.response?.data?.message || "Internal Server Error", { variant: 'error' })
 
             setTimeout(()=>{
                 closeSnackbar()
             },[1500])
-            console.log(error);
         }
     }
 
