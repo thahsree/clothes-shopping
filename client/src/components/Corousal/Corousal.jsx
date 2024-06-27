@@ -11,6 +11,7 @@ function Corousal({ lists }) {
         speed: 500,
         slidesToShow: 5,
         slidesToScroll: 4,
+        arrows: false,
         responsive: [
             {
                 breakpoint: 1082,

@@ -1,5 +1,6 @@
 .home{
 
+    
     .home_middle{
         .home_item{
             margin-top: 20px;
@@ -17,5 +18,8 @@
                 margin-bottom: 20px;
             }
         }
+    }
+    .home_bottom{
+        height: 50px;
     }
 }

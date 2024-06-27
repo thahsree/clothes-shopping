@@ -9,22 +9,23 @@ function Banner(props) {
     const settings = {
         dots: true,
         infinite: false,
-        speed: 500,
+        speed: 900,
         slidesToShow: 1,
-        slidesToScroll: 1
+        slidesToScroll: 1,
+        arrows: false,
 
     }
 
     return (
         <div className='banner'>
             {
-                    isOffer &&
-                    <div className="salesTimer">
-                        <p>Offer Starts in <span className="time">00</span> h : <span className="time">15</span> m : <span className="time">45</span> s</p>
-                    </div>
-                }
+                isOffer &&
+                <div className="salesTimer">
+                    <p>Offer Starts in <span className="time">00</span> h : <span className="time">15</span> m : <span className="time">45</span> s</p>
+                </div>
+            }
             <div className="bannerItems">
-                
+
                 <div className="images">
                     <Slider {...settings}>
                         <div className="image">

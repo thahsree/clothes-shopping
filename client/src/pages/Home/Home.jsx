@@ -1,13 +1,19 @@
 
+import { useContext } from 'react';
 import { globalBrands, worthyBrandSection } from '../../Data/dummyDatas';
 import Banner from '../../components/Banner/Banner';
 import Corousal from '../../components/Corousal/Corousal';
+import { modeContext } from '../../context/DarkMode';
+import '../../styles/darkMode.css';
 import './home.css';
 
 function Home(props) {
+
+    const {darkMode} = useContext(modeContext)
+    
     
     return (
-        <div className='home'>
+        <div className={darkMode ? 'dark home' : 'home'}>
             <div className="home_middle">
                 <div>
                     <Banner/>

@@ -1,0 +1,57 @@
+:root {
+    --main-bg-color: #111;
+    --main-text-color: rgba(192, 186, 186, 0.805);
+    --main-border: 1px solid #8e898974;
+  }
+
+.home.dark  {
+    background-color: var(--main-bg-color);
+    color: rgb(156, 156, 156) !important;
+    height: max-content !important;
+
+    .slick-dots li button:before {
+        color: silver;
+      }
+
+    .slick-dots li.slick-active button:before {
+        color:var(--main-text-color) !important;
+    }
+    .home_item h1{
+
+        color: var(--main-text-color) !important;
+    }
+}
+
+.navbar.dark{
+    background-color: #111;
+    border-bottom:var(--main-border);
+    color: var(--main-text-color);
+
+    .logo{
+        color: var(--main-text-color) !important;
+    }
+    .icon{
+
+        color: var(--main-text-color);
+    }
+    .search{
+        background-color: lightgray;
+        border-color: gray;
+
+        input{
+            background-color: lightgray !important; /* Change this to your desired color */
+        }
+    }
+}
+
+    
+
+    /* .navbar {
+        color: #999 !important;
+        border-color: #333 !important;
+
+        .search {
+            border-color: gray !important;
+        }
+    } */
+

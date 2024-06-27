@@ -10,6 +10,7 @@ import {
   RouterProvider
 } from "react-router-dom";
 import { authContext, AuthContextProvider } from './context/AuthContexts';
+import { ModeContextProvider } from './context/DarkMode';
 import { DataContextProvider } from './context/DataContext';
 import { LoadingContextProvider } from './context/LoadingContext';
 import CartPage from './pages/Cart/CartPage';
@@ -82,7 +83,7 @@ const router = createBrowserRouter([
           }
         ]
       },
-      
+
     ]
 
   },
@@ -97,7 +98,7 @@ const router = createBrowserRouter([
       }
     ]
   }
-  
+
 
 ]);
 
@@ -108,7 +109,12 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <SnackbarProvider>
         <DataContextProvider>
           <LoadingContextProvider>
-            <RouterProvider router={router} />
+
+            <ModeContextProvider>
+              
+              <RouterProvider router={router} />
+
+            </ModeContextProvider>
           </LoadingContextProvider>
         </DataContextProvider>
       </SnackbarProvider>

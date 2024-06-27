@@ -1,3 +1,4 @@
+import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import MenuIcon from '@mui/icons-material/Menu';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
@@ -8,6 +9,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { beautyOptions, kidsOptions, menOptions, womenOptions } from '../../Data/options';
 import { authContext } from '../../context/AuthContexts';
+import { modeContext } from '../../context/DarkMode';
 import { dataContext } from '../../context/DataContext';
 import NavOptions from '../NavOptions/NavOptions';
 import ResponsiveNav from '../ResponsiveNav/ResponsiveNav';
@@ -29,13 +31,23 @@ function Navbar(props) {
     const [cartValue, setCartValue] = useState(0);
     const [wishlistValue, setWishlistValue] = useState(0);
 
-    const cartvalueToDisplay = cartValue 
+    const cartvalueToDisplay = cartValue
 
     const location = useLocation()
 
     const isLoginPage = location.pathname === '/login' || location.pathname === '/signup'
 
+    const {dispatch : darkModeDispatch ,darkMode } = useContext(modeContext)
 
+    const handleDarkMode = ()=>{
+
+        try {
+            darkModeDispatch({type:'TOGGLE'})
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
 
     useEffect(() => {
@@ -62,13 +74,16 @@ function Navbar(props) {
         navigate('/login')
     }
 
+   
+    {darkMode ? 'dark home' : 'home'}
+
     return (
-        <div className='navbar'>
+        <div className= {darkMode ? 'dark navbar' : 'navbar'}>
             <div className="LOGO-Section">
                 <div className="ham">
                     <MenuIcon className='resicon' onClick={toggleDrawer(true)} />
                     <Drawer open={open} onClose={toggleDrawer(false)}>
-                        <ResponsiveNav setOpen={setOpen}/>
+                        <ResponsiveNav setOpen={setOpen} />
                     </Drawer>
                 </div>
                 <Link className="logo" to='/'>
@@ -106,8 +121,12 @@ function Navbar(props) {
             </div>
             <div className="profile">
                 <div className='lists' >
+                    <div className="listItems">
+                        <DarkModeOutlinedIcon onClick={handleDarkMode}/>
+                    </div>
                     {
                         !isLoginPage &&
+
                         <div className='listItems' onMouseEnter={() => handleActive('options')} onMouseLeave={() => handleActive("")}>
                             <PersonOutlineIcon className='icon' />
                             {
@@ -123,6 +142,7 @@ function Navbar(props) {
 
                         </div>
                     }
+
                     <Link className='listItems' to='/wishlist' style={{
                         textDecoration: 'none',
                         color: "#000"
@@ -139,11 +159,12 @@ function Navbar(props) {
                     }}>
                         <ShoppingCartOutlinedIcon className='icon' />
                         {
-                            cartvalueToDisplay>0 &&
+                            cartvalueToDisplay > 0 &&
                             <div className="count">{cartvalueToDisplay}</div>
                         }
 
                     </Link>
+
                 </div>
             </div>
 
