@@ -1,9 +1,10 @@
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Collections from '../../components/Collections/Collections';
 import Crumps from '../../components/Crumps/Crumps';
 import FilterSection from '../../components/Filter/FilterSection';
+import { modeContext } from '../../context/DarkMode';
 import './list.css';
 
 function List(props) {
@@ -52,11 +53,12 @@ function List(props) {
     useEffect(()=>{
         console.log('location',location);
     })
+    const {darkMode} = useContext(modeContext)
 
     const category = location.state?.catogory?.toUpperCase()
     return (
  
-            <div className="lists">
+            <div className={darkMode ? 'lists dark' : 'lists'}>
                 <div className="breadCrumbs">
                     <Crumps category={category} data={location?.state?.data} subData={location?.state?.subData}/>
                     <p>{category} {location?.state?.subData} <span>(1123 items)</span></p>

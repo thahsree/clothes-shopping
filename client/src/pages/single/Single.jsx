@@ -1,8 +1,10 @@
+import { useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import Crumps from '../../components/Crumps/Crumps';
 import ItemImage from '../../components/ItemImages/ItemImage';
 import ProductDetails from '../../components/ProductDetails/ProductDetails';
 import SkeletonLoading from '../../components/Skeleton/Skeleton';
+import { modeContext } from '../../context/DarkMode';
 import useFetch from '../../hooks/useFetch';
 import './single.css';
 
@@ -13,8 +15,10 @@ function Single() {
 
     const { data, loading } = useFetch(`/items/${id}`);
 
+    const {darkMode} = useContext(modeContext)
+
     return (
-        <div className="singlePage">
+        <div className={ darkMode ? 'singlePage dark': 'singlePage'}>
             <div className="crumbs">
                 <Crumps 
                     category={category} 

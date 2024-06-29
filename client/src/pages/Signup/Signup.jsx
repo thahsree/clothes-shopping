@@ -1,7 +1,8 @@
 import { useSnackbar } from 'notistack';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from '../../axios/axios';
+import { modeContext } from '../../context/DarkMode';
 import './signup.css';
 
 function Signup(props) {
@@ -64,8 +65,10 @@ function Signup(props) {
         }
     };
 
+    const {darkMode} = useContext(modeContext)
+
     return (
-        <div className='loginMain'>
+        <div className={darkMode ? 'loginMain dark':'loginMain'}>
             <h3>S I G N U P </h3>
             <div className="inputBox">
                 <input type="text" id='username' placeholder='username' onChange={(e) => addLoginData(e)} />

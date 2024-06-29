@@ -9,6 +9,7 @@ import axios from '../../axios/axios';
 import PleaseLogIn from '../../components/PleaseLoginPage/PleaseLogIn';
 import WishListEmpty from '../../components/PleaseLoginPage/WishListEmpty';
 import { authContext } from '../../context/AuthContexts'; // added AuthContext's' due to type error 
+import { modeContext } from '../../context/DarkMode';
 import { dataContext } from '../../context/DataContext';
 import usePrivateFetch from '../../hooks/usePrivateFetch';
 import './wishlist.css';
@@ -90,8 +91,10 @@ function WishList(props) {
 
     }, [data])
 
+    const {darkMode} = useContext(modeContext)
+
     return (
-        <div className='wishlist'>
+        <div className={darkMode? 'wishlist dark' : 'wishlist'}>
            
             {
                 user && wishListItems.length > 0 ? (

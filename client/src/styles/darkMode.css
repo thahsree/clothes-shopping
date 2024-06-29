@@ -1,57 +1,222 @@
 :root {
     --main-bg-color: #111;
-    --main-text-color: rgba(192, 186, 186, 0.805);
+    --main-text-color: rgb(156, 156, 156);
     --main-border: 1px solid #8e898974;
-  }
+    --options-bg-color: #3d4255ee;
+    --navbar-color: #4243a6;
+}
 
-.home.dark  {
+.home.dark {
     background-color: var(--main-bg-color);
-    color: rgb(156, 156, 156) !important;
+    color: var(--main-text-color) !important;
     height: max-content !important;
 
     .slick-dots li button:before {
         color: silver;
-      }
+    }
 
     .slick-dots li.slick-active button:before {
-        color:var(--main-text-color) !important;
-    }
-    .home_item h1{
-
         color: var(--main-text-color) !important;
     }
+
+    .home_item h1 {
+
+        color: var(--navbar-color) !important;
+    }
+
+
+
 }
 
-.navbar.dark{
-    background-color: #111;
-    border-bottom:var(--main-border);
-    color: var(--main-text-color);
+.navbar.dark {
+    background-color: var(--main-bg-color);
+    border-bottom: var(--main-border);
+    color: var(--navbar-color);
 
-    .logo{
-        color: var(--main-text-color) !important;
+    .logo {
+        color: var(--navbar-color) !important;
     }
-    .icon{
 
-        color: var(--main-text-color);
+    .icon {
+
+        color: var(--navbar-color);
     }
-    .search{
+
+    .search {
         background-color: lightgray;
         border-color: gray;
 
-        input{
-            background-color: lightgray !important; /* Change this to your desired color */
+        input {
+            background-color: lightgray !important;
+            /* Change this to your desired color */
         }
+    }
+
+    .navOptions {
+
+        background-color: var(--options-bg-color);
+        border: var(--main-border);
+
+
+        .itemList {
+            color: var(--main-text-color) !important;
+        }
+    }
+
+    .toLogout, .toLogin{
+        background-color: var(--options-bg-color);
+        border: none;
+        color: silver !important;
+
+        h4 ,.icon , p ,li{
+            color: silver !important;
+        }
+        
     }
 }
 
+.lists.dark {
+
+    background-color: var(--main-bg-color);
+
+    color: var(--main-text-color);
+
+    strike {
+
+        color: var(--main-text-color) !important;
+    }
+
+
+
+}
+
+.singlePage.dark {
+
+    background-color: var(--main-bg-color) !important;
+
+    .single_itemDesc {
+
+        color: var(--main-text-color) !important;
+
+        .productDetails h3,
+        .productDetails.rating .productDetails p {
+            color: var(--main-text-color) !important;
+        }
+
+        .rating p {
+            color: var(--main-text-color);
+        }
+
+    }
+
+    .rating:hover {
+        border: 1px solid var(--options-bg-color);
+    }
+
+    .priceDetails .currentPrice {
+        color: var(--main-text-color) !important;
+    }
+
+    .wishList {
+        color: rgba(255, 255, 255, 0.671) !important;
+    }
+
+    .wishList:hover {
+        border: var(--main-border) !important;
+    }
+
+    .pincode {
+
+        input {
+            background-color: var(--main-bg-color) !important;
+            color: var(--main-text-color) !important;
+            /* Change this to your desired color */
+        }
+
+        input, select, textarea{
+            color:var(--main-text-color) !important;
+        }
+
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus,
+        input:-webkit-autofill:active {
+            -webkit-box-shadow: 0 0 0 30px #111 inset !important;
+            -webkit-text-fill-color: var(--main-text-color);
+        }
+    }
+    .deliveryHeading ,.productDesc , .deliveryOptions ,.deliveryDetails{
+        color: var(--main-text-color) !important;
+    }
+
+    
+}
+
+.wishlist.dark{
+    background-color: var(--main-bg-color) !important;
+
+    .emtyWL_Content{
+    
+        color: var(--main-text-color) !important;
+    }
+
+    .el-header{
+        color: var(--main-text-color) !important;
+    }
+
+    .head{
+        color: var(--main-text-color);
+    }
+
+    .button{
+
+        background-color: var(--main-text-color);
+        border: none;
+        color: var(--navbar-color);
+    }
+
+    button{
+
+        border:1px solid #4243a6;
+        color: var(--navbar-color);
+    }
+
+    .pleaseLogin h3{
+
+        color: var(--main-text-color);
+    }
     
 
-    /* .navbar {
-        color: #999 !important;
-        border-color: #333 !important;
+}
 
-        .search {
-            border-color: gray !important;
-        }
-    } */
+.loginMain.dark{
+
+    background-color: var(--main-bg-color);
+    margin: 0;
+    padding: 50px;
+
+    input {
+        background-color: var(--main-bg-color) !important;
+        color: var(--main-text-color) !important;
+        /* Change this to your desired color */
+    }
+
+    input, select, textarea{
+        color:var(--main-text-color) !important;
+    }
+
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+        -webkit-box-shadow: 0 0 0 30px #111 inset !important;
+        -webkit-text-fill-color: var(--main-text-color);
+    }
+
+    p{
+        color: var(--navbar-color) !important;
+    }
+}
+
+
 

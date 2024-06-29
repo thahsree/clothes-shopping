@@ -2,6 +2,7 @@
     flex-wrap: wrap; /* Ensure items wrap if there's not enough space */
     gap: 16px; /* Add some space between items */
     padding: 40px;
+    height: 100vh;
 }
 
 .item {

@@ -49,6 +49,11 @@
         }
     }
 }
+
+.slick-slider {
+    margin:0 -15px;
+}
+
 @media screen and (max-width: 1080px) {
     .Corousel{
        

@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from '../../axios/axios';
 import { authContext } from '../../context/AuthContexts';
+import { modeContext } from '../../context/DarkMode';
 import { dataContext } from '../../context/DataContext';
 import './login.css';
 
@@ -68,6 +69,7 @@ function Login(props) {
 
     }
 
+    const {darkMode} = useContext(modeContext)
 
     useEffect(()=>{
         if(user){
@@ -76,8 +78,8 @@ function Login(props) {
     },[user])
     return (
         <>
-         <Link to='https://clothes-shopping-admin.vercel.app/login' style={{ textDecoration: 'none' }} className='adminLoginBtn'>ADMIN LOGIN</Link>
-         <div className='loginMain'>
+        <Link to='https://clothes-shopping-admin.vercel.app/login' style={{ textDecoration: 'none'}} className='adminLoginBtn'>ADMIN LOGIN</Link>
+        <div className={darkMode ? 'loginMain dark':'loginMain'}>
             <h3>L O G I N</h3>
             <div className="inputBox">
                 <input type="text" placeholder='username' onChange={(e) => setUserName(e.target.value)} />
