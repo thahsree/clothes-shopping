@@ -12,6 +12,9 @@ function Corousal({ lists }) {
         slidesToShow: 5,
         slidesToScroll: 4,
         arrows: false,
+        autoplay: true,
+        autoplaySpeed: 5000,
+        infinite: true,
         responsive: [
             {
                 breakpoint: 1082,
@@ -20,20 +23,20 @@ function Corousal({ lists }) {
                     slidesToScroll: 3,
                 }
             },
-            // {
-            //     breakpoint: 768,
-            //     settings: {
-            //         slidesToShow: 2,
-            //         slidesToScroll: 2,
-            //     }
-            // },
-            // {
-            //     breakpoint: 480,
-            //     settings: {
-            //         slidesToShow: 1,
-            //         slidesToScroll: 1,
-            //     }
-            // }
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2,
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1,
+                }
+            }
         ]
 
     }
