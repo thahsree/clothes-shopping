@@ -8,7 +8,7 @@ function SkeletonLoading({type}) {
     
     return (
         <div className={type+'Main'}>
-            <Skeleton  className={type}/>
+            <Skeleton  className={type}  highlightColor="#0000006a" baseColor="gray"/>
         </div>
     );
 }
