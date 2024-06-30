@@ -1,7 +1,7 @@
 import CloseIcon from '@mui/icons-material/Close';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { authContext } from '../../context/AuthContexts';
 import { dataContext } from '../../context/DataContext';
 import usePrivateFetch from '../../hooks/usePrivateFetch';
@@ -16,7 +16,7 @@ function AddAddressInput({ setShowAddressInput }) {
     const [address , setAddress] = useState({
         name:'',
         contactNumber:'',
-        address:'',
+        houseName:'',
         pincode:'',
         state:validatedState?validatedState:'',
         city:validatedCity?validatedCity:'',
@@ -65,7 +65,7 @@ function AddAddressInput({ setShowAddressInput }) {
         if(
             !address.name ||
             !address.contactNumber ||
-            !address.address ||
+            !address.houseName ||
             !address.pincode ||
             !address.state ||
             !address.city ||
@@ -89,12 +89,33 @@ function AddAddressInput({ setShowAddressInput }) {
         setShowAddressInput(false)
 
     }
+
+    const prevAddress = userData?.details?.address
+
+    useEffect(()=>{
+        console.log(userData);
+    },[])
+
     return (
         <div className='Main-Address'>
+            
             <div className="top">
                 <h3>ADD NEW ADDRESS</h3>
                 <CloseIcon className='icon' onClick={() => setShowAddressInput(false)} />
             </div>
+            {
+                prevAddress?.length>0 &&
+                <div className="prevAddress">
+                    {prevAddress?.map((address,i)=> (
+                        <div className="prevAddress_child" key={i}>
+                            <p className='prevAddress_name'>{address.name}</p>
+                            <p className='prevAddress_house'>{address?.houseName}, <span>{address?.city}</span></p>
+                            <p className='prevAddress_country'><span>{address?.state},</span>{address?.country} <span>{address?.pincode}</span></p>
+                            <p className='prevAddress_contact'> contact : <span>{address?.contactNumber}</span></p>
+                        </div>
+                    ))}
+                </div>
+            }
             <div className="middle">
                 <h5>CONTACT DETAILS:</h5>
 
@@ -142,7 +163,7 @@ function AddAddressInput({ setShowAddressInput }) {
                     }}
                 />
                 <TextField 
-                    id="address" 
+                    id="houseName"
                     label="Address (House No,Building,Street,Area)*" 
                     variant="outlined"  
                     size="small" 

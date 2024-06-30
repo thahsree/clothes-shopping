@@ -45,7 +45,8 @@ function Signup(props) {
                 username: signupData.username,
                 phone: Number(signupData.phone),
                 email: signupData.email,
-                password: signupData.password
+                password: signupData.password,
+                confirmPassword: signupData.confirmPassword
             })
 
             enqueueSnackbar("USER CREATED SUCCESSFULLY", { variant: 'success' })

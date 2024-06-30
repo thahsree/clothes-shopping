@@ -1,7 +1,14 @@
 .Main-Address{
 
+    position: fixed;
+    background-color: aliceblue;
+    top: 20px;
     color: rgb(81, 79, 79);
+    height: 600px;
+    overflow-y: scroll;
 
+    
+    
     .top{
         
         display: flex;
@@ -70,3 +77,32 @@
     }
 }
 
+
+.Main-Address::-webkit-scrollbar {
+    display: none;
+  }
+
+.prevAddress{
+
+    border-bottom: 1px solid gray;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.prevAddress_child{
+    
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.prevAddress_name{
+    font-size: 14px;
+    font-weight: 700;
+}
+.prevAddress_house ,.prevAddress_city , .prevAddress_country ,span ,.prevAddress_contact{
+    font-size: 13px;
+}

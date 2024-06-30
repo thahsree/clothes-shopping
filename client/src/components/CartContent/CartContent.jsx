@@ -30,11 +30,16 @@ function CartContent({ cartItems, setCartItems }) {
     const handleCheckout = async (e) => {
         e.preventDefault();
         
+        if(userData?.details?.address?.length <1){
+
+            alert('PLEASE ADD AN ADDRESS')
+            return 
+        }
+
         const amount = (discountedMRP + 20) * 100;
         const currency = "INR";
         const receipt = "RES_123123";
     
-        console.log(cartItems);
 
         const itemArr = cartItems.map(item => ({
             id: item.productID,
@@ -167,7 +172,7 @@ function CartContent({ cartItems, setCartItems }) {
                                 <p className='userDetails'>Deliver to : <span>{userData?.details?.address[0]?.name}, {userData?.details?.address[0]?.pincode}</span></p>
                                 <p className="location">{userData?.details?.address[0]?.city} , {userData?.details?.address[0]?.state}</p>
                             </div>
-                            <button className="changeAddress">Change Address</button>
+                            <button className="changeAddress" onClick={() => setShowAddressInput(true)}>Change Address</button>
                         </div>
                     ) : (
                         <div className="address">
