@@ -87,6 +87,20 @@
     }
 
 
+    .sort{
+        background-color: var(--options-bg-color);
+        color: whitesmoke;
+
+        .options{
+            background-color: var(--options-bg-color) !important;
+        }
+
+        
+        .option:hover , .option.selected{
+            background-color: #777b8ba5 !important;
+        }
+    }
+
 
 }
 
@@ -215,6 +229,38 @@
 
     p{
         color: var(--navbar-color) !important;
+    }
+}
+
+.emptyCart.dark{
+
+    background-color: var(--main-bg-color) !important;
+
+    button{
+        box-shadow: 0 0 5px gray !important;
+    }
+}
+.CartNav.dark{
+
+    background-color: var(--main-bg-color) !important;
+    border-bottom: var(--main-border);
+    color: var(--navbar-color);
+
+    h1{
+        color: var(--navbar-color);
+    }
+}
+.cartContent.dark{
+    background-color: var(--main-bg-color);
+
+    color: var(--main-text-color);
+
+    .address{
+        background-color: var(--options-bg-color) !important;
+    }
+
+    .userDetails span{
+        color: var(--main-text-color) !important;
     }
 }
 

@@ -1,10 +1,15 @@
 import GppGoodRoundedIcon from '@mui/icons-material/GppGoodRounded';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { modeContext } from '../../context/DarkMode';
 import './CartNav.css';
 
 function CartNav(props) {
+
+    const {darkMode} = useContext(modeContext)
+
     return (
-        <div className='CartNav'>
+        <div className={darkMode ? 'CartNav dark' : 'CartNav'}>
             <Link className="logo" to='/'>
                 <h1>Fashion Galleria</h1>
             </Link>

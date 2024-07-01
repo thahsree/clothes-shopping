@@ -1,5 +1,7 @@
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import deleteImage from '../../assets/images/delete.png';
+import { modeContext } from '../../context/DarkMode';
 import './emptyCart.css';
 function EmptyCart(props) {
 
@@ -13,8 +15,11 @@ function EmptyCart(props) {
 
         navigate('/wishlist')
     }
+
+    const {darkMode} = useContext(modeContext)
+
     return (
-        <div className='emptyCart'>
+        <div className={darkMode ? 'emptyCart dark' :'emptyCart'}>
             <div className="top">
                 <img src={deleteImage} alt="empty cart image" />
 

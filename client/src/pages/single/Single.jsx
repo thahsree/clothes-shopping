@@ -41,6 +41,9 @@ function Single() {
                     {data && <ProductDetails loading={loading} datas={data} />}
                 </section>
             </div>
+            <div className="related">
+                {/* <RelatedItems/> */}
+            </div>
         </div>
     );
 }

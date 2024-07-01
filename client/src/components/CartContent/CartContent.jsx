@@ -2,6 +2,7 @@ import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
 import { authContext } from '../../context/AuthContexts';
+import { modeContext } from '../../context/DarkMode';
 import { dataContext } from '../../context/DataContext';
 import usePrivateFetch from '../../hooks/usePrivateFetch';
 import AddAddressInput from '../AddAddressInput/AddAddressInput';
@@ -154,8 +155,11 @@ function CartContent({ cartItems, setCartItems }) {
         console.log('====================================');
     }, [])
 
+    const {darkMode} = useContext(modeContext)
+
+
     return (
-        <div className={`cartContent ${showAddressInput ? `blur` : ''}`}>
+        <div className={darkMode ? `cartContent dark ${showAddressInput ? `blur` : ''}` : `cartContent ${showAddressInput ? `blur` : ''}`}>
             {
                 showAddressInput && (
                     <div className='addressInputMain' >

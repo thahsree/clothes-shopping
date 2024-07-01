@@ -28,8 +28,9 @@ function Signup(props) {
         })
     }
 
-    const submitForm = async () => {
+    const submitForm = async (e) => {
 
+        e.preventDefault()
         if (signupData.password !== signupData.confirmPassword) {
             enqueueSnackbar("PASSWORD MISSMATCH", { variant: 'warning' })
 
