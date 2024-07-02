@@ -1,0 +1,89 @@
+.related_main {
+    width: 100%;
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    padding: 30px;
+    cursor: pointer;
+}
+
+.relatedContentCard {
+
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    width: 210px;
+    border: 1px solid rgba(128, 128, 128, 0.237);
+    transition: .2s ease-in-out;
+    
+}
+
+.relatedimg {
+
+    width: 208px;
+    height: auto;
+    overflow: hidden;
+}
+
+.relatedimg img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    
+}
+
+.relatedcontent{
+    padding: 5px 10px;
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+    overflow: hidden;
+    
+}
+.relatedContentCard p{
+   
+    
+    overflow: hidden;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    font-size: 14px;
+    gap: 5px;
+    font-weight: 300;
+}
+.relatedcontent h1{
+    font-weight: 700;
+    font-size: 15px;
+}
+.relatedcontent p{
+
+    font-weight: 400;
+    font-size: 13px;
+}
+.relatedPrice{
+    gap: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: max-content;
+}
+
+.relatedPrice p{
+    font-weight: 700;
+    font-size: 15px;
+}
+.relatedPrice strike{
+    font-size: 13px;
+    font-weight: 300;
+}
+.relatedPrice .offer{
+
+    color: orange !important; 
+    font-weight: 300;
+    font-size: 13px;
+}
+
+.relatedContentCard:hover{
+
+    box-shadow: -3px 3px 10px #514f4f21 ;
+}

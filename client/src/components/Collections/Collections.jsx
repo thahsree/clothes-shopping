@@ -9,7 +9,7 @@ import SkeletonLoading from '../Skeleton/Skeleton';
 import './collections.css';
 
 function Collections(props) {
-    const [data, setData] = useState(Array(15).fill({})); // Simulate 8 items for skeleton loading
+    const [data, setData] = useState(Array(15).fill({})); // Simulate 15 items for skeleton loading
     const location = useLocation();
     const navigate = useNavigate();
 

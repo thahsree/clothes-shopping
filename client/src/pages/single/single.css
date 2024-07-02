@@ -33,3 +33,14 @@
     padding-left: 25px;
     margin-right: 20px;
 }
+
+.related{
+
+    margin-top: 25px;
+}
+.related h3{
+
+    margin-left: 20px;
+    font-size: 17px;
+    font-weight: 800;
+}

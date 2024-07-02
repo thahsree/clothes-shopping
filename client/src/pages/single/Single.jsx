@@ -1,8 +1,9 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Crumps from '../../components/Crumps/Crumps';
 import ItemImage from '../../components/ItemImages/ItemImage';
 import ProductDetails from '../../components/ProductDetails/ProductDetails';
+import RelatedItems from '../../components/RelatedItems/RelatedItems';
 import SkeletonLoading from '../../components/Skeleton/Skeleton';
 import { modeContext } from '../../context/DarkMode';
 import useFetch from '../../hooks/useFetch';
@@ -13,9 +14,14 @@ function Single() {
     const id = location?.state?.id;
     const category = location?.state?.catogory?.toUpperCase();
 
-    const { data, loading } = useFetch(`/items/${id}`);
+    const { data, loading ,reFetch } = useFetch(`/items/${id}`);
 
     const {darkMode} = useContext(modeContext)
+
+    useEffect(()=>{
+
+        reFetch()
+    },[id])
 
     return (
         <div className={ darkMode ? 'singlePage dark': 'singlePage'}>
@@ -42,7 +48,8 @@ function Single() {
                 </section>
             </div>
             <div className="related">
-                {/* <RelatedItems/> */}
+                <h3>SIMILAR PRODUCTS</h3>
+                <RelatedItems currentItem={id}/>
             </div>
         </div>
     );

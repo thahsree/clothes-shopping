@@ -162,6 +162,12 @@
     .deliveryHeading ,.productDesc , .deliveryOptions ,.deliveryDetails{
         color: var(--main-text-color) !important;
     }
+    .related_main{
+        color: var(--main-text-color);
+    }
+    .related h3{
+        color: var(--main-text-color);
+    }
 
     
 }
@@ -261,6 +267,9 @@
 
     .userDetails span{
         color: var(--main-text-color) !important;
+    }
+    .placeOrder{
+        background-color: var(--navbar-color) !important;
     }
 }
 
