@@ -1,0 +1,23 @@
+.viewButton,.deleteButton{
+    padding: 8px 15px;
+    margin: 3px;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 10px;
+}
+.deleteButton{
+    background-color: rgba(255, 0, 0, 0.671);
+}
+.deleteButton:hover{
+    background-color: rgba(255, 0, 0, 0.344);
+}
+.viewButton{
+    background-color: rgba(3, 3, 154, 0.701);
+    color: aliceblue;
+}
+.viewButton:hover{
+    background-color: rgba(3, 3, 154, 0.447);
+    color: aliceblue;
+}

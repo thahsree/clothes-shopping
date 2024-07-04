@@ -55,7 +55,8 @@ function CartContent({ cartItems, setCartItems }) {
                     amount,
                     currency,
                     receipt,
-                    itemArr
+                    itemArr,
+                    address:userData?.details?.address[0]
                 }),
                 headers: {
                     'Content-Type': 'application/json',

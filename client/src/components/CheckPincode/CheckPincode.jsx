@@ -13,6 +13,16 @@ function CheckPincode(props) {
         }
     }
 
+    const expectedDelivery = new Date(Date.now());
+    expectedDelivery.setDate(expectedDelivery.getDate() + 10).toString();
+
+    const expectedDateString = expectedDelivery.toString();
+
+    const expectedDay = expectedDateString.split(' ')[0];
+    const expectedMonth = expectedDateString.split(' ')[1]
+    const expectedDate = expectedDateString.split(' ')[2] 
+
+
     const pinReset = () => {
         setPinValidate(false)
         setPin("")
@@ -36,7 +46,7 @@ function CheckPincode(props) {
                     <div className="deliveryOptions">
                         <div className="options">
                             <TbTruckDelivery className="icon" />
-                            <h3>Get it by Fri, Apr 26</h3>
+                            <h3>Get it by {expectedDay}, {expectedMonth} {expectedDate}</h3>
                         </div>
                         <div className="options">
                             <TbDeviceMobileDollar className="icon" />

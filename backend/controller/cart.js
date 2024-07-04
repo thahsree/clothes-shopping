@@ -25,8 +25,8 @@ const addToCart = async(req,res)=>{
 
         const productStock = foundProduct.availableStock[size]
          
-        if(productStock <=0){   // checking product stock 
-            return res.sendStatus(410)
+        if(productStock <= 0){   // checking product stock 
+            return res.status(410).json({"message":"OUT OF STOCK"})
         }
 
         //checking item already there

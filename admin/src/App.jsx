@@ -7,6 +7,7 @@ import Home from './pages/Home/Home';
 import List from './pages/Lists/List';
 import Login from './pages/Login/Login';
 import AddProduct from './pages/newProduct/AddProduct';
+import UpdateProduct from './pages/updateProduct/UpdateProduct';
 function App(props) {
 
 
@@ -37,6 +38,7 @@ function App(props) {
             <Route path='/buyers' element={<List columns={userColumns} />} />
             <Route path='/products' element={<List columns={productColumns} />} />
             <Route path='/add-products' element={<AddProduct />} />
+            <Route path='/update-products/:id' element={<UpdateProduct />} />
 
           </Route>
 

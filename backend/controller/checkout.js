@@ -2,13 +2,12 @@ const Products = require('../Model/productsModel');
 const User = require('../Model/userModel');
 const Razorpay = require('razorpay');
 const crypto = require('crypto');
-
+const Orders = require('../Model/ordersModel')
 const checkOutProduct = async (req, res) => {
 
-    // Change updation code to after validate , because item reducing if payment cancelled
 
     try {
-        const { itemArr, amount, currency, receipt } = req.body;
+        const { itemArr, amount, currency, receipt , address , qty } = req.body;
         const username = req.username; // jwt assigned this username check verifyJWT.js for more..
 
         const foundUser = await User.findOne({ username });
@@ -36,11 +35,44 @@ const checkOutProduct = async (req, res) => {
             key_secret: process.env.RAZOR_PAY_KEY_SECRET
         });
 
+        
+
         const options = { amount, currency, receipt };
         const order = await razorpay.orders.create(options);
 
         if (!order) {
             return res.status(402).json({ message: "Payment Error" });
+        }
+
+        console.log('====================================');
+        console.log('order',order.id);
+
+        for(const item of itemArr){
+
+            
+            const foundProduct = await Products.findOne({ _id: item.id });
+
+            // Ensure the product was found
+            if (!foundProduct) {
+                console.log(`Product with ID ${item.id} not found.`);
+                continue;
+            }
+
+            const newOrder = {
+                
+                paymentID:'pending',
+                customerID : foundUser._id,
+                orderID : order.id,
+                address,
+                paymentStatus:'pending',
+                paymentType:'waiting',
+                qty : item.count,
+                itemID: foundProduct._id,
+                deliveryStatus:'waiting for payment'
+
+            }
+            await Orders.create(newOrder)
+
         }
 
         return res.status(200).json(order);
@@ -57,6 +89,8 @@ const validateOrder = async (req, res) => {
     const username = req.username; // jwt assigned this username check verifyJWT.js for more..
     const foundUser = await User.findOne({ username });
 
+    console.log('>>>RAZOR',razorpay_order_id);
+    console.log('====================================');
     try {
         // Ensure all required fields are present
         if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
@@ -76,6 +110,10 @@ const validateOrder = async (req, res) => {
             return res.status(402).json({ message: "Transaction failed: signature mismatch" });
         }
 
+
+
+        const orders = await Orders.find({orderID:razorpay_order_id})
+        
         // Update stocks
         await Promise.all(itemArr.map(async (item) => {
             const foundProduct = await Products.findOne({ _id: item.id });
@@ -85,7 +123,33 @@ const validateOrder = async (req, res) => {
             await foundProduct.save();
         }));
 
-        // Update user orders and cart
+
+        var instance = new Razorpay({
+            key_id: process.env.RAZOR_PAY_KEY_ID,
+            key_secret: process.env.RAZOR_PAY_KEY_SECRET,
+          });
+
+          let payment;
+          try {
+              payment = await instance.payments.fetch(razorpay_payment_id);
+              console.log('paymentStatus', payment);
+          } catch (error) {
+              console.error('Error fetching payment status from Razorpay:', error);
+              return res.status(error.statusCode || 500).json({ message: error.error.description || 'Error validating payment status with Razorpay' });
+          }
+
+        if (payment.status === 'captured') {
+            await Promise.all(orders.map(async (order) => {
+                order.paymentID = payment.id;
+                order.paymentStatus = payment.status;
+                order.paymentType = payment.method;
+                order.deliveryStatus = 'waiting for seller confirmation';
+                await order.save();
+            }));
+        }
+        
+
+        // Update user recentOrders and cart
         const updatedRecentOrders = itemArr.map((item) => ({
             productID: item.id,
             size: item.size,
