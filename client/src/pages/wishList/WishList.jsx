@@ -25,32 +25,11 @@ function WishList(props) {
     const { reFetch , setData} = usePrivateFetch(`/users/${userID}`)
 
     const { data, loading, err } = usePrivateFetch(user ? '/wishlist' : '')
+
     const [wishListItems, setWishListItems] = useState([])
 
     const BASE_URL = import.meta.env.VITE_BASE_URL
 
-    const axiosResponse = async () => {
-
-        const response = await axios.get(BASE_URL + '/wishlist', {
-            headers: {
-                Authorization: user ? `Bearer ${user?.accessToken}` : ''
-            }
-        })
-        
-    }
-
-    const fetchWishListItems = async () => {
-
-        try {
-            const items = await Promise.all(data.map(async (item) => {
-                const response = await axios.get(BASE_URL + `/items/${item.productID}`)
-                return { ...item, product: response.data } // for getting user cart-items, qty, images
-            }))
-            setWishListItems(items)
-        } catch (error) {
-            console.log(error);
-        }
-    }
 
     const handleRemoveWishLIstItem = async(id)=>{
 
@@ -73,21 +52,15 @@ function WishList(props) {
             
         }
     }
-
-    useEffect(() => {
-
-        if (user) {
-            axiosResponse();
-           
-        }
-
-    }, [user])
+    
 
 
     useEffect(() => {
-        if (data?.length) {
-            fetchWishListItems()
-        }
+
+        setWishListItems(data)
+        console.log('====================================');
+        console.log(data);
+        console.log('====================================');
 
     }, [data])
 
@@ -116,18 +89,18 @@ function WishList(props) {
                                         <CardMedia
                                             component="img"
                                             height="280"
-                                            image={item?.product?.images[0]}
+                                            image={item?.product[0]?.images[0]}
                                             alt="images"
                                             sx={{ width: '100%', objectFit: 'cover' }}
                                         />
                                         <CardContent>
                                             <div className="details">
-                                                <p>{item?.product?.name} </p>
+                                                <p>{item?.product[0]?.name} </p>
                                                 <div className="pay">
-                                                    <p className="price">₹899</p>
-                                                    <strike>₹1299</strike>
+                                                    <p className="price">₹{item?.product[0].offerPrice}</p>
+                                                    <strike>₹{item?.product[0]?.price}</strike>
                                                     <p className="offer">
-                                                        20% OFF
+                                                    ({((item?.product[0]?.price - item?.product[0]?.offerPrice) / item?.product[0]?.price * 100).toFixed(0)}% OFF)
                                                     </p>
                                                 </div>
                                             </div>

@@ -62,14 +62,15 @@
         ul{
             list-style: none;
 
-            li{
+            .li-Orders{
                 color: grey;
                 font-size: 13px;
                 padding: 2px;
                 font-weight: 300;
                 cursor: pointer;
+                text-decoration:none
             }
-            li:hover{
+            .li-Orders:hover{
                 color: rgb(109, 109, 109);
                 font-weight: 500;
             }

@@ -16,6 +16,10 @@ function Single() {
 
     const { data, loading ,reFetch } = useFetch(`/items/${id}`);
 
+    console.log('====================================');
+    console.log(data);
+    console.log('====================================');
+
     const {darkMode} = useContext(modeContext)
 
     useEffect(()=>{

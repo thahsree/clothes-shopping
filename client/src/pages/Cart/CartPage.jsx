@@ -25,7 +25,8 @@ function CartPage(props) {
 
         try {
             const items = await Promise.all(data.map(async (item) => {
-                const response = await axios.get(BASE_URL + `/items/${item.productID}`)
+                
+                const response = await axios.get(BASE_URL+`/items/${item.productID}`)
                 return { ...item, product: response.data } // for getting user cart-items, qty, images
             }))
             setCartItems(items)

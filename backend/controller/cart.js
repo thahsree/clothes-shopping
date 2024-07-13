@@ -10,6 +10,8 @@ const addToCart = async(req,res)=>{
 
         const { id ,size, count} = req.query
 
+        console.log(id);
+
         const username = req.username  // jwt assigned this username, check verifyJWT.js for more..
 
         const foundUser =await User.findOne({username:username})

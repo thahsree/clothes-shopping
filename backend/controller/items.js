@@ -16,11 +16,22 @@ const getItems = async(req,res)=>{
             return res.status(200).json(foundItems)
         }
 
+        
         const foundItems = await Products.find({...queries})
+
         if(foundItems.length <=0){
             return res.status(200).json({"message":"NO ITEMS TO SHOW "})
         }
-        return res.status(200).json(foundItems)
+
+        const stockDetails = await Promise.all(foundItems.map(async (item) => {
+            const totalStock = Object.values(item.availableStock).reduce((acc, val) => acc + val, 0);
+            return {
+                ...item.toObject(),
+                totalStock: totalStock
+            };
+        }));
+
+        return res.status(200).json(stockDetails)
 
     } catch (error) {
         console.error(error);
@@ -62,8 +73,14 @@ const getItem = async (req,res)=>{
 
     try {
 
-        const item =await Products.findById(req.params.id)
+        const id = req.params.id
 
+        console.log(id);
+
+
+        const item =await Products.findById(id)
+
+        
         if (!item) {
             return res.status(404).json({ message: "Item not found" });
         }

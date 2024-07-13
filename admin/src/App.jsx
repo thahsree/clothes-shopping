@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Navigate, Outlet, Route, Routes, useLocation } from 'react-router-dom';
 import SignUp from './components/Signup/SignUp';
 import { authContext } from './context/AuthContext';
-import { productColumns, userColumns } from './datatable';
+import { orderColumn, productColumns, userColumns } from './datatable';
 import Home from './pages/Home/Home';
 import List from './pages/Lists/List';
 import Login from './pages/Login/Login';
@@ -39,6 +39,7 @@ function App(props) {
             <Route path='/products' element={<List columns={productColumns} />} />
             <Route path='/add-products' element={<AddProduct />} />
             <Route path='/update-products/:id' element={<UpdateProduct />} />
+            <Route path='/orders' element={<List columns={orderColumn}/>}/>
 
           </Route>
 

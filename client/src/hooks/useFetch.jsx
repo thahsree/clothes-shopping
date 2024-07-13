@@ -26,6 +26,9 @@ function useFetch(url) {
 
             setData(response.data)
            
+            console.log('==========RESPONSE============');
+            console.log(response);
+            console.log('====================================');
         } catch (error) {
             setErr(error)
             console.log(error);

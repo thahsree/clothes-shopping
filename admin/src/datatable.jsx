@@ -65,5 +65,43 @@ export const userColumns = [
       editable: false,
       sortable:false
       
+    },
+    {
+      field:'totalStock',
+      headerName:'Stock',
+      width:100,
+      editable:true,
+      sortable:false
     }
   ];
+
+
+  export const orderColumn = [
+    { field: 'customerID', headerName: 'CustomerID', width: 130 },
+    {
+      field:'orderID',
+      headerName:'Order ID',
+    },
+    {
+      field:'paymentType',
+      headerName:'Payment Type',
+    },
+    {
+      field:'paymentStatus',
+      headerName:'Status'
+    },
+    {
+      field:'paymentID',
+      headerName:'Payment ID',
+    },
+    {
+      field:'deliveryStatus',
+      headerName:'Delivery Status',
+      width:200
+    },
+    {
+      field:'createdAt',
+      headerName:'Order Created'
+    }
+    
+  ]

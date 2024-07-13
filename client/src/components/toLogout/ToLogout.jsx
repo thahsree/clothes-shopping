@@ -1,5 +1,6 @@
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { authContext } from '../../context/AuthContexts';
 import './toLogout.css';
 
@@ -22,10 +23,10 @@ function ToLogout({handleLogout}) {
             
             <div className="actions">
                 <ul>
-                    <li>Orders</li>
-                    <li>Wishlist</li>
-                    <li>Gift Cards</li>
-                    <li>Contact Us</li>
+                    <Link to='/orders' className='li-Orders'>Orders</Link>
+                    <li className='li-Orders'>Wishlist</li>
+                    <li className='li-Orders'>Gift Cards</li>
+                    <li className='li-Orders'>Contact Us</li>
                 </ul>
             </div>
 

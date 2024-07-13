@@ -68,7 +68,8 @@ const checkOutProduct = async (req, res) => {
                 paymentType:'waiting',
                 qty : item.count,
                 itemID: foundProduct._id,
-                deliveryStatus:'waiting for payment'
+                deliveryStatus:'waiting for payment',
+                amount:0
 
             }
             await Orders.create(newOrder)
@@ -144,6 +145,7 @@ const validateOrder = async (req, res) => {
                 order.paymentStatus = payment.status;
                 order.paymentType = payment.method;
                 order.deliveryStatus = 'waiting for seller confirmation';
+                order.amount = payment.amount
                 await order.save();
             }));
         }

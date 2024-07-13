@@ -58,7 +58,17 @@ const getWishListItems = async(req,res)=>{
             return res.sendStatus(403) // 
         }
 
-        return res.status(200).json(foundUser.wishList)
+        const wishList = foundUser.wishList
+
+        const newList = await Promise.all(wishList.map(async(item)=>{
+
+            const foundProduct = await Products.find(({_id:item.productID}))
+
+            return {...item.toObject(),product:foundProduct}
+        }))
+
+       
+        return res.status(200).json(newList)
         
     } catch (error) {
         console.log(error);

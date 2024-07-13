@@ -17,6 +17,7 @@ import CartPage from './pages/Cart/CartPage';
 import ErrorPage from './pages/ErrorPage';
 import List from './pages/Lists/List';
 import Login from './pages/Login/Login';
+import Orders from './pages/OrderPage/Orders';
 import Signup from './pages/Signup/Signup';
 import Single from './pages/single/Single';
 import WishList from './pages/wishList/WishList';
@@ -83,6 +84,17 @@ const router = createBrowserRouter([
           }
         ]
       },
+      {
+        path:'/orders',
+        errorElement:<ErrorPage/>,
+        children:[
+          {
+            path:'',
+            element:<Orders/>,
+            errorElement:<ErrorPage />
+          }
+        ]
+      }
 
     ]
 

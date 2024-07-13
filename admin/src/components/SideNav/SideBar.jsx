@@ -52,6 +52,12 @@ function SideBar(props) {
                         </Link>
                     </li>
                     <li>
+                        <Link to='/orders' style={{ textDecoration: 'none' }}>
+                            <Person2OutlinedIcon className='icon' />
+                            <span>ORDERS</span>
+                        </Link>
+                    </li>
+                    <li>
                         <Link to='/products' style={{ textDecoration: 'none' }}>
                             <Inventory2OutlinedIcon className='icon' />
                             <span>MY PRODUCTS</span>

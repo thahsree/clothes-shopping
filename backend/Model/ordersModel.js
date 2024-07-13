@@ -49,9 +49,14 @@ const orderSchema = new Schema({
     deliveryStatus:{
         type:String,
         required:true
+    },
+    amount:{
+        type:Number,
+        required:true
     }
-
-
+},
+{
+    timestamps:true
 })
 
 const Orders = mongoose.model("Order",orderSchema)

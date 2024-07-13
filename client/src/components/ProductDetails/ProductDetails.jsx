@@ -17,6 +17,8 @@ import './details.css';
 
 function ProductDetails({ datas }) {
 
+    console.log(datas);
+
     const [selectedSize, setSelectedSize] = useState("");
     const [showSizeErr, setShowSizeErr] = useState(false)
 

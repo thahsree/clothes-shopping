@@ -52,8 +52,10 @@ function UpdateForm(id) {
     
 
     useEffect(() => {
+        console.log(data);
         if (data) {
             setDetails({
+                images:data?.images || [],
                 productDetails: data?.productDetails || [],
                 sizeAndFit: data?.sizeAndFit || [],
                 name: data?.name || "",
@@ -174,7 +176,7 @@ function UpdateForm(id) {
 
             const newDetails = {
                 ...details,
-                images: list
+                images: [...details.images,...list]
 
             }
 
@@ -212,6 +214,15 @@ function UpdateForm(id) {
                 <section className="basicInfo">
                     <div className="details">
                         <h4>Basic Information</h4>
+                        {
+                                <div className="addFormImages">
+                                    {data?.images?.map((item,i)=>(
+                                        <div className="addFormImage" key={i}>
+                                            <img src={item} alt="" width='50px' height='50px'/>
+                                        </div>
+                                    ))}
+                                </div>
+                            }
                         <div className="imageInput">
                             <p>Add Images:</p>
                             <input
