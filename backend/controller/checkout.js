@@ -2,7 +2,10 @@ const Products = require('../Model/productsModel');
 const User = require('../Model/userModel');
 const Razorpay = require('razorpay');
 const crypto = require('crypto');
-const Orders = require('../Model/ordersModel')
+const Orders = require('../Model/ordersModel');
+const { log } = require('console');
+
+
 const checkOutProduct = async (req, res) => {
 
 
@@ -15,8 +18,6 @@ const checkOutProduct = async (req, res) => {
         if (!foundUser) {
             return res.sendStatus(403); // valid auth but token expired
         }
-
-        console.log(itemArr);
 
         // Ensure stock is available
         for (const item of itemArr) {
@@ -44,8 +45,6 @@ const checkOutProduct = async (req, res) => {
             return res.status(402).json({ message: "Payment Error" });
         }
 
-        console.log('====================================');
-        console.log('order',order.id);
 
         for(const item of itemArr){
 
@@ -90,8 +89,7 @@ const validateOrder = async (req, res) => {
     const username = req.username; // jwt assigned this username check verifyJWT.js for more..
     const foundUser = await User.findOne({ username });
 
-    console.log('>>>RAZOR',razorpay_order_id);
-    console.log('====================================');
+    
     try {
         // Ensure all required fields are present
         if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
@@ -153,9 +151,11 @@ const validateOrder = async (req, res) => {
 
         // Update user recentOrders and cart
         const updatedRecentOrders = itemArr.map((item) => ({
+            
             productID: item.id,
             size: item.size,
             nos: item.count,
+            orderID: razorpay_order_id
         }));
 
         foundUser.recentOrders.push(...updatedRecentOrders);

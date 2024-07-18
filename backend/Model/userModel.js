@@ -7,7 +7,12 @@ const itemSchema = new Schema({
     size: String,
     nos: Number
 }, { timestamps: true });
-
+const orderSchema = new Schema({
+    productID: String,
+    size: String,
+    nos: Number,
+    orderID : String
+}, { timestamps: true });
 const addressSchema = new Schema({
     name:String,
     contactNumber:String,
@@ -41,7 +46,7 @@ const UserSchema = new Schema({
     },
     wishList: [itemSchema], // Using the subdocument schema for wishList
     cart: [itemSchema], // Using the subdocument schema for cart
-    recentOrders: [itemSchema], // Using the subdocument schema for recentOrders
+    recentOrders: [orderSchema], // Using the subdocument schema for recentOrders
     password:{
         type:String,
         required:true

@@ -32,3 +32,28 @@
     }
     
 }
+.dataTable-main{
+    position:relative;
+   
+}
+
+.dataTable-main .blur{
+    pointer-events: none;
+}
+
+.dataTable-main::before{
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(.3px);
+    z-index: 100;
+    display: none;
+  
+}
+.dataTable-main.blur::before{
+    display:block;
+}

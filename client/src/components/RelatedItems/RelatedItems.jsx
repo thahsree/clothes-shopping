@@ -35,10 +35,6 @@ function RelatedItems({currentItem}) {
 
         fetchDatas();
 
-        console.log('====================================');
-        console.log(">>>>",location.state);
-        console.log('====================================');
-
     }, [])
 
     return (

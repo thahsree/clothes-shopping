@@ -17,6 +17,7 @@ function DataTable({ columns }) {
     const BASE_URL = import.meta.env.VITE_BASE_URL
 
     const [showOptions, setShowOptions] = useState(false)
+    const [fetch , setFetch]= useState(false);
     const [selectedID, setSelectedID] = useState()
 
     let url;
@@ -27,6 +28,7 @@ function DataTable({ columns }) {
     } else if (path === 'orders') {
         url = BASE_URL + '/orders'
     }
+
     const { data, loading, error, reFetch } = useFetch(url)
 
 
@@ -37,10 +39,12 @@ function DataTable({ columns }) {
         setList(data)
     }, [data])
 
+    
+
     const cookies = new Cookies()
     const user = cookies.get('accessToken')
 
-
+   
     const handleDelete = async (id) => {
         console.log('id', id);
 
@@ -82,7 +86,8 @@ function DataTable({ columns }) {
                         if (path === 'products') {
                             navigate(`/update-products/${params.row._id}`);
                         } else if (path === 'orders') {
-                            setSelectedID(params.row.orderID);
+                            console.log('PARAMS',params.row)
+                            setSelectedID(params.row._id);
                             setShowOptions(true);
                         }
                     }}>
@@ -103,7 +108,7 @@ function DataTable({ columns }) {
     },[selectedID])
 
     return (
-        <div className='dataTable-main'>
+        <div className={showOptions ? 'dataTable-main blur': 'dataTable-main'}>
             <Box sx={{ height: "max-Content", width: '100%' }}>
                 <DataGrid
                     rows={list}
@@ -122,7 +127,12 @@ function DataTable({ columns }) {
                 />
             </Box>
             {
-                showOptions && <OrderUpdate />
+                showOptions && <OrderUpdate 
+                                id={selectedID} 
+                                setShowOptions={setShowOptions} 
+                                showOptions={showOptions}
+                                setFetch={setFetch}
+                                />
             }
         </div>
     );

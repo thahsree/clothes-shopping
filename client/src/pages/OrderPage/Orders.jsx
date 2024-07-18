@@ -15,13 +15,11 @@ function Orders(props) {
 
         try {
 
-            const response = await axios.get(BASE_URL + '/orders', {
+            const response = await axios.get(BASE_URL + '/orders/userOrders', {
                 headers: {
                     Authorization: user ? `Bearer ${user.accessToken}` : ''
                 }
             })
-
-            console.log(response.data);
 
             const modifiedData = response.data.map(item => {
                 const newDate = moment(item.createdAt);
@@ -66,24 +64,24 @@ function Orders(props) {
                 data ? (
                     data.map((item, i) => (
                         item.product ? (
-                            <div className={item.paymentStatus === 'captured' ? 'order-box success' : 'order-box failed'} key={i}>
+                            <div className={item?.order?.paymentStatus === 'captured' ? 'order-box success' : 'order-box failed'} key={i}>
                                 <div className="order-box-top">
                                     <div className="order-box-top-details">
                                         <div className="placed">
                                             <p className='head-order'>Order Placed</p>
-                                            <p className='input-order'>{item.createdAtMonth} {item.createdAtDay}</p>
+                                            <p className='input-order'>{item?.createdAtMonth} {item?.createdAtDay}</p>
                                         </div>
                                         <div className="total">
                                             <p className='head-order'>Amount</p>
-                                            <p className='input-order'>₹{item?.amount /100}</p>
+                                            <p className='input-order'>₹{item?.product[0]?.offerPrice}</p>
                                         </div>
                                         <div className="shipTo">
                                             <p className='head-order'>Ship To </p>
-                                            <p className='input-order'>{item.address.city}</p>
+                                            <p className='input-order'>{item?.order?.address?.city}</p>
                                         </div>
                                     </div>
                                     <div className="orderID">
-                                        <p className='input-order'>{item?.orderID}</p>
+                                        <p className='input-order'>{item?.order?.orderID}</p>
                                         <div className="orderID-options">
                                             <p>View Order Details</p>
                                             <p>View Invoice</p>
@@ -92,16 +90,16 @@ function Orders(props) {
                                 </div>
                                 <div className="order-box-middle">
                                     <div className="deliveryStatus">
-                                        <p>{item.deliveryStatus === "waiting for payment" ? "Cancelled" : item.deliveryStatus}</p>
+                                        <p>{item?.order?.deliveryStatus === "waiting for payment" ? "Cancelled" : item?.order?.deliveryStatus}</p>
                                     </div>
                                     <div className="order-item">
                                         <div className="order-item-image">
-                                            <img src={item.product.images[0]} width='100px' heigth='100px' alt="" />
+                                            <img src={item?.product[0]?.images[0]} width='100px' heigth='100px' alt="" />
                                         </div>
                                         <div className="order-item-desc">
                                             <div className="order-item-desc-details">
-                                                <p className='order-desc-head'>{item.product.name}</p>
-                                                <p className='order-desc-brand'>{item.product.brand}</p>
+                                                <p className='order-desc-head'>{item.product[0]?.name}</p>
+                                                <p className='order-desc-brand'>{item.product[0]?.brand}</p>
                                                 <p className='order-desc-return'>Return or Replace : Eligible through {item.addedMonth} {item.addedDay}</p>
                                             </div>
                                             <div className="order-item-options">

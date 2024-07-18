@@ -1,3 +1,58 @@
 .updateOrderMain{
     
+    position: absolute;
+    top: 50px;
+    left: 250px;
+    height:500px;
+    width:500px;
+    background-color:whitesmoke;
+    z-index: 300;
+    border-radius:15px;
+   
+}
+.updateOrderTop{
+    display: flex;
+    justify-content:center;
+    align-items:center;
+    height:50px;
+    border-radius: 15px 15px 0px 0px;
+    background-color: #333;
+    color: silver;
+    font-size:13px;
+
+}
+.updateOrderContent{
+
+    display: flex;
+    padding: 7px;
+    justify-content: space-between;
+}
+.updateOrderContent input{
+
+    padding: 10px 15px;
+
+}
+.updateOrderContent select{
+    padding: 10px 15px;
+}
+.updateOrderContent button{
+
+    cursor:pointer;
+    padding:7px 15px;
+    border:none;
+    border-radius:10px;
+}
+.close{
+    background-color: rgba(255, 0, 0, 0.671);
+}
+.close:hover{
+    background-color: rgba(255, 0, 0, 0.344);
+}
+.update{
+    background-color: rgba(3, 3, 154, 0.701);
+    color: aliceblue;
+}
+.update:hover{
+    background-color: rgba(3, 3, 154, 0.447);
+    color: aliceblue;
 }

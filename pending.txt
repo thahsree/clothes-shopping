@@ -1,0 +1,25 @@
+14/07/2024
+
+>> ADMIN PAGE 
+
+1. open update component for update delivery status  
+2. show added image instantly after adding image
+3. update image options
+
+>> USER PAGE
+
+1. cancel order options
+2. view item 
+3. download invoice
+
+
+?? FOR FUTURE ??
+
+pipeline
+mongo aggregates
+
+
+
+✅✅✅✅✅
+
+❌❌❌❌❌

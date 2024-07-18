@@ -1,36 +1,60 @@
 const Orders = require('../Model/ordersModel');
 const Products = require('../Model/productsModel')
+const User = require('../Model/userModel')
 
-
-const getOrders = async(req,res)=>{
+const getUserOrders = async(req,res)=>{
 
     try{
 
-        const orders = await Orders.find()
+        console.log("REACHED BEFORE USER");
+        const username = req.username
 
-        const newData = await Promise.all(orders.map(async(item)=>{
+        console.log(username);
 
-            const foundProduct = await Products.findOne({_id:item.itemID})
+        const foundUser =await User.findOne({username:username}) 
 
-            
-            return {...item.toObject(), product:foundProduct}
-        }))
-
+        console.log(foundUser);
+        const recentOrders = foundUser.recentOrders
+       
+        console.log(recentOrders);
         
-        console.log(newData);
+
+        const newData = await Promise.all(recentOrders.map((async(item)=>{
+            
+
+            const foundOrder = await Orders.findOne({orderID:item.orderID})
+
+            const foundProduct = await Products.find({_id:item.productID})
+
+            return{order:foundOrder ,product:foundProduct }
+        })))
         
         res.status(200).json(newData)
     }catch (error){
         console.log(error)
+        res.status(500).json({ message: "Internal Server Error" });
     }
 }
 
+const getOrders = async(req,res)=>{
+
+    try {
+        
+        const response = await Orders.find()
+
+        return res.status(200).json(response)
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'Internal Server Error'})
+    }
+}
 
 const updateOrder = async(req,res)=>{
 
     try{
         const id = req.params.id
-        const foundOrder = await Orders.find({_id:id})
+        
 
         const updatedOrder = await Orders.findByIdAndUpdate(req.params.id,{$set: req.body},{new:true})
 
@@ -38,16 +62,27 @@ const updateOrder = async(req,res)=>{
 
     }catch(error){
         console.log(error);
+        res.status(500).json({ message: "Internal Server Error" });
     }
 }
 
 const getOrder = async(req,res)=>{
 
-    
+    try{
+
+        const id = req.params.id
+        const foundOrder = await Orders.find({_id:id})
+
+        return res.status(200).json(foundOrder)
+    }catch(error){
+
+        console.log(error)
+        res.status(500).json({message:'Internal Server Error'})
+    }
 }
 
 const getOrderByOrderID = async(req,res)=>{
 
     
 }
-module.exports= {getOrders , updateOrder};
+module.exports= {getUserOrders , updateOrder , getOrders , getOrder};

@@ -21,6 +21,7 @@ function useFetch(url) {
                         Authorization: token ?`Bearer ${token}` : ''
                     }
                 })
+                console.log("RESPONSE",response);
                 setData(response.data)
             } catch (error) {
                 setErr(error)

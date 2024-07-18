@@ -2,7 +2,7 @@ const Products = require('../Model/productsModel')
 
 const getItems = async(req,res)=>{
 
-    console.log("REACHED GET ITEMS");
+   
    
     try {
         const {...queries} = req.query
@@ -74,8 +74,6 @@ const getItem = async (req,res)=>{
     try {
 
         const id = req.params.id
-
-        console.log(id);
 
 
         const item =await Products.findById(id)
