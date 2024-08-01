@@ -20,7 +20,7 @@ function OrderUpdate({id , setShowOptions , setFetch}) {
         if (data && data.length > 0) {
             setDeliveryStatus(data[0].deliveryStatus || '');
         }
-        console.log(data);
+        console.log('????DATA',data);
     }, [data]);
 
     const handleClose = ()=>{
@@ -33,7 +33,7 @@ function OrderUpdate({id , setShowOptions , setFetch}) {
 
             const cookies = new Cookies()
             const user = cookies.get('accessToken') 
-            const response = await axios.put(`${BASE_URL}/orders/${id}`,{
+            const response = await axios.put(`${BASE_URL}/orders/${data[0].orderID}/${data[0].itemID}`,{
                 deliveryStatus
             },{
                     headers: {

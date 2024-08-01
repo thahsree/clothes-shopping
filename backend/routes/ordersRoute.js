@@ -11,7 +11,7 @@ router.get('/userOrders',verifyJWT,getUserOrders)
 
 router.get('/:id',verifyJWT,getOrder)
 
-router.put('/:id',verifyJWT,updateOrder)
+router.put('/:orderID/:itemID',verifyJWT,updateOrder)
 
 
 module.exports = router

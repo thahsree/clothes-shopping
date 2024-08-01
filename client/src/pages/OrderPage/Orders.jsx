@@ -1,6 +1,7 @@
 import axios from 'axios';
 import moment from 'moment';
 import { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { authContext } from '../../context/AuthContexts';
 import './Order.css';
 function Orders(props) {
@@ -9,6 +10,7 @@ function Orders(props) {
     const { user } = useContext(authContext)
 
     const [data, setData] = useState();
+    const navigate = useNavigate()
 
     const fetchOrders = async () => {
 
@@ -22,7 +24,7 @@ function Orders(props) {
             })
 
             const modifiedData = response.data.map(item => {
-                const newDate = moment(item.createdAt);
+                const newDate = moment(item.order.createdAt);
                 const day = newDate.date();
                 const year = newDate.year();
                 const month = newDate.format('MMMM');
@@ -51,6 +53,12 @@ function Orders(props) {
         }
     }
 
+    const handleViewItem = (id)=>{
+
+        
+        navigate(`/products/${id}`, { state: { ...location.state, id } });
+    }
+
     useEffect(() => {
 
         fetchOrders()
@@ -64,7 +72,7 @@ function Orders(props) {
                 data ? (
                     data.map((item, i) => (
                         item.product ? (
-                            <div className={item?.order?.paymentStatus === 'captured' ? 'order-box success' : 'order-box failed'} key={i}>
+                            <div className={item?.order?.deliveryStatus === 'order cancelled' ? 'order-box failed':'order-box success'} key={i}>
                                 <div className="order-box-top">
                                     <div className="order-box-top-details">
                                         <div className="placed">
@@ -90,7 +98,7 @@ function Orders(props) {
                                 </div>
                                 <div className="order-box-middle">
                                     <div className="deliveryStatus">
-                                        <p>{item?.order?.deliveryStatus === "waiting for payment" ? "Cancelled" : item?.order?.deliveryStatus}</p>
+                                        <p>{ item?.order?.deliveryStatus}</p>
                                     </div>
                                     <div className="order-item">
                                         <div className="order-item-image">
@@ -103,7 +111,7 @@ function Orders(props) {
                                                 <p className='order-desc-return'>Return or Replace : Eligible through {item.addedMonth} {item.addedDay}</p>
                                             </div>
                                             <div className="order-item-options">
-                                                <button>View Your Item</button>
+                                                <button onClick={()=> handleViewItem(item.product[0]._id)}>View Your Item</button>
                                                 <button>Track Package</button>
                                                 <button>Cancel Order</button>
                                             </div>

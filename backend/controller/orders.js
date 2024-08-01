@@ -22,11 +22,17 @@ const getUserOrders = async(req,res)=>{
         const newData = await Promise.all(recentOrders.map((async(item)=>{
             
 
-            const foundOrder = await Orders.findOne({orderID:item.orderID})
+            const foundOrder = await Orders.aggregate([{
+                $match:{
+                    orderID:item.orderID,
+                    itemID:item.productID
+                }
+            }])
+            // const foundOrder = await Orders.findOne({orderID:item.orderID})
 
             const foundProduct = await Products.find({_id:item.productID})
 
-            return{order:foundOrder ,product:foundProduct }
+            return{order:foundOrder[0] ,product:foundProduct }
         })))
         
         res.status(200).json(newData)
@@ -53,10 +59,36 @@ const getOrders = async(req,res)=>{
 const updateOrder = async(req,res)=>{
 
     try{
-        const id = req.params.id
-        
+        const orderID = req.params.orderID
+        const itemID = req.params.itemID
 
-        const updatedOrder = await Orders.findByIdAndUpdate(req.params.id,{$set: req.body},{new:true})
+        
+        const foundOrder = await Orders.aggregate([{
+            $match:{
+              orderID,
+              itemID
+            }
+          }])
+
+
+          console.log("FOUND ORDER",foundOrder);
+
+          if(foundOrder.length === 0 ){
+            return res.status(404).json({message:"Item Not Found"});
+          }
+
+          const orderToUpdate = foundOrder[0]
+
+          console.log("ORDER TO UPDATE",orderToUpdate)
+
+          const updatedOrder = await Orders.findByIdAndUpdate(
+            orderToUpdate._id,
+            {$set: req.body},
+            {new:true}
+          )
+
+        
+        // const updatedOrder = await Orders.findByIdAndUpdate(req.params.id,{$set: req.body},{new:true})
 
         return res.status(200).json(updatedOrder);
 
