@@ -1,6 +1,6 @@
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import axios from 'axios';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { authContext } from '../../context/AuthContexts';
 import { modeContext } from '../../context/DarkMode';
 import { dataContext } from '../../context/DataContext';
@@ -13,11 +13,16 @@ function CartContent({ cartItems, setCartItems }) {
 
 
     const { userData } = useContext(dataContext)
-    const totalMRP = cartItems.reduce((total, item) => total + item?.product?.price, 0);
-    const discountedMRP = cartItems.reduce((total, item) => total + item?.product?.offerPrice, 0);
+    
+
+
+    console.log('===========DISCOUNTED MRP=========================');
+    console.log(cartItems);
+    console.log('====================================');
     
 
     const [showAddressInput, setShowAddressInput] = useState(false);
+    
 
     const BASE_URL = import.meta.env.VITE_BASE_URL
 
@@ -37,14 +42,14 @@ function CartContent({ cartItems, setCartItems }) {
             return 
         }
 
-        const amount = (discountedMRP + 20) * 100;
+        const amount = (totalMRP + 20 - (discountedMRP)) * 100;
         const currency = "INR";
         const receipt = "RES_123123";
     
 
         const itemArr = cartItems.map(item => ({
             id: item.productID,
-            count: 1,
+            count: item.nos,
             size: item.size.toString()
         }));
     
@@ -150,11 +155,34 @@ function CartContent({ cartItems, setCartItems }) {
         }
     }
 
-    useEffect(() => {
-        console.log('====================================');
-        console.log(userData);
-        console.log('====================================');
-    }, [])
+    const handleQtyChange = async (id,qty)=>{
+
+        try {
+            
+            console.log('ID>>>',id)
+            console.log('QTY>>>>',qty)
+
+            const updatedCart = cartItems.map((item)=>{
+                if(item.productID === id){
+                    return {...item,nos:qty}
+
+                }
+                return item
+            })
+
+            setCartItems(updatedCart)
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const totalMRP = cartItems.reduce((total, item) => total + item?.product?.price * item.nos, 0);
+    const discountedMRP = cartItems.reduce((offer, item) => {
+        const price = item?.product?.price || 0;
+        const offerPrice = item?.product?.offerPrice !== null ? item?.product?.offerPrice : price;
+        return offer + (price - offerPrice) * item.nos;
+    }, 0);
+
 
     const {darkMode} = useContext(modeContext)
 
@@ -215,12 +243,12 @@ function CartContent({ cartItems, setCartItems }) {
                                         </div>
                                         <div className="qty">
                                             <p>Qty:</p>
-                                            <select name="qty" id="">
-                                                <option value="">1</option>
-                                                <option value="">2</option>
-                                                <option value="">3</option>
-                                                <option value="">4</option>
-                                                <option value="">5</option>
+                                            <select name="qty" id="" onChange={(e)=> handleQtyChange(item?.product._id , parseInt(e.target.value))}>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
                                             </select>
                                         </div>
                                     </div>
@@ -251,7 +279,7 @@ function CartContent({ cartItems, setCartItems }) {
                     </div>
                     <div className="billInput">
                         <p className="field ">Discount on MRP</p>
-                        <p className="price discount">-{totalMRP - discountedMRP}</p>
+                        <p className="price discount">-{discountedMRP}</p>
                     </div>
                     <div className="billInput">
                         <p className="field ">Platform Fee</p>
@@ -265,7 +293,7 @@ function CartContent({ cartItems, setCartItems }) {
                 </div>
                 <div className="billAmount">
                     <p >Total Amount</p>
-                    <p>₹{discountedMRP + 20}</p>
+                    <p>₹{totalMRP + 20 - (discountedMRP)}</p>
                 </div>
                 <button className='placeOrder' onClick={(e) => handleCheckout(e)}>PLACE ORDER</button>
             </div>

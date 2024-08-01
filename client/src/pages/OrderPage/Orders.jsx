@@ -42,7 +42,7 @@ function Orders(props) {
                 };
             });
             setData(modifiedData);
-            console.log('====================================');
+            console.log('==============DATA======================');
             console.log(modifiedData);
             console.log('====================================');
 
