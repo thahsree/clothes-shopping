@@ -4,7 +4,8 @@ const whitelist = [
     'http://localhost:5174',
     'https://clothes-shopping-chi.vercel.app',
     'http://localhost:3500',
-    'https://clothes-shopping-admin.vercel.app'
+    'https://clothes-shopping-admin.vercel.app',
+    'https://clothes-shopping-beta.vercel.app'
 ];
 
 // CORS options configuration object
