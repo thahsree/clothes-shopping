@@ -113,7 +113,11 @@ function Orders(props) {
                                             <div className="order-item-options">
                                                 <button onClick={()=> handleViewItem(item.product[0]._id)}>View Your Item</button>
                                                 <button>Track Package</button>
-                                                <button>Cancel Order</button>
+                                                {
+                                                    item?.order?.deliveryStatus !== 'order cancelled'&&
+                                                        <button>Cancel Order</button>
+                                                
+                                                }
                                             </div>
                                         </div>
                                     </div>

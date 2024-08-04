@@ -55,7 +55,7 @@ function Collections(props) {
                             <div className="displayItem" onClick={() => handleViewItem(item._id)}>
                                 <div className="image">
                                     {item.images && item.images[0] ? (
-                                        <img src={item.images[0]} alt="" />
+                                        <img src={item.images[1]} alt="" />
                                     ) : (
                                         ''// or a placeholder image if you prefer
                                     )}

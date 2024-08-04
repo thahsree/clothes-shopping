@@ -6,17 +6,16 @@ const getUserOrders = async(req,res)=>{
 
     try{
 
-        console.log("REACHED BEFORE USER");
         const username = req.username
 
         console.log(username);
 
         const foundUser =await User.findOne({username:username}) 
 
-        console.log(foundUser);
+        
         const recentOrders = foundUser.recentOrders
        
-        console.log(recentOrders);
+        
         
 
         const newData = await Promise.all(recentOrders.map((async(item)=>{
@@ -68,24 +67,24 @@ const updateOrder = async(req,res)=>{
               orderID,
               itemID
             }
-          }])
+        }])
 
 
-          console.log("FOUND ORDER",foundOrder);
+        console.log("FOUND ORDER",foundOrder);
 
-          if(foundOrder.length === 0 ){
+        if(foundOrder.length === 0 ){
             return res.status(404).json({message:"Item Not Found"});
-          }
+        }
 
-          const orderToUpdate = foundOrder[0]
+        const orderToUpdate = foundOrder[0]
 
-          console.log("ORDER TO UPDATE",orderToUpdate)
+        console.log("ORDER TO UPDATE",orderToUpdate)
 
-          const updatedOrder = await Orders.findByIdAndUpdate(
+        const updatedOrder = await Orders.findByIdAndUpdate(
             orderToUpdate._id,
             {$set: req.body},
             {new:true}
-          )
+        )
 
         
         // const updatedOrder = await Orders.findByIdAndUpdate(req.params.id,{$set: req.body},{new:true})
@@ -117,4 +116,38 @@ const getOrderByOrderID = async(req,res)=>{
 
     
 }
-module.exports= {getUserOrders , updateOrder , getOrders , getOrder};
+
+const cancelOrder = async(req,res)=>{
+
+    try{
+
+        const orderID = req.params.orderID
+        const itemID = req.params.itemID
+
+        const foundOrder = await Orders.aggregate([{
+            $match:{
+                orderID,
+                itemID
+            }
+        }])
+
+        const orderToUpdate = foundOrder[0]
+
+        console.log('OrderToUpdate',orderToUpdate);
+
+        const newUpdate = {
+            deliveryStatus:'order cancelled'
+        }
+        const updatedOrder = await Orders.findByIdAndUpdate(
+            orderToUpdate._id,
+            {$set: newUpdate},
+            {new:true}
+        )
+
+        return res.status(200).json(updatedOrder);
+
+    }catch(error){
+        res.status(500).json({"message":"Internal Server Error"});
+    }
+}
+module.exports= {getUserOrders , updateOrder , getOrders , getOrder , cancelOrder};

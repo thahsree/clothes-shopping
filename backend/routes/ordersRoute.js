@@ -1,4 +1,4 @@
-const { getOrders, updateOrder, getUserOrders, getOrder } = require('../controller/orders')
+const { getOrders, updateOrder, getUserOrders, getOrder, cancelOrder } = require('../controller/orders')
 const { verifyJWT } = require('../middleware/verifyJWT')
 const verifyRoles = require('../middleware/verifyRoles')
 
@@ -12,6 +12,8 @@ router.get('/userOrders',verifyJWT,getUserOrders)
 router.get('/:id',verifyJWT,getOrder)
 
 router.put('/:orderID/:itemID',verifyJWT,updateOrder)
+
+router.post('/cancelorder/:orderID/:itemID',verifyJWT,cancelOrder)
 
 
 module.exports = router
