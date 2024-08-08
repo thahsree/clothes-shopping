@@ -53,10 +53,36 @@ function Orders(props) {
         }
     }
 
-    const handleViewItem = (id)=>{
+    const handleViewItem = (id) => {
 
-        
+
         navigate(`/products/${id}`, { state: { ...location.state, id } });
+    }
+
+    const handleCancelOrder = async (orderID, itemID) => {
+
+        const BASE_URL = import.meta.env.VITE_BASE_URL
+        try {
+
+            const userConfirmed = window.confirm("Are you sure you want to cancel this order?");
+
+            if (!userConfirmed) {
+                return
+            }
+
+            console.log('Access Token', user?.accessToken);
+
+            const response = await axios.post(`${BASE_URL}/orders/cancelorder/${orderID}/${itemID}`, null, {
+                headers: {
+                    Authorization: user ? `Bearer ${user.accessToken}` : ''
+                }
+            })
+
+            fetchOrders();
+
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     useEffect(() => {
@@ -72,17 +98,25 @@ function Orders(props) {
                 data ? (
                     data.map((item, i) => (
                         item.product ? (
-                            <div className={item?.order?.deliveryStatus === 'order cancelled' ? 'order-box failed':'order-box success'} key={i}>
+                            <div className={item?.order?.deliveryStatus === 'order cancelled' ? 'order-box failed' : 'order-box success'} key={i}>
                                 <div className="order-box-top">
                                     <div className="order-box-top-details">
                                         <div className="placed">
                                             <p className='head-order'>Order Placed</p>
                                             <p className='input-order'>{item?.createdAtMonth} {item?.createdAtDay}</p>
                                         </div>
-                                        <div className="total">
-                                            <p className='head-order'>Amount</p>
-                                            <p className='input-order'>₹{item?.product[0]?.offerPrice}</p>
-                                        </div>
+                                        {
+                                            item.product[0]?.offerPrice ?
+                                                <div className="total">
+                                                    <p className='head-order'>Amount</p>
+                                                    <p className='input-order'>₹{item?.product[0]?.offerPrice}</p>
+                                                </div> : (
+                                                    <div className="total">
+                                                        <p className='head-order'>Amount</p>
+                                                        <p className='input-order'>₹{item?.product[0]?.price}</p>
+                                                    </div>
+                                                )
+                                        }
                                         <div className="shipTo">
                                             <p className='head-order'>Ship To </p>
                                             <p className='input-order'>{item?.order?.address?.city}</p>
@@ -92,13 +126,13 @@ function Orders(props) {
                                         <p className='input-order'>{item?.order?.orderID}</p>
                                         <div className="orderID-options">
                                             <p>View Order Details</p>
-                                            <p>View Invoice</p>
+                                            <p>Download Invoice</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="order-box-middle">
                                     <div className="deliveryStatus">
-                                        <p>{ item?.order?.deliveryStatus}</p>
+                                        <p>{item?.order?.deliveryStatus}</p>
                                     </div>
                                     <div className="order-item">
                                         <div className="order-item-image">
@@ -111,12 +145,12 @@ function Orders(props) {
                                                 <p className='order-desc-return'>Return or Replace : Eligible through {item.addedMonth} {item.addedDay}</p>
                                             </div>
                                             <div className="order-item-options">
-                                                <button onClick={()=> handleViewItem(item.product[0]._id)}>View Your Item</button>
+                                                <button onClick={() => handleViewItem(item.product[0]._id)}>View Your Item</button>
                                                 <button>Track Package</button>
                                                 {
-                                                    item?.order?.deliveryStatus !== 'order cancelled'&&
-                                                        <button>Cancel Order</button>
-                                                
+                                                    item?.order?.deliveryStatus !== 'order cancelled' &&
+                                                    <button onClick={() => handleCancelOrder(item?.order?.orderID, item?.product[0]?._id)}>Cancel Order</button>
+
                                                 }
                                             </div>
                                         </div>

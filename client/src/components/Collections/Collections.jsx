@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import axios from '../../axios/axios';
 import { authContext } from '../../context/AuthContexts';
 import { loadingContext } from '../../context/LoadingContext';
+import { productLoadingContext } from '../../context/ProductLoadingContext';
 import SkeletonLoading from '../Skeleton/Skeleton';
 import './collections.css';
 
@@ -15,6 +16,9 @@ function Collections(props) {
 
     const { user } = useContext(authContext);
     const { loading, dispatch } = useContext(loadingContext)
+    const {state , dispatch: productLoading} = useContext(productLoadingContext)
+
+    const { recommended, highToLow, lowToHigh, whatsNew, popularity, customerRating, betterDiscount } = state;
 
     const fetchItems = async () => {
         try {
@@ -23,12 +27,7 @@ function Collections(props) {
             const response = await axios.get('/items');
             setData(response.data);
             dispatch({ type: 'SUCCESS' });
-            // setTimeout(async () => {
-
-
-
-            // }, 3000)
-
+           
 
         } catch (error) {
             console.log(error);
@@ -36,8 +35,58 @@ function Collections(props) {
         }
     };
 
+
+    
+
+    const sortedByDiscount = data.sort((a, b) => {
+        const discountA = ((a.price - a.offerPrice) / a.price) * 100;
+        const discountB = ((b.price - b.offerPrice) / b.price) * 100;
+        return discountA - discountB;
+    });
+
+    const applySorting =(items)=>{
+
+        if (recommended) {
+            // Implement sorting logic for 'recommended'
+            return items
+        }
+        if (highToLow) {
+            return items.sort((a, b) => {
+                // Use offerPrice if available, otherwise use price
+                const priceA = a.offerPrice !== undefined && a.offerPrice !== null ? a.offerPrice : a.price;
+                const priceB = b.offerPrice !== undefined && b.offerPrice !== null ? b.offerPrice : b.price;
+                return priceB - priceA; 
+            });
+        }
+        if (lowToHigh) {
+            return items.sort((a, b) => {
+                // Use offerPrice if available, otherwise use price
+                const priceA = a.offerPrice !== undefined && a.offerPrice !== null ? a.offerPrice : a.price;
+                const priceB = b.offerPrice !== undefined && b.offerPrice !== null ? b.offerPrice : b.price;
+                return priceA - priceB; 
+            });
+        }
+        if (betterDiscount) {
+            return items.sort((a, b) => {
+                // Calculate discount percentage
+                const discountA = ((a.price - (a.offerPrice || a.price)) / a.price) * 100;
+                const discountB = ((b.price - (b.offerPrice || b.price)) / b.price) * 100;
+                return discountB - discountA; // Higher discount first
+            });
+        }
+        if (whatsNew) {
+            return items.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)); // Newest first
+        }
+      
+        return items;
+    }
+    
+    const sortedData = applySorting(data)
+
     useEffect(() => {
         fetchItems();
+        console.log("PRODUCT LOADING",state);
+
     }, []);
 
     const handleViewItem = (id) => {
@@ -47,7 +96,7 @@ function Collections(props) {
     return (
         <div className='collectionsMain'>
             <Grid container spacing={2} style={{ width: '80vw' }} justifyContent="space-evenly">
-                {data?.map((item, i) => (
+                {sortedData?.map((item, i) => (
                     <Grid item xs={2.4} key={i}>
                         {loading ? (
                             <SkeletonLoading type='cards' />

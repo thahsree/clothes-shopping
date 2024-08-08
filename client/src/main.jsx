@@ -13,6 +13,7 @@ import { authContext, AuthContextProvider } from './context/AuthContexts';
 import { ModeContextProvider } from './context/DarkMode';
 import { DataContextProvider } from './context/DataContext';
 import { LoadingContextProvider } from './context/LoadingContext';
+import { ProductLoadingContextProvider } from './context/ProductLoadingContext';
 import CartPage from './pages/Cart/CartPage';
 import ErrorPage from './pages/ErrorPage';
 import List from './pages/Lists/List';
@@ -85,13 +86,13 @@ const router = createBrowserRouter([
         ]
       },
       {
-        path:'/orders',
-        errorElement:<ErrorPage/>,
-        children:[
+        path: '/orders',
+        errorElement: <ErrorPage />,
+        children: [
           {
-            path:'',
-            element:<Orders/>,
-            errorElement:<ErrorPage />
+            path: '',
+            element: <Orders />,
+            errorElement: <ErrorPage />
           }
         ]
       }
@@ -121,12 +122,15 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <SnackbarProvider>
         <DataContextProvider>
           <LoadingContextProvider>
+            <ProductLoadingContextProvider>
 
-            <ModeContextProvider>
-              
-              <RouterProvider router={router} />
 
-            </ModeContextProvider>
+              <ModeContextProvider>
+
+                <RouterProvider router={router} />
+
+              </ModeContextProvider>
+            </ProductLoadingContextProvider>
           </LoadingContextProvider>
         </DataContextProvider>
       </SnackbarProvider>

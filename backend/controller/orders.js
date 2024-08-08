@@ -16,9 +16,9 @@ const getUserOrders = async(req,res)=>{
         const recentOrders = foundUser.recentOrders
        
         
-        
+        const sortedOrders = foundUser.recentOrders.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));        
 
-        const newData = await Promise.all(recentOrders.map((async(item)=>{
+        const newData = await Promise.all(sortedOrders.map((async(item)=>{
             
 
             const foundOrder = await Orders.aggregate([{
