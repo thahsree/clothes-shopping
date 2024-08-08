@@ -5,7 +5,9 @@ const whitelist = [
     'https://clothes-shopping-chi.vercel.app',
     'http://localhost:3500',
     'https://clothes-shopping-admin.vercel.app',
-    'https://clothes-shopping-beta.vercel.app'
+    'https://clothes-shopping-beta.vercel.app',
+    'https://clothes-shopping-beta.vercel.app/',
+    'https://clothes-shopping-cc4rmfmy8-thashreefs-projects-2ad26390.vercel.app'
 ];
 
 // CORS options configuration object
